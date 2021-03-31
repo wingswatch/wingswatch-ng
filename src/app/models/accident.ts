@@ -1,0 +1,29 @@
+export interface Accident {
+  eventId: string;
+  airport: string;
+  injurySeverity: string;
+  make: string;
+  model: string;
+  location: string;
+  accidentNumber: string;
+  eventDate: Date;
+  reportStatus: string;
+  registrationNumber: string;
+  aircraftDamage: string;
+  airportCode: string;
+  aircraftCategory: string;
+  numberOfEngines?: number;
+  engineType?: string;
+  purposeOfFlight?: string;
+  weatherCondition?: string;
+  airCarrier?: string;
+  broadPhaseOfFlight?: string;
+  farDescription?: string;
+  schedule?: string;
+  latitude?: number;
+  longitude?: number;
+  totalFatalInjuries?: number;
+  totalSeriousInjuries?: number;
+  totalMinorInjuries?: number;
+  totalUninjured?: number;
+}

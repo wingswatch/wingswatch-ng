@@ -1,0 +1,195 @@
+<div class="page-wrap">
+  <h3>
+    Accident Details - {{ eventId }}
+  </h3>
+
+  <p>
+    <small><a [routerLink]="['/accidents']">&lt;- Back to Accident List</a></small>
+  </p>
+
+  <div *ngIf="!accident">
+    <app-svg-spinner></app-svg-spinner>
+  </div>
+
+  <div *ngIf="accident">
+
+    <table class='table table-striped'>
+      <tr>
+        <td>
+          <b>Location</b>
+        </td>
+        <td>
+          {{ accident.location }}
+        </td>
+        <td><b>Accident Number</b></td>
+        <td>
+          {{ accident.accidentNumber }}
+        </td>
+      </tr>
+      <tr>
+        <td><b>Date</b></td>
+        <td>{{ accident.eventDate | date:'MM/dd/yyyy' }}</td>
+        <td><b>Registration</b></td>
+        <td> {{ accident.registrationNumber }}</td>
+      </tr>
+      <tr>
+        <td><b>Aircraft</b></td>
+        <td>{{ accident.make }} {{ accident.model }}</td>
+        <td><b>Aircraft Damage</b></td>
+        <td [ngClass]="{
+          'destroyedClass': (accident.aircraftDamage.includes('Destroyed')),
+          'substantialClass': (accident.aircraftDamage.includes('Substantial'))
+        }">
+          {{ accident.aircraftDamage }}
+        </td>
+      </tr>
+      <tr>
+        <td><b>Injury Severity</b></td>
+        <td [ngClass]="{
+          'fatalClass': (accident.injurySeverity.includes('Fatal(')),
+          'nonFatalClass': (accident.injurySeverity === 'Non-Fatal'),
+          'unavailableClass': (accident.injurySeverity === 'Unavailable')
+        }">
+          {{ accident.injurySeverity }}
+        </td>
+        <td><b>Airport</b></td>
+        <td> {{ accident.airport }} {{ accident.airportCode }}</td>
+      </tr>
+      <tr>
+        <td><b>Aircraft Category</b></td>
+        <td>{{ accident.aircraftCategory }}</td>
+        <td><b>Number of Engines</b></td>
+        <td> {{ accident.numberOfEngines }}</td>
+      </tr>
+      <tr>
+        <td><b>Engine Type</b></td>
+        <td>{{ accident.engineType }}</td>
+        <td><b>FAR Description</b></td>
+        <td> {{ accident.farDescription }}</td>
+      </tr>
+      <tr *ngIf="accident.schedule || accident.purposeOfFlight">
+        <td><b>Schedule</b></td>
+        <td>{{ accident.schedule }}</td>
+        <td><b>Purpose of Flight</b></td>
+        <td> {{ accident.purposeOfFlight }}</td>
+      </tr>
+      <tr *ngIf="accident.airCarrier || accident.weatherCondition">
+        <td><b>Air Carrier</b></td>
+        <td>{{ accident.airCarrier }}</td>
+        <td><b>Weather Condition</b></td>
+        <td> {{ accident.weatherCondition }}</td>
+      </tr>
+      <tr>
+        <td><b>Broad Phase of Flight</b></td>
+        <td>{{ accident.broadPhaseOfFlight}}</td>
+        <td><b>Report Status</b></td>
+        <td> {{ accident.reportStatus }}</td>
+      </tr>
+      <tr *ngIf="accident.latitude || accident.longitude">
+        <td><b>Latitude</b></td>
+        <td>{{ accident.latitude }}</td>
+        <td><b>Longitude</b></td>
+        <td>{{ accident.longitude }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <!---------- INJURIES ----------->
+  <div *ngIf="accident && (accident.totalFatalInjuries || accident.totalSeriousInjuries || accident.totalMinorInjuries || accident.totalUninjured)">
+    <table class='table table-striped'>
+      <thead>
+        <tr>
+          <th class="fatalHeader">
+            Fatal
+          </th>
+          <th class="seriousHeader">
+            Serious
+          </th>
+          <th class="minorHeader">
+            Minor
+          </th>
+          <th class="uninjuredHeader">
+            Uninjured
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            {{ accident.totalFatalInjuries || 0 }}
+          </td>
+          <td>
+            {{ accident.totalSeriousInjuries || 0 }}
+          </td>
+          <td>
+            {{ accident.totalMinorInjuries || 0 }}
+          </td>
+          <td>
+            {{ accident.totalUninjured || 0 }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!accidentDetails">
+    <div class="loadingContainer">
+      <app-svg-spinner></app-svg-spinner>
+      <span class="loadingText">Loading the data from the NTSB ... please wait.</span>
+    </div>
+  </div>
+  <div *ngIf="accidentDetails && accidentDetails.analysis !== 'No report currently issued.'">
+    <div *ngIf="reportIssued">
+      <h4>Analysis</h4>
+      <p [innerHTML]="accidentDetails.analysis">
+      </p>
+    </div>
+    <div *ngIf="loadingComplete && reportIssued">
+      <h4>
+        NTSB Link
+      </h4>
+      <p>
+        <a href="https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID={{ accident.eventId
+        }}&AKey=1&RType=HTML&IType=FA" target="_blank" rel="noopener">
+          National Transportation Safety Board Aviation Accident Report
+        </a>
+      </p>
+    </div>
+
+    <div *ngIf="loadingComplete && !reportIssued">
+      <h4>
+        NTSB Link
+      </h4>
+      <p>
+        No NTSB report has been issued at this time.
+      </p>
+    </div>
+
+    <!---------- GOOGLE MAP ----------->
+    <div *ngIf="accident && accident.latitude && accident.longitude">
+      <div class="map-container">
+        <div class="map">
+          <h2>
+            <span class="mapHeader">Accident Location</span><small class="text-muted">{{ accident.latitude}} / {{accident.longitude}}</small>
+          </h2><div class="card mt-3">
+            <div class="card-body">
+              <div #mapRef class="mapStyle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      <small><a [routerLink]="['/accidents']">&lt;- Back to Accident List</a></small>
+    </p>
+
+    <div *ngIf="accidentDetails.cacheTime">
+      <hr />
+      <div>
+        <small class="text-muted">Retrieved from cache at {{ accidentDetails.cacheTime }}.</small>
+      </div>
+    </div>
+
+  </div>
+</div>

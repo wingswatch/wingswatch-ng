@@ -1,0 +1,36 @@
+<h1 id="tableLabel">Accident Summaries</h1>
+
+<p>The following is a list of the latest aviation accidents and incidents as reported by the NTSB.</p>
+
+<div *ngIf="!accidents">
+  <app-svg-spinner></app-svg-spinner>
+</div>
+
+<table *ngIf="accidents" class="table table-striped">
+  <thead>
+    <tr>
+      <th>Accident #</th>
+      <th>Event Date</th>
+      <th>Aircraft Type</th>
+      <th>Report Status</th>
+      <th>Location</th>
+      <th>Severity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let accident of accidents">
+      <td><a [routerLink]="['/accident-details', accident.eventId]">{{ accident.accidentNumber }}</a></td>
+      <td>{{ accident.eventDate | date:'MM/dd/yyyy' }}</td>
+      <td>{{ accident.make }} {{ accident.model }}</td>
+      <td>{{ accident.reportStatus }}</td>
+      <td>{{ accident.location }}</td>
+      <td [ngClass]="{
+          'fatalClass': (accident.injurySeverity.includes('Fatal(')),
+          'nonFatalClass': (accident.injurySeverity === 'Non-Fatal'),
+          'unavailableClass': (accident.injurySeverity === 'Unavailable')
+        }">
+        {{ accident.injurySeverity }}
+      </td>
+    </tr>
+  </tbody>
+</table>

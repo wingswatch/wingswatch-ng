@@ -1,0 +1,15 @@
+.fatalClass {
+    color: red;
+}
+
+.nonFatalClass {
+    color: green;
+}
+
+.unavailableClass {
+    color: gray;
+}
+
+.table {
+    font-size: 1rem;
+}

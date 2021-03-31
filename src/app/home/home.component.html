@@ -1,0 +1,38 @@
+
+
+<div class="page-wrap">
+    <div class="masthead top">
+        <div class="masthead-image">
+            <img class="main" src="./assets/images/airplane-cessna.svg" />
+        </div>
+        <div class="masthead-text">
+            <h1>
+                Welcome to WingsWatch!
+            </h1>
+            <h4>The internet's most comprehensive site for aviation incidents and accidents.</h4>
+            <button type="button" class="accidents show-mobile" [routerLink]="['/accidents']">
+              <span>
+                See the latest!
+              </span>
+            </button>
+        </div>
+    </div>
+    <div class="description text-light">
+      <div class="wrapper clearfix">
+        <div class="left">
+          <p>We strive to continually update this site with evey necessary feature and user-submitted requests to ensure you have all of the information you need.</p>
+          <p>Much more to come ... stay tuned!</p>
+          <p>Please contact us at <a href="mailto:feedback@wingswatch.net">feedback@wingswatch.net</a></p>
+        </div>
+        <div class="right hide-mobile">
+          <button type="button" class="accidents" [routerLink]="['/accidents']">
+            <img src="./assets/images/plane.png" class="logo" />
+            <span class="cta">
+              See the latest!
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+</div>
+

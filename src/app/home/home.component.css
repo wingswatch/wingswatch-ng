@@ -1,0 +1,146 @@
+p {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.page-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    height: 100px;
+    margin-right: 25px;
+}
+
+.cta {
+    margin-right: 25px;
+}
+
+.accidentsLink {
+    font-size: 24px;
+}
+
+button.accidents {
+    background-color:transparent;
+    font-size: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    border: 3px solid #25AAE1;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+button.accidents:hover {
+   color: #fff;
+   background-color: rgba(37,170,225, 0.1);
+}
+
+.accidents .logo {
+    height: 60px;
+}
+
+.masthead {
+    padding: 30px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+.masthead-image {
+    display: inline-block;
+    width: 45%;
+}
+.masthead-text {
+    display: inline;
+    text-align: right;
+    position: relative;
+    top: 70%;
+}
+
+.description {
+    padding: 30px;
+    height: 45vh;
+    position: absolute;
+    left: 0;
+    background-color: #4E5D6C;
+    width: 100vw;
+}
+
+.description .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.right, .left {
+    width: 40%;
+    margin: 40px 25px;
+    height: 150px;
+    position: relative;
+}
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.show-mobile {
+    display: none!important;
+}
+
+@media (max-width: 990px) {
+    .masthead {
+        background-size: contain;
+    }
+
+    .masthead-text {
+        text-align: center;
+        position: relative;
+        top: 45%;
+    }
+
+    .main {
+        height: 15rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .main {
+        height: 10rem;
+    }
+}
+
+@media (max-width: 750px) {
+  .right, .left {
+    width: auto;
+    height: auto;
+    margin: 0;
+    display: block;
+    float: none;
+  }
+}
+
+@media (max-width: 500px) {
+    .main {
+        height: 8rem;
+    }
+
+    .accidents img.logo {
+        height: 35px;
+    }
+
+    .show-mobile {
+        display: block!important;
+        margin: 0 auto;
+    }
+
+    .hide-mobile {
+        display: none!important;
+    }
+}
+
+@media (max-width: 400px) {
+    .main {
+        height: 5rem;
+    }
+}
