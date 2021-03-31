@@ -11,19 +11,20 @@ export class AccidentService {
 
   accidents: Accident[];
 
+  private apiPrefix = 'https://wingswatch-api.azurewebsites.net/api/';
+
   constructor(private http: HttpClient) { }
 
   public getAccidents(): Observable<Accident[]> {
-    const url = 'http://wingswatch-api.azurewebsites.net/api/accidents';
-    return this.http.get<Accident[]>(url).pipe();
+    return this.http.get<Accident[]>(this.apiPrefix + 'accidents/');
   }
 
   public getAccident(eventId: string): Observable<Accident> {
-    return this.http.get<Accident>('api/Accidents/GetAccident/' + eventId).pipe();
+    return this.http.get<Accident>(this.apiPrefix + `accidents/getaccident/${eventId}`);
   }
 
-  public getFullReport(eventId: string) {
-    return this.http.get<AccidentDetails>('api/Accidents/GetFullReport/' + eventId).pipe();
+  public getFullReport(eventId: string): Observable<AccidentDetails> {
+    return this.http.get<AccidentDetails>(this.apiPrefix + `/accidents/getfullreport/${eventId}`);
   }
 
 }
