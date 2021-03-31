@@ -7,12 +7,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
+  @ViewChild('nav_searchTerm', { static: true }) navSearchTerm: ElementRef;
+
   isExpanded = false;
-  @ViewChild("nav_searchTerm", { static: true }) navSearchTerm: ElementRef;
 
-  constructor(private router:Router) {
-
-  }
+  constructor(private router: Router) { }
 
   collapse() {
     this.isExpanded = false;

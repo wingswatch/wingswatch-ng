@@ -13,7 +13,7 @@ export class ContactComponent implements OnInit {
 
   constructor(private feedbackService: FeedbackService) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.feedback = this.feedbackService.getFeedback();
   }
 
