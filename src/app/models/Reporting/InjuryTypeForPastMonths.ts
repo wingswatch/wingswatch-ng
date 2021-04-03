@@ -1,9 +1,9 @@
 export interface InjuryTypesForPastMonths {
-    month: number,
+    month: number;
     injuries: {
-        fatal: number,
-        serious: number,
-        minor: number,
-        uninjured: number
-    }
+        fatal: number;
+        serious: number;
+        minor: number;
+        uninjured: number;
+    };
 }

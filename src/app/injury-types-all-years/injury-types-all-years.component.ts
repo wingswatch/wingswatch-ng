@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ReportingProvider } from '../providers/reporting.provider';
 import { InjuryTypesForPastYears } from '../models/Reporting/InjuryTypesForPastYears';
-import { IMultiSeriesNgX } from '../models/Reporting/MultiSeriesNgX';
+import { ISeriesNgX } from '../models/Reporting/MultiSeriesNgX';
 
-import * as shape from 'd3'
-import * as d3 from 'd3'
+import * as shape from 'd3';
+import * as d3 from 'd3';
 
 @Component({
   selector: 'app-injury-types-all-years',
@@ -13,27 +13,28 @@ import * as d3 from 'd3'
 })
 export class InjuryTypesAllYearsComponent implements OnInit {
   @ViewChild('totalCheckbox') totalCheckbox: ElementRef;
+
   multi: any[];
   multiWithTotal: any[];
   showWithTotal: boolean;
-  view: any[] = [1100, 400];
+  view: [number, number] = [1100, 400];
   toggled = false;;
   // options
-  legend: boolean = true;
-  xTickFormat = d3.format("d"); //Removes commas from numbers
+  legend = true;
+  xTickFormat = d3.format('d'); //Removes commas from numbers
   curveStepBefore = shape.curveStepBefore;
   curveNatural = shape.curveNatural;
-  showLabels: boolean = true;
-  animations: boolean = true;
-  xAxis: boolean = true;
-  yAxis: boolean = true;
+  showLabels = true;
+  animations = true;
+  xAxis = true;
+  yAxis = true;
   gradient = true;
-  showGridLines = false;
-  showYAxisLabel: boolean = true;
-  showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Year';
-  yAxisLabel: string = 'Number of Injuries';
-  timeline: boolean = true;
+  showGridLines=  false;
+  showYAxisLabel = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'Year';
+  yAxisLabel = 'Number of Injuries';
+  timeline = true;
   total: any[] = [];
 
   colorScheme = {
@@ -42,25 +43,12 @@ export class InjuryTypesAllYearsComponent implements OnInit {
 
   injuryTypes: InjuryTypesForPastYears[];
 
-  constructor(private reportingProvider: ReportingProvider) {
-    //Array.assign(this, { multi });
-  }
+  constructor(private reportingProvider: ReportingProvider) { }
 
   toggleTotal() {
     this.showWithTotal = !this.showWithTotal;
   }
 
-  onSelect(event) {
-    console.log(event);
-  }
-
-  onActivate(data): void {
-    //console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data): void {
-    //console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  }
   ngOnInit(): void {
     this.getInjuryTypesAllYears();
   }
@@ -70,80 +58,83 @@ export class InjuryTypesAllYearsComponent implements OnInit {
   }
 
   getInjuryTypesAllYears() {
-    this.injuryTypes = null;
-    var fatalArray = [];
-    var seriousArray = [];
-    var minorArray = [];
-    var uninjuredArray = [];
-    var totalArray = [];
+
+    const fatalArray: Array<ISeriesNgX> = [];
+    const seriousArray: Array<ISeriesNgX> = [];
+    const minorArray: Array<ISeriesNgX> = [];
+    const uninjuredArray: Array<ISeriesNgX> = [];
+    const totalArray: Array<ISeriesNgX> = [];
+
     this.reportingProvider.getInjuryTypesAllYears().subscribe(
       res => {
+
         this.injuryTypes = res;
-        console.log(this.injuryTypes);
-        var total;
-        for (var i = 0; i < this.injuryTypes.length; i++) {
-          total = 
-          this.injuryTypes[i].injuries.fatal + 
-          this.injuryTypes[i].injuries.serious + 
-          this.injuryTypes[i].injuries.minor;
-          //this.injuryTypes[i].injuries.uninjured;
 
-          fatalArray.push({"name": this.injuryTypes[i].year, "value": this.injuryTypes[i].injuries.fatal} )      
-          seriousArray.push({"name": this.injuryTypes[i].year, "value": this.injuryTypes[i].injuries.serious})
-          minorArray.push({"name": this.injuryTypes[i].year, "value": this.injuryTypes[i].injuries.minor})     
-          uninjuredArray.push({"name": this.injuryTypes[i].year, "value": this.injuryTypes[i].injuries.uninjured}) 
-          totalArray.push({"name": this.injuryTypes[i].year, "value": total})
+        let total: number;
+
+        for (const injuryType of this.injuryTypes) {
+
+          total =
+            injuryType.injuries.fatal +
+            injuryType.injuries.serious +
+            injuryType.injuries.minor;
+
+          const year = injuryType.year;
+
+          fatalArray.push({name: year, value: injuryType.injuries.fatal });
+          seriousArray.push({name: year, value: injuryType.injuries.serious });
+          minorArray.push({name: year, value: injuryType.injuries.minor });
+          uninjuredArray.push({name: year, value: injuryType.injuries.uninjured });
+
+          totalArray.push({name: year, value: total });
+
         }
-
 
           this.multiWithTotal = [
             {
-              "name": "Fatalities",
-              "series": fatalArray
+              name: 'Fatalities',
+              series: fatalArray
             },
             {
-              "name": "Serious",
-              "series": seriousArray
+              name: 'Serious',
+              series: seriousArray
             },
             {
-              "name": "Minor",
-              "series": minorArray
+              name: 'Minor',
+              series: minorArray
             },
             // {
-            //   "name": "Uninjured",
-            //   "series": uninjuredArray
+            //   name: Uninjured,
+            //   series: uninjuredArray
             // },
             {
-              "name": "Total",
-              "series": totalArray
+              name: 'Total',
+              series: totalArray
             }
-          ]
-
+          ];
 
           this.multi = [
             {
-              "name": "Fatalities",
-              "series": fatalArray
+              name: 'Fatalities',
+              series: fatalArray
             },
             {
-              "name": "Serious",
-              "series": seriousArray
+              name: 'Serious',
+              series: seriousArray
             },
             {
-              "name": "Minor",
-              "series": minorArray
+              name: 'Minor',
+              series: minorArray
             },
             // {
-            //   "name": "Uninjured",
-            //   "series": uninjuredArray
+            //   name: Uninjured,
+            //   series: uninjuredArray
             // }
-          ]
-
-        console.log({fatalArray, seriousArray, minorArray, uninjuredArray, totalArray})
+          ];
 
       },
       err => console.error(err)
-    )
+    );
 
   }
 

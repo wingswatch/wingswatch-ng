@@ -3,7 +3,13 @@ import { Location } from '@angular/common';
 import { ReportingProvider } from '../providers/reporting.provider';
 import { IAccidentCoordinates } from '../models/accident-coordinates';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/internal/Subscription';
+
+declare global {
+  interface Window {
+    initMap: any;
+    google: any;
+  }
+}
 
 @Component({
   selector: 'app-accidents-heat-map',
@@ -15,12 +21,11 @@ export class AccidentsHeatMapComponent implements OnInit, OnDestroy {
   @ViewChild('selectYear') selectYear: ElementRef;
 
   coordinates: IAccidentCoordinates[];
-  usCenter: Object = { lat: 39.8282, lng: -98.5795 };
+  usCenter = { lat: 39.8282, lng: -98.5795 };
   yearsList: Array<number>;
   currentYear: number;
 
   private mapLoaded: boolean;
-  private sub$: Subscription;
 
   constructor(
     private reportingProvider: ReportingProvider,
@@ -39,43 +44,49 @@ export class AccidentsHeatMapComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit() {
-    this.sub$ = this.activatedRoute.params.subscribe(params => {
-      const yearFromUrl = params['id'];
+    this.activatedRoute.params.subscribe(params => {
+      const yearFromUrl = params.id;
       this.getCoordinatesByYear(yearFromUrl);
-    })
+    });
   }
 
   ngOnDestroy() {
-    window.document.getElementById("google-map-script").remove();
-    this.sub$.unsubscribe();
+    window.document.getElementById('google-map-script')?.remove();
   }
 
   getCoordinatesByYear(year?: string) {
-    year ? null : year = this.selectYear.nativeElement.value;
-    this.location.replaceState(`heat-map/${year}`);
+
+    let selectedYear: string;
+
+    if (!year) {
+      selectedYear = this.selectYear.nativeElement.value;
+    } else {
+      selectedYear = year as string;
+    }
+
+    this.location.replaceState(`heat-map/${selectedYear}`);
 
     setTimeout(() => {
-      document.getElementById(year).setAttribute("selected", "true");
-    }, 0)
+      document.getElementById(selectedYear)?.setAttribute('selected', 'true');
+    }, 0);
 
-    this.coordinates = null; //For loading spinner
-    this.reportingProvider.getCoordinatesByYear(year).subscribe(
+    this.reportingProvider.getCoordinatesByYear(selectedYear).subscribe(
       (result: IAccidentCoordinates[]) => {
         this.coordinates = result;
         this.renderMap();
       },
       error => {
-        console.error(error)
+        console.error(error);
       }
-    )
+    );
   }
 
   renderMap() {
       console.log('renderMap');
 
-      window['initMap'] = () => {
+      window.initMap = () => {
         this.loadMap();
-      }
+      };
 
       if (!window.document.getElementById('google-map-script')) {
         if (!this.mapLoaded) {
@@ -90,11 +101,11 @@ export class AccidentsHeatMapComponent implements OnInit, OnDestroy {
 
     console.log('createMapElement');
 
-    const s = window.document.createElement("script");
+    const s = window.document.createElement('script');
 
-    s.id = "google-map-script";
-    s.type = "text/javascript";
-    s.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAB_TCx0r3XRweCaJZ6-JT-O6F_mJ9Z_XY&libraries=visualization&callback=initMap";
+    s.id = 'google-map-script';
+    s.type = 'text/javascript';
+    s.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAB_TCx0r3XRweCaJZ6-JT-O6F_mJ9Z_XY&libraries=visualization&callback=initMap';
 
     window.document.body.appendChild(s);
 
@@ -108,20 +119,20 @@ export class AccidentsHeatMapComponent implements OnInit, OnDestroy {
       this.createMapElement();
     }
 
-    const map = new window['google'].maps.Map(this.mapElement.nativeElement, {
+    const map = new window.google.maps.Map(this.mapElement.nativeElement, {
       center: this.usCenter,
       zoom: 4,
-      mapTypeId: window['google'].maps.MapTypeId.SATELLITE
+      mapTypeId: window.google.maps.MapTypeId.SATELLITE
     });
 
-    const heatmap = new window['google'].maps.visualization.HeatmapLayer({
-      map: map,
+    const heatmap = new window.google.maps.visualization.HeatmapLayer({
+      map,
       data: this.getCoordinates(),
       opacity: 1,
     });
 
     const markers = this.generateMarkers();
-    const infowindow = new window['google'].maps.InfoWindow();
+    const infowindow = new window.google.maps.InfoWindow();
 
     const updateOnZoom = () => {
       if (map.zoom > 8) {
@@ -129,30 +140,30 @@ export class AccidentsHeatMapComponent implements OnInit, OnDestroy {
         heatmap.setMap(null);
 
         markers.forEach((el) => {
-          el.setMap(map)
+          el.setMap(map);
 
-          el.addListener('click', function () {
-            infowindow.close(); // Close previously opened infowindow
-            infowindow.setContent(`
-              <div id="popup" style="color: #000; padding: 5px;">
+          el.addListener('click', () => {
+              infowindow.close(); // Close previously opened infowindow
+              infowindow.setContent(`
+              <div id='popup' style='color: #000; padding: 5px;'>
                 <h4>${el.location}</h4>
                 <hr />
                 <p><strong>Accident Number:</strong> ${el.accidentNumber}</p>
                 <p><strong>Make:</strong> ${el.make}</p>
                 <p><strong>Model:</strong> ${el.model}</p>
-                <a title="Detailed Analysis" target="_blank" href=${el.url}>See Detailed Analysis</a>
+                <a title='Detailed Analysis' target='_blank' href=${el.url}>See Detailed Analysis</a>
               </div>
             `);
-            infowindow.open(map, el);
-          })
-        })
+              infowindow.open(map, el);
+            });
+        });
       }
       else if (map.zoom < 8) {
         infowindow.close(); // Close previously opened infowindow
         heatmap.setMap(map); // hide the markers, show the heatmap
         markers.forEach((el) => {
-          el.setMap(null)
-        })
+          el.setMap(null);
+        });
       }
       else if (map.zoom >= 5) {
         heatmap.set('maxIntensity', true);
@@ -161,31 +172,31 @@ export class AccidentsHeatMapComponent implements OnInit, OnDestroy {
         heatmap.set('radius', 10);
         heatmap.set('maxIntensity', false);
       }
-    }
+    };
 
-    window['google'].maps.event.addListener(map, 'zoom_changed', updateOnZoom);
+    window.google.maps.event.addListener(map, 'zoom_changed', updateOnZoom);
 
     this.mapLoaded = true;
 
-  }
+  };
 
   getCoordinates() {
-    return this.coordinates.map((element) => {
-      return new window['google'].maps.LatLng(element.latitude, element.longitude);
-    })
+    return this.coordinates.map((element) => (
+      new window.google.maps.LatLng(element.latitude, element.longitude)
+    ));
   }
 
   generateMarkers() {
-    return this.coordinates.map((el) => {
-      return new window['google'].maps.Marker({
+    return this.coordinates.map((el) => (
+      new window.google.maps.Marker({
         position: { lat: el.latitude, lng: el.longitude },
         url: `accident-details/${el.eventID}`,
         location: el.location,
         make: el.make,
         model: el.model,
-        accidentNumber: el.accidentNumber
-      });
-    })
+        accidentNumber: el.accidentNumber}
+      )
+    ));
   }
 
 }

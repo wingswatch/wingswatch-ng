@@ -1,4 +1,4 @@
 export class Log {
-  LogMessage: string;
-  Timestamp: string;
+  logMessage: string;
+  timestamp: string;
 }

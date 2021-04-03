@@ -1,9 +1,9 @@
 export interface InjuryTypesForPastYears {
-    year: number,
+    year: number;
     injuries: {
-        fatal: number,
-        serious: number,
-        minor: number,
-        uninjured: number
-    }
+        fatal: number;
+        serious: number;
+        minor: number;
+        uninjured: number;
+    };
 }

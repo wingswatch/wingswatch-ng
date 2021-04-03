@@ -15,13 +15,13 @@ export class AccidentsComponent implements OnInit {
 
   ngOnInit() {
 
-    const searchVal = (document.getElementById("nav_searchTerm") as HTMLInputElement).value;
+    const searchVal = (document.getElementById('nav_searchTerm') as HTMLInputElement).value;
 
     if (searchVal) {
       this.filterAccidents(searchVal);
     }
     else {
-      console.log("Getting all reports");
+      console.log('Getting all reports');
       this.getAccidents();
     }
 
@@ -43,10 +43,6 @@ export class AccidentsComponent implements OnInit {
       result => this.accidents = result,
       error => console.error(error)
     );
-  }
-
-  clickHeader(event) {
-    console.log(event.srcElement.innerHTML);
   }
 
 }

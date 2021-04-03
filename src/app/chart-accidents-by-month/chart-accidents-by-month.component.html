@@ -30,10 +30,7 @@
             [xAxisLabel]="xAxisLabel"
             [yAxisLabel]="yAxisLabel"
             [timeline]="timeline"
-            [results]="monthlyAccidentSeries"
-            (select)="onSelect($event)"
-            (activate)="onActivate($event)"
-            (deactivate)="onDeactivate($event)">
+            [results]="monthlyAccidentSeries">
       </ngx-charts-area-chart>
 
       <ngx-charts-polar-chart
@@ -47,10 +44,9 @@
         [xAxis]="xAxis"
         [yAxis]="yAxis"
         [curve]="polarCurve"
-        [xAxisLabel]=""
+        [xAxisLabel]="xAxisLabel"
         [yAxisLabel]="yAxisLabel"
-        [results]="monthlyAccidentSeries"
-        (select)="onSelect($event)">
+        [results]="monthlyAccidentSeries">
     </ngx-charts-polar-chart>
   </div>
   <div *ngIf="monthlyAccidents" class="chart-container" >
@@ -64,12 +60,9 @@
           [xAxis]="xAxis"
           [yAxis]="yAxis"
           [gradient]="gradient"
-          [xAxisLabel]="Severity"
-          [yAxisLabel]="Month"
-          [results]="monthlyAccidentSeries"
-          (select)="onSelect($event)"
-          (activate)="onActivate($event)"
-          (deactivate)="onDeactivate($event)">
+          xAxisLabel="Severity"
+          yAxisLabel="Month"
+          [results]="monthlyAccidentSeries">
       </ngx-charts-heat-map>
 
   </div>

@@ -13,7 +13,7 @@
             </div>
       </div>
   
-    <div *ngIf="!injuryTypes" class="loader text-center">
+    <div *ngIf="!injuryTypes" class="loader text-center"> 
         <app-svg-spinner></app-svg-spinner>
     </div>
     <div *ngIf="injuryTypes" class="chart-container">
@@ -30,8 +30,7 @@
                 [showXAxisLabel]="showXAxisLabel"
                 [showYAxisLabel]="showYAxisLabel"
                 [xAxisLabel]="xAxisLabel"
-                [yAxisLabel]="yAxisLabel"
-                (select)="onSelect($event)">
+                [yAxisLabel]="yAxisLabel">
           </ngx-charts-bar-vertical>
         
         </div>
@@ -40,10 +39,7 @@
                 [view]="view"
                 [scheme]="colorScheme"
                 [results]="showWithUninjured ? singleWithUninjured : single"
-                [gradient]="gradient"
-                (select)="onSelect($event)"
-                (activate)="onActivate($event)"
-                (deactivate)="onDeactivate($event)">
+                [gradient]="gradient">
         </ngx-charts-advanced-pie-chart>
         </div>
 

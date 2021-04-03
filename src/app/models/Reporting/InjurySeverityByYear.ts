@@ -1,4 +1,4 @@
-export interface IInjurySeverityByYear {
+export interface InjurySeverityByYear {
     year: number;
     fatal: number;
     serious: number;

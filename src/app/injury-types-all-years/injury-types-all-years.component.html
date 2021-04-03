@@ -31,10 +31,7 @@
                 [xAxisLabel]="xAxisLabel"
                 [yAxisLabel]="yAxisLabel"
                 [timeline]="timeline"
-                [results]="showWithTotal ? multiWithTotal : multi"
-                (select)="onSelect($event)"
-                (activate)="onActivate($event)"
-                (deactivate)="onDeactivate($event)">
+                [results]="showWithTotal ? multiWithTotal : multi">
             </ngx-charts-area-chart>
         </div>
         <div *ngIf="toggled" class="area-stacked">
@@ -54,7 +51,7 @@
                 [yAxisLabel]="yAxisLabel"
                 [timeline]="timeline"
                 [results]="showWithTotal ? multiWithTotal : multi"
-                (select)="onSelect($event)">
+                >
             </ngx-charts-area-chart-stacked>
         </div>
     </div>

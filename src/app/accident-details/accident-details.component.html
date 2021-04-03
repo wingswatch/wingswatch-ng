@@ -142,7 +142,7 @@
         <span class="loadingText">Loading the full report information ... please wait.</span>
       </div>
     </div>
-    <div *ngIf="accidentDetails && accidentDetails.Analysis !== 'No report currently issued.'">
+    <div *ngIf="accidentDetails && accidentDetails.analysis !== 'No report currently issued.'">
       <div *ngIf="reportIssued && accidentDetails.analysis">
         <h4>Analysis</h4>
         <p [innerHTML]="accidentDetails.analysis">

@@ -8,7 +8,8 @@ import { AccidentByType } from '../models/Reporting/AccidentByType';
   styleUrls: ['./accidents-by-type.component.scss']
 })
 export class AccidentsByTypeComponent implements OnInit {
-  view: Array<number> = [900, 1500];
+
+  view: [number, number] = [900, 1500];
   accidentsByType: any;
 
   colorScheme = {
@@ -22,12 +23,12 @@ export class AccidentsByTypeComponent implements OnInit {
   ngOnInit() {
     this.reportingProvider.getAccidentByType().subscribe(
       (accidents: AccidentByType[]) => {
-        this.accidentsByType = accidents.map(el => {
-          return {
-            "name": el.makeModel,
-            "value": el.accidentCount
+        this.accidentsByType = accidents.map(el => (
+          {
+            name: el.makeModel,
+            value: el.accidentCount
           }
-        })
+        ));
       },
       error => console.log(error)
     );

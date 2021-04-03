@@ -6,25 +6,24 @@
       </select>
     </div>
     <h2>10 Most Recorded Locations</h2>
-    <div *ngIf="!accidentLocationCountsDisplay" class="loader text-center">
+    <div *ngIf="!accidentLocationCounts" class="loader text-center">
       <app-svg-spinner></app-svg-spinner>
     </div>
-    <ngx-charts-pie-chart *ngIf="!toggled && accidentLocationCountsDisplay"
+    <ngx-charts-pie-chart *ngIf="!toggled && chartData"
                           [view]="view"
                           [scheme]="colorScheme"
-                          [results]="accidentLocationCountsDisplay"
+                          [results]="chartData"
                           [gradient]="gradient"
                           [legend]="showLegend"
                           [labels]="showLabels"
                           [legendPosition]="legendPosition"
-                          [labels]="showLabels"
                           [doughnut]="isDoughnut">
     </ngx-charts-pie-chart>
 
-    <ngx-charts-pie-grid *ngIf="toggled && accidentLocationCountsDisplay"
+    <ngx-charts-pie-grid *ngIf="toggled && accidentLocationCounts"
                          [view]="view"
                          [scheme]="colorScheme"
-                         [results]="accidentLocationCountsDisplay">
+                         [results]="accidentLocationCounts">
     </ngx-charts-pie-grid>
     <div class="input-container">
       <button class="btn btn-dark" (click)="toggleChart()" type="button">Toggle Chart</button>
@@ -35,16 +34,14 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <!--<th>#</th>-->
           <th>Location</th>
           <th>Accident Count</th>
         </tr>
       </thead>
       <tbody>
         <tr class="highlight" *ngFor="let accident of accidentLocationCounts">
-          <!--<td>{{ accident.position }}</td>-->
-          <td>{{ accident.name }}</td>
-          <td>{{ accident.value }}</td>
+          <td>{{ accident.location }}</td>
+          <td>{{ accident.accidentCount }}</td>
         </tr>
       </tbody>
     </table>

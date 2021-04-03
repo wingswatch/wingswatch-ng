@@ -1,4 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
+import { AccidentLocationCount } from '../models/Reporting/AccidentLocationCount';
+import { ISeriesNgX } from '../models/Reporting/MultiSeriesNgX';
 import { ReportingProvider } from '../providers/reporting.provider';
 
 @Component({
@@ -12,7 +14,7 @@ export class AccidentsByLocationComponent {
 
   currentYear: number;
   yearsList: Array<number>;
-  view: Array<number> = [700, 400];
+  view: [number, number] = [700, 400];
 
   // options
   gradient = true;
@@ -20,10 +22,10 @@ export class AccidentsByLocationComponent {
   showLabels = true;
   isDoughnut: boolean;
   legendPosition: 'right';
-  accidentLocationCounts: [];
-  accidentLocationCountsDisplay: [];
-  toggled: boolean;
-  chartType: string = this.toggled ? "Pie Chart" : "Grid"
+  chartData: ISeriesNgX[];
+  accidentLocationCounts: AccidentLocationCount[] = [];
+  toggled = false;
+  chartType: string = this.toggled ? 'Pie Chart' : 'Grid';
 
   colorScheme = {
     domain: ['#7887AB', '#4F628E', '#2E4272', '#162955', '#061539']
@@ -35,7 +37,7 @@ export class AccidentsByLocationComponent {
     this.currentYear = d.getFullYear();
     this.yearsList = [];
 
-    // Add "All Time"
+    // Add 'All Time'
     this.yearsList.push(-1);
 
     for (let i = this.currentYear - 1; i >= 1985; i--) {
@@ -52,23 +54,20 @@ export class AccidentsByLocationComponent {
 
   getAccidents(year?: string) {
 
-    year ? null : year = this.selectYear.nativeElement.value;
+    let selectedYear: string;
+    if (!year) {
+      selectedYear = this.selectYear.nativeElement.value;
+    } else {
+      selectedYear = year as string;
+    }
 
-    this.accidentLocationCounts = null;
-    this.accidentLocationCountsDisplay = null;
-    this.reportingProvider.getAccidentByLocation(year).subscribe(
-      // Disabling the linter for the "any" here
-      // eslint-disable-next-line
-      (accidents: any) => {
-        this.accidentLocationCounts = accidents.map((el) => {
-          return { "name": el.location, "value": el.accidentCount };
-        });
-
-        this.accidentLocationCountsDisplay = [];
-        for (let i = 0; i < 10; i++) {
-          this.accidentLocationCountsDisplay.push(this.accidentLocationCounts[i]);
-        }
-
+    this.reportingProvider.getAccidentByLocation(selectedYear).subscribe(
+      accidents => {
+        this.accidentLocationCounts = accidents;
+        this.chartData =
+        accidents.map((el) => (
+          { name: el.location, value: el.accidentCount }
+        ));
       },
       error => console.log(error)
     );
