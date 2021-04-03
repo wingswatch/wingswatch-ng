@@ -87,6 +87,12 @@
               "src/**/*.html"
             ]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "cname": "www.wings.watch"
+          }
         }
       }
     }
