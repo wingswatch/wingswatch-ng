@@ -1,0 +1,61 @@
+<div class="container">
+    <h3>Recorded Injuries By Year</h3>
+    <hr />
+    <div class="input-container">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" (click)="toggleChart()" class="checkbox" id="defaultUnchecked">
+                <label class="control-label checkbox-label" for="defaultUnchecked">View Stacked</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                    <input #totalCheckbox type="checkbox" (click)="toggleTotal()" class="checkbox" id="totalCheckbox">
+                    <label class="control-label checkbox-label" for="totalCheckbox">Include Total</label>
+                </div>
+          </div>
+    <div *ngIf="!injuryTypes" class="loader text-center">
+        <app-svg-spinner></app-svg-spinner>
+    </div>
+    <div *ngIf="injuryTypes" class="chart-container">
+        <div *ngIf="!toggled" class="area">
+            <ngx-charts-area-chart
+                [view]="view"
+                [scheme]="colorScheme"
+                [legend]="legend"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisTickFormatting]="xTickFormat"
+                [xAxis]="xAxis"
+                [yAxis]="yAxis"
+                [curve]="curveNatural"
+                [gradient]="gradient"
+                [showGridLines]="showGridLines"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                [timeline]="timeline"
+                [results]="showWithTotal ? multiWithTotal : multi"
+                (select)="onSelect($event)"
+                (activate)="onActivate($event)"
+                (deactivate)="onDeactivate($event)">
+            </ngx-charts-area-chart>
+        </div>
+        <div *ngIf="toggled" class="area-stacked">
+            <ngx-charts-area-chart-stacked
+                [view]="view"
+                [scheme]="colorScheme"
+                [legend]="legend"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisTickFormatting]="xTickFormat"
+                [curve]="curveNatural"
+                [xAxis]="xAxis"
+                [yAxis]="yAxis"
+                [gradient]="gradient"
+                [showGridLines]="showGridLines"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                [timeline]="timeline"
+                [results]="showWithTotal ? multiWithTotal : multi"
+                (select)="onSelect($event)">
+            </ngx-charts-area-chart-stacked>
+        </div>
+    </div>
+</div>

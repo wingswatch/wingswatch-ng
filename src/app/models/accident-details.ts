@@ -1,6 +1,6 @@
 export class AccidentDetails {
-  eventId: string;
-  cacheTime: Date;
-  report: string;
-  analysis: string;
+  EventId: string;
+  CacheTime: Date;
+  Report: string;
+  Analysis: string;
 }

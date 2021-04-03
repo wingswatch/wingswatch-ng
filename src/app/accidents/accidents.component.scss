@@ -1,0 +1,36 @@
+.fatalClass {
+    color: red;
+}
+
+.nonFatalClass {
+    color: green;
+}
+
+.unavailableClass {
+    color: gray;
+}
+
+.severeClass {
+    color: darkorange;
+}
+
+.table {
+    font-size: 1rem;
+}
+
+.globe {
+  filter: invert(100%);
+}
+
+.highlight:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+th {
+    cursor: pointer;
+}
+
+  th:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }

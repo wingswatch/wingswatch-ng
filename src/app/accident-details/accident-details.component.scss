@@ -1,0 +1,86 @@
+.page-wrap {
+    max-width: 1200px;
+}
+
+.fatalClass {
+  color: red;
+}
+
+.nonFatalClass {
+  color: lawngreen;
+}
+
+.unavailableClass {
+  color: gray;
+}
+
+.destroyedClass {
+    color: red;
+}
+
+.substantialClass {
+    color: darkorange;
+}
+
+.loadingContainer {
+    height: 100px;
+    position: relative;
+}
+
+.loadingText {
+  padding-left: 75px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.mapStyle {
+  width:100%;
+  height:400px;
+}
+
+.mapHeader {
+    padding-right: 20px;
+}
+
+.fatalHeader {
+    color: red;
+}
+
+.seriousHeader {
+    color: orangered;
+}
+
+.minorHeader {
+    color: greenyellow;
+}
+
+.uninjuredHeader {
+    color: lawngreen;
+}
+
+.table {
+  font-size: 1.0rem;
+}
+
+  .table th, .table td {
+    padding: 0.50em;
+    text-align: left;
+  }
+
+app-svg-spinner {
+    padding-bottom: 20px;
+}
+
+.aircraftImage {
+  width: 100%;
+  height: 25vw;
+  object-fit: cover;
+  height: 500px;
+}
+
+.aircraftAlternateName {
+    font-size: 65%;
+    padding-left: 10px;
+}

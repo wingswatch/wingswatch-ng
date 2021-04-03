@@ -1,36 +1,43 @@
-<h1 id="tableLabel">Accident Summaries</h1>
+<div class="container">
+    <h1 id="tableLabel">Accident Summaries</h1>
 
-<p>The following is a list of the latest aviation accidents and incidents as reported by the NTSB.</p>
+    <p>The following is a list of the latest aviation accidents and incidents as reported by the NTSB.</p>
 
-<div *ngIf="!accidents">
-  <app-svg-spinner></app-svg-spinner>
+    <div *ngIf="!accidents">
+      <app-svg-spinner></app-svg-spinner>
+    </div>
+
+    <table *ngIf="accidents" class="table table-striped">
+      <thead>
+        <tr>
+          <th (click)="clickHeader($event)">Accident #</th>
+          <th (click)="clickHeader($event)">Event Date</th>
+          <th (click)="clickHeader($event)">Aircraft Type</th>
+          <th (click)="clickHeader($event)">Report Status</th>
+          <th (click)="clickHeader($event)">&nbsp;</th>
+          <th (click)="clickHeader($event)">Location</th>
+          <th (click)="clickHeader($event)">Severity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight" *ngFor="let accident of accidents" [routerLink]="['/accident-details', accident.eventId]">
+          <td>{{ accident.accidentNumber }}</td>
+          <td>{{ accident.eventDate | date:'MM/dd/yyyy' }}</td>
+          <td>{{ accident.make }} {{ accident.model }}</td>
+          <td>{{ accident.reportStatus }}</td>
+          <td>
+            <span *ngIf="accident.latitude && accident.longitude"><img src="/assets/images/globe-20-height.png" class="globe" /></span>
+          </td>
+          <td>{{ accident.location }}
+          <td [ngClass]="{
+              'fatalClass': (accident.injurySeverity.includes('Fatal(')),
+              'nonFatalClass': (accident.injurySeverity === 'Non-Fatal'),
+              'severeClass': (accident.injurySeverity === 'Severe'),
+              'unavailableClass': (accident.injurySeverity === 'Unavailable')
+            }">
+            {{ accident.injurySeverity }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
 </div>
-
-<table *ngIf="accidents" class="table table-striped">
-  <thead>
-    <tr>
-      <th>Accident #</th>
-      <th>Event Date</th>
-      <th>Aircraft Type</th>
-      <th>Report Status</th>
-      <th>Location</th>
-      <th>Severity</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let accident of accidents">
-      <td><a [routerLink]="['/accident-details', accident.eventId]">{{ accident.accidentNumber }}</a></td>
-      <td>{{ accident.eventDate | date:'MM/dd/yyyy' }}</td>
-      <td>{{ accident.make }} {{ accident.model }}</td>
-      <td>{{ accident.reportStatus }}</td>
-      <td>{{ accident.location }}</td>
-      <td [ngClass]="{
-          'fatalClass': (accident.injurySeverity.includes('Fatal(')),
-          'nonFatalClass': (accident.injurySeverity === 'Non-Fatal'),
-          'unavailableClass': (accident.injurySeverity === 'Unavailable')
-        }">
-        {{ accident.injurySeverity }}
-      </td>
-    </tr>
-  </tbody>
-</table>

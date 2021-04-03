@@ -1,65 +1,85 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { AccidentDetails } from '../models/accident-details';
-import { AccidentService } from '../services/accident.service';
+import { AccidentProvider } from '../providers/accident.provider';
 import { Accident } from '../models/accident';
 import { Location } from '@angular/common';
+import { AircraftImage } from '../models/aircraft-image';
 
 @Component({
   selector: 'app-accident-details',
   templateUrl: './accident-details.component.html',
-  styleUrls: ['./accident-details.component.css']
+  styleUrls: ['./accident-details.component.scss']
 })
-export class AccidentDetailsComponent implements OnInit {
+export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
-  @ViewChild('mapRef', { static: false }) mapElement: ElementRef;
+  @ViewChild('mapRef') mapElement: ElementRef;
+
+
+  constructor(
+    private route: ActivatedRoute,
+    private accidentProvider: AccidentProvider,
+    private location: Location) { }
 
   public eventId: string;
+  private sub$: Subscription;
   public accidentDetails: AccidentDetails;
   public accident: Accident;
   public loadingComplete: boolean;
   public reportIssued: boolean;
-
-  private mapLoaded: boolean;
-
-  constructor(
-    private route: ActivatedRoute,
-    private http: HttpClient,
-    private accidentService: AccidentService,
-    private location: Location) { }
+  public aircraftImage: AircraftImage;
 
   ngOnInit() {
 
-    this.route.params.subscribe((params: Params) => {
+    this.sub$ = this.route.params.subscribe((params: Params) => {
+
+      // For debugging
+      console.clear();
 
       // Get our event ID from the URL
-      this.eventId = params.id;
+      this.eventId = params['id'];
 
       // Replace the browswer URL with the current page
       this.location.replaceState('/accident-details/' + this.eventId);
 
       this.getAccident(this.eventId);
       this.getFullReport(this.eventId);
-
     });
 
   }
 
+  ngOnDestroy() {
+    this.sub$.unsubscribe();
+
+    if (document.getElementById("google-map-script")) {
+      document.getElementById("google-map-script").remove();
+    }
+
+  }
+
   getAccident(eventId: string) {
+
+    if (this.accident) {
+      return;
+    }
+
     console.log('getAccident');
-    this.accidentService.getAccident(eventId).subscribe(
+
+    this.accidentProvider.getAccident(eventId).subscribe(
       result => {
         this.accident = result;
-        console.log('Accident retrieved successfully');
-        this.loadingComplete = (this.accident != null) && (this.accidentDetails != null);
 
-        if (this.loadingComplete) {
-          this.renderMap();
-        }
-
+        console.log('Accident retrieved successfully')
       },
-      error => console.error(error)
+      error => {
+        if (!error.ok) {
+          return;
+        }
+        else {
+          console.log(error);
+        }
+      }
     );
   }
 
@@ -67,16 +87,15 @@ export class AccidentDetailsComponent implements OnInit {
 
     console.log('getFullReport');
 
-    this.accidentService.getFullReport(eventId).subscribe(
+    this.accidentProvider.getFullReport(eventId).subscribe(
       result => {
         this.accidentDetails = result;
         console.log('Full report retreived succesfully.');
-        this.loadingComplete = (this.accident != null) && (this.accidentDetails != null);
-        this.reportIssued = this.loadingComplete &&
-        (this.accidentDetails != null &&
-          this.accidentDetails.analysis !== 'No report currently issued.');
+        this.loadingComplete = (this.accident !== null) && (this.accidentDetails !== null);
+        this.reportIssued = this.loadingComplete && (this.accidentDetails !== null && this.accidentDetails.Analysis !== 'No report currently issued.');
 
         if (this.loadingComplete) {
+          this.getAircraftImage(this.eventId);
           this.renderMap();
         }
 
@@ -87,90 +106,82 @@ export class AccidentDetailsComponent implements OnInit {
   }
 
   renderMap() {
+    this.createMapElement();
 
-    if (this.accident && this.accident.latitude && this.accident.longitude) {
+    console.log("renderMap called");
 
-      console.log('renderMap');
-
-      (window as any).initMap = () => {
-        this.loadMap();
-      };
-
-      if (!window.document.getElementById('google-map-script')) {
-        if (!this.mapLoaded) {
-          this.createMapElement();
-        }
-      } else {
-        this.loadMap();
-      }
-
+    window['initMap'] = () => {
+      this.loadMap();
     }
 
   }
 
   createMapElement() {
 
-    console.log('createMapElement');
-
-    const scriptElements = window.document.getElementsByTagName('script');
-
-    for (let i = 0; i < scriptElements.length - 1; i++) {
-      if (scriptElements[i].id === 'google-map-script') {
-        console.log('google-map-script detected, removing');
-        scriptElements[i].remove();
-      }
+    if (window.document.getElementById("google-map-script")) {
+      console.log("google-map-script exists in createMapElement - returning");
+      return;
     }
 
-    const s = window.document.createElement('script');
+    console.log('createMapElement');
 
-    s.id = 'google-map-script';
-    s.type = 'text/javascript';
-    s.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAB_TCx0r3XRweCaJZ6-JT-O6F_mJ9Z_XY&callback=initMap';
+    const s = window.document.createElement("script");
+
+    s.id = "google-map-script";
+    s.type = "text/javascript";
+    s.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAB_TCx0r3XRweCaJZ6-JT-O6F_mJ9Z_XY&callback=initMap";
 
     window.document.body.appendChild(s);
 
+    console.log("Map element created in createMapElement()");
   }
 
+  public aircraftRenamed: boolean;
+
+  getAircraftImage(eventId: string) {
+
+    console.info("getAircraftImage called");
+
+    this.accidentProvider.getAircraftImage(eventId, this.accident.make, this.accident.model).subscribe(
+      result => {
+
+        this.aircraftImage = result;
+
+        this.aircraftRenamed = (result.renamedAircraft !== "");
+
+        console.info("Aircraft image received " + this.aircraftImage.imageUrl);
+        console.info(this.aircraftImage);
+      },
+      error => {
+        console.error("Could not get aircraft image for eventID" + this.eventId);
+        console.error(error)
+      }
+
+    );
+  }
 
   loadMap = () => {
 
-    console.log('loadMap');
-
-    const google = (window as any).google;
+    console.log('loadMap called');
 
     if (!this.mapElement) {
-      this.createMapElement();
-    }
-
-    if (!this.mapElement || this.mapLoaded) {
-
-      if (!this.mapElement) {
-        console.log('No mapElement, returning');
-      } else {
-        console.log('mapLoaded, returning.');
-      }
-
+      console.error('could not find this.mapElement');
       return;
-
     }
 
-    const map = new google.maps.Map(this.mapElement.nativeElement, {
+    const map = new window['google'].maps.Map(this.mapElement.nativeElement, {
       center: { lat: this.accident.latitude, lng: this.accident.longitude },
       zoom: 15
     });
 
-    map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+    map.setMapTypeId(window['google'].maps.MapTypeId.SATELLITE);
 
-    const marker = new google.maps.Marker({
+    new window['google'].maps.Marker({
       position: { lat: this.accident.latitude, lng: this.accident.longitude },
-      map,
+      map: map,
       draggable: true,
-      animation: google.maps.Animation.DROP
+      animation: window['google'].maps.Animation.DROP
     });
-
-
-    this.mapLoaded = true;
-
-  };
+  }
 
 }

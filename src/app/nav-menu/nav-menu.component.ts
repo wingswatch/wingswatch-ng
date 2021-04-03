@@ -4,14 +4,15 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
-  styleUrls: ['./nav-menu.component.css']
+  styleUrls: ['./nav-menu.component.scss']
 })
 export class NavMenuComponent {
-  @ViewChild('nav_searchTerm', { static: true }) navSearchTerm: ElementRef;
-
   isExpanded = false;
+  @ViewChild("nav_searchTerm", { static: true }) navSearchTerm: ElementRef;
 
-  constructor(private router: Router) { }
+  constructor(private router:Router) {
+
+  }
 
   collapse() {
     this.isExpanded = false;
@@ -22,6 +23,7 @@ export class NavMenuComponent {
   }
 
   redirectToAccidents() {
+    this.toggle();
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate(['/accidents']));
   }

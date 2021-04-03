@@ -1,0 +1,31 @@
+form {
+    max-width: 600px;
+}
+
+input, textarea {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+textarea {
+    height: 10vh;
+    width: 100%;
+}
+
+input, button, textarea {
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  button {
+    width: 25%;
+    border: 1px solid #25AAE1;
+    background-color: #25AAE1;
+  }
+  
+  button.btn:hover {
+    background-color: rgba(37,170,225, 0.1);
+  }

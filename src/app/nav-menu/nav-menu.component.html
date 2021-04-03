@@ -1,38 +1,53 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
     <div class="container">
-      <img src="./assets/images/plane.png" class="logo" />
-      <a class="navbar-brand" [routerLink]="['/']">WingsWatch</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
-        <span class="navbar-toggler-icon"></span>
+      <a class="navbar-brand" [routerLink]="['/']">
+        <img src="./assets/images/plane-60.png" class="logo" />
+        WingsWatch
+      </a>
+      <button class="navbar-toggler"
+              type="button"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
+        <div id="nav-icon1" [ngClass]="{ open: isExpanded }">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </button>
-      <div
-        class="navbar-collapse collapse"
-        [ngClass]="{ show: isExpanded }"
-      >
+      <div class="navbar-collapse collapse"
+           [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
-          <li class="nav-item"
+          <li (click)="toggle()" class="nav-item"
               [routerLinkActive]="['link-active']"
               [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-light" [routerLink]="['/']">Home</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li (click)="toggle()" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-light" [routerLink]="['/accidents']">Accidents</a>
           </li>
-          <li class="nav-item"
+          <li (click)="toggle()" class="nav-item"
               [routerLinkActive]="['link-active']"
               [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-light" [routerLink]="['/contact']">Contact</a>
           </li>
-          <li>
+          <li class="nav-item dropdown">
+            <a class="nav-link text-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Reporting
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item text-light" [routerLink]="['/heat-map', '2020']">Heat Maps</a>
+              <a class="dropdown-item text-light" [routerLink]="['/chart-accidents-by-month', '-1']">Accidents By Month</a>
+              <a class="dropdown-item text-light" [routerLink]="['/accidents-by-type']">Accidents By Type</a>
+              <a class="dropdown-item text-light" [routerLink]="['/accidents-by-location', '-1']">Accidents By Location</a>
+              <a class="dropdown-item text-light" [routerLink]="['/injury-severity-by-year', '-1']">Accident Types By Year</a>
+              <a class="dropdown-item text-light" [routerLink]="['/injury-types-all-years']">Accident Types For All Years</a>
+
+            </div>
+          </li>
+          <li class="search-field">
             <form class="form-inline my-2 my-lg-0">
               <input (keypress.enter)="redirectToAccidents()" #nav_searchTerm id="nav_searchTerm" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
               <button (click)="redirectToAccidents()" class="btn my-2 my-sm-0 text-light" type="submit">Search</button>

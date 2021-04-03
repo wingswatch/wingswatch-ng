@@ -1,0 +1,16 @@
+<div class="form-group text-center">
+    <h2>Accidents/Incidents By Year</h2>
+    <div class="select">
+        <select (change)="getCoordinatesByYear()" #selectYear class="" id="select_year">
+            <option *ngFor="let year of yearsList" value="{{year}}" id="{{year}}">{{year}}</option>
+        </select>
+    </div>
+    <div *ngIf="!coordinates" class="container loader">
+        <app-svg-spinner></app-svg-spinner>
+    </div>
+</div>
+<div [ngClass]="coordinates? 'full-opacity': 'slight-opacity'" class="map-container">
+    <div class="map">
+        <div #mapRef id="map_Ref" class="mapStyle"></div>
+    </div>
+</div>

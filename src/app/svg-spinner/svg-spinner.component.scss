@@ -1,0 +1,51 @@
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: .25;
+  }
+
+  50% {
+    opacity: .5;
+  }
+
+  75% {
+    opacity: .75;
+  }
+
+  100% {
+    opacity: .5;
+  }
+}
+
+
+.svg-container {
+  margin: 0 auto;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  height: 50px;
+  width: 50px;
+  max-height: 15rem;
+  max-width: 15rem;
+}
+
+svg {
+  fill: #50c6db;
+  transform: translate(50%, 50%);
+}
+
+#outer-wheel {
+  animation: spin 1s infinite linear;
+}
+
+#inner-wheel {
+  animation: fadeIn 2s infinite linear;
+}
