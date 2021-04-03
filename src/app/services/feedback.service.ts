@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Feedback } from '../models/feedback';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class FeedbackService {
 
   submitFeedback(feedback: Feedback): Observable<Feedback> {
 
-    const url = 'api/Feedback/';
+    const url = environment.apiBaseUrl + 'Feedback/';
 
     return this.http.post<Feedback>(url, feedback);
 
