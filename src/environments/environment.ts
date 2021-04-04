@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiBaseUrl: 'https://localhost:44384/api/'
-  //apiBaseUrl: 'https://wingswatch.azurewebsites.net/api/'
+  //apiBaseUrl: 'https://wingswatch-api.azurewebsites.net/api/'
 };
 
 /*
