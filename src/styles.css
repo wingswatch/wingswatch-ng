@@ -1,1 +1,22 @@
 @import 'assets/css/bootstrap.css';
+
+.fatal-injury  {
+    color: red;
+}
+
+.non-fatal-injury {
+    color: green;
+}
+
+.serious-injury {
+    color: orangered;
+}
+
+.minor-injury {
+    color: greenyellow;
+}
+
+.minor-injury {
+    color: gray;
+}
+  

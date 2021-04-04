@@ -23,17 +23,17 @@
         <tr class="highlight" *ngFor="let accident of accidents" [routerLink]="['/accident-details', accident.eventId]">
           <td>{{ accident.accidentNumber }}</td>
           <td>{{ accident.eventDate | date:'MM/dd/yyyy' }}</td>
-          <td>{{ accident.make }} {{ accident.model }}</td>
+          <td>{{ accident.aircraft[0].make }} {{ accident.aircraft[0].model }}</td>
           <td>{{ accident.reportStatus }}</td>
           <td>
             <span *ngIf="accident.latitude && accident.longitude"><img src="/assets/images/globe-20-height.png" class="globe" /></span>
           </td>
           <td>{{ accident.location }}
           <td [ngClass]="{
-              'fatalClass': (accident.injurySeverity.includes('Fatal(')),
-              'nonFatalClass': (accident.injurySeverity === 'Non-Fatal'),
-              'severeClass': (accident.injurySeverity === 'Severe'),
-              'unavailableClass': (accident.injurySeverity === 'Unavailable')
+              'fatal-injury': (accident.injurySeverity.includes('Fatal (')),
+              'non-fatal-injury': (accident.injurySeverity === 'Non-Fatal'),
+              'serious-injury': (accident.injurySeverity === 'Serious'),
+              'minor-injury': (accident.injurySeverity === 'Minor')
             }">
             {{ accident.injurySeverity }}
           </td>

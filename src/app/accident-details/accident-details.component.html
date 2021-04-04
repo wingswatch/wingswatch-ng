@@ -38,13 +38,13 @@
         </tr>
         <tr>
           <td><b>Aircraft</b></td>
-          <td>{{ accident.make }} {{ accident.model }}</td>
+          <td>{{ aircraft.make }} {{ aircraft.model }}</td>
           <td><b>Aircraft Damage</b></td>
           <td [ngClass]="{
-                'destroyedClass': (accident && accident.aircraftDamage && accident.aircraftDamage.includes('Destroyed')),
-                'substantialClass': (accident && accident.aircraftDamage && accident.aircraftDamage.includes('Substantial'))
+                'destroyedClass': (accident && aircraft.aircraftDamage && aircraft.aircraftDamage.includes('Destroyed')),
+                'substantialClass': (accident && aircraft.aircraftDamage && aircraft.aircraftDamage.includes('Substantial'))
               }">
-            {{ accident.aircraftDamage }}
+            {{ aircraft.aircraftDamage }}
           </td>
         </tr>
         <tr>
@@ -57,35 +57,29 @@
             {{ accident.injurySeverity }}
           </td>
           <td><b>Airport</b></td>
-          <td> {{ accident.airport }} {{ accident.airportCode }}</td>
+          <td> {{ accident.airportName }} {{ accident.airportCode }}</td>
         </tr>
         <tr>
           <td><b>Aircraft Category</b></td>
-          <td>{{ accident.aircraftCategory }}</td>
-          <td><b>Number of Engines</b></td>
-          <td> {{ accident.numberOfEngines }}</td>
+          <td>{{ aircraft.aircraftCategory }}</td>
+          <td></td>
+          <td></td>
         </tr>
-        <tr>
-          <td><b>Engine Type</b></td>
-          <td>{{ accident.engineType }}</td>
-          <td><b>FAR Description</b></td>
-          <td> {{ accident.farDescription }}</td>
-        </tr>
-        <tr *ngIf="accident.schedule || accident.purposeOfFlight">
+        <tr *ngIf="aircraft.schedule || aircraft.purposeOfFlight">
           <td><b>Schedule</b></td>
-          <td>{{ accident.schedule }}</td>
+          <td>{{ aircraft.schedule }}</td>
           <td><b>Purpose of Flight</b></td>
-          <td> {{ accident.purposeOfFlight }}</td>
+          <td> {{ aircraft.purposeOfFlight }}</td>
         </tr>
-        <tr *ngIf="accident.airCarrier || accident.weatherCondition">
-          <td><b>Air Carrier</b></td>
-          <td>{{ accident.airCarrier }}</td>
+        <tr *ngIf="aircraft.operator || accident.weatherCondition">
+          <td><b>Operator</b></td>
+          <td>{{ aircraft.operator }}</td>
           <td><b>Weather Condition</b></td>
           <td> {{ accident.weatherCondition }}</td>
         </tr>
         <tr>
-          <td><b>Broad Phase of Flight</b></td>
-          <td>{{ accident.broadPhaseOfFlight}}</td>
+          <td></td>
+          <td></td>
           <td><b>Report Status</b></td>
           <td> {{ accident.reportStatus }}</td>
         </tr>
@@ -192,7 +186,7 @@
           <span class="mapHeader">Aircraft Image</span>
           <span *ngIf="accident">
             <small class="text-muted">
-              <span>{{ accident.make }} {{ accident.model }}</span>
+              <span>{{ aircraft.make }} {{ aircraft.model }}</span>
               <span *ngIf="aircraftImage && aircraftRenamed">
                 <span class="aircraftAlternateName">
                   ({{ aircraftImage.renamedAircraft }})
@@ -206,7 +200,7 @@
           <div class="card-body">
             <img *ngIf="aircraftImage && aircraftImage.imageUrl" src="{{ aircraftImage.imageUrl }}" class="aircraftImage">
             <div *ngIf="aircraftImage && !aircraftImage.imageUrl || !aircraftImage.imageUrl.includes('wikipedia')">
-              <p>No image found for {{ accident.make }} {{accident.model}}</p>
+              <p>No image found for {{ aircraft.make }} {{aircraft.model}}</p>
               <p><a [routerLink]="['/contact']">Report this to us</a> and we'll get the image.</p>
             </div>
           </div>

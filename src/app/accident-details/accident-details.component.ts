@@ -5,6 +5,7 @@ import { AccidentProvider } from '../providers/accident.provider';
 import { Accident } from '../models/accident';
 import { Location } from '@angular/common';
 import { AircraftImage } from '../models/aircraft-image';
+import { Aircraft } from '../models/aircraft';
 
 @Component({
   selector: 'app-accident-details',
@@ -19,6 +20,7 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
   public eventId: string;
   public accidentDetails: AccidentDetails;
   public accident: Accident;
+  public aircraft: Aircraft;
   public loadingComplete: boolean;
   public reportIssued: boolean;
   public aircraftImage: AircraftImage;
@@ -64,6 +66,8 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
     this.accidentProvider.getAccident(eventId).subscribe(
       result => {
         this.accident = result;
+        // TODO - Support multiple aircraft
+        this.aircraft = this.accident.aircraft[0];
       },
       error => {
         if (!error.ok) {
@@ -82,7 +86,7 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
       result => {
         this.accidentDetails = result;
         this.loadingComplete = (this.accident !== null) && (this.accidentDetails !== null);
-        this.reportIssued = this.loadingComplete && 
+        this.reportIssued = this.loadingComplete &&
         (this.accidentDetails !== null && this.accidentDetails.analysis !== 'No report currently issued.');
 
         if (this.loadingComplete) {
@@ -129,7 +133,8 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
   getAircraftImage(eventId: string) {
 
-    this.accidentProvider.getAircraftImage(eventId, this.accident.make, this.accident.model).subscribe(
+    // TODO - Handle multiple aircraft
+    this.accidentProvider.getAircraftImage(eventId, this.accident.aircraft[0].make, this.accident.aircraft[0].model).subscribe(
       result => {
         this.aircraftImage = result;
         this.aircraftRenamed = (result.renamedAircraft !== '');
