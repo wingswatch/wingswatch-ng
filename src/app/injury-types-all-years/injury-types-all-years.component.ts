@@ -3,7 +3,6 @@ import { ReportingProvider } from '../providers/reporting.provider';
 import { InjuryTypesForPastYears } from '../models/Reporting/InjuryTypesForPastYears';
 import { ISeriesNgX } from '../models/Reporting/MultiSeriesNgX';
 
-import * as shape from 'd3';
 import * as d3 from 'd3';
 
 @Component({
@@ -22,8 +21,8 @@ export class InjuryTypesAllYearsComponent implements OnInit {
   // options
   legend = true;
   xTickFormat = d3.format('d'); //Removes commas from numbers
-  curveStepBefore = shape.curveStepBefore;
-  curveNatural = shape.curveNatural;
+  curveStepBefore = d3.curveStepBefore;
+  curveNatural = d3.curveNatural;
   showLabels = true;
   animations = true;
   xAxis = true;
