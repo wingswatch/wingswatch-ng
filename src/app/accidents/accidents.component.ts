@@ -21,7 +21,6 @@ export class AccidentsComponent implements OnInit {
       this.filterAccidents(searchVal);
     }
     else {
-      console.log('Getting all reports');
       this.getAccidents();
     }
 
