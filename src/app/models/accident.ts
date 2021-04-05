@@ -6,6 +6,7 @@ export class Accident {
   airportCode: string;
   weatherCondition: string;
   reportingCountryCode: string;
+  eventType: string;
   airportName: string;
   injurySeverity: string;
   location: string;
