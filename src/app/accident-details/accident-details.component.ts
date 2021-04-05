@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Narrative } from '../models/narrative';
-import { AccidentProvider } from '../providers/accident.provider';
 import { Accident } from '../models/accident';
 import { Location } from '@angular/common';
 import { AircraftImage } from '../models/aircraft-image';
 import { Aircraft } from '../models/aircraft';
 import { Title } from '@angular/platform-browser';
+import { AccidentService } from '../services/accident.service';
 
 @Component({
   selector: 'app-accident-details',
@@ -29,7 +29,7 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private accidentProvider: AccidentProvider,
+    private accidentService: AccidentService,
     private location: Location,
     private titleService: Title) { }
 
@@ -62,7 +62,7 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
   getAccident(eventId: string) {
 
-    this.accidentProvider.getAccident(eventId).subscribe(
+    this.accidentService.getAccidentDetail(eventId).subscribe(
       accident => {
 
         this.accident = accident;
@@ -78,7 +78,7 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
   getNarrative(eventId: string) {
 
-    this.accidentProvider.getNarrative(eventId).subscribe(
+    this.accidentService.getNarrative(eventId).subscribe(
       narrative => {
         this.narrative = narrative;
         this.narrativeLoaded = true;
@@ -126,7 +126,7 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
     console.log('getting image');
 
     // TODO - Handle multiple aircraft
-    this.accidentProvider.getAircraftImage(eventId, this.aircraft.make, this.aircraft.model).subscribe(
+    this.accidentService.getAircraftImage(eventId, this.aircraft.make, this.aircraft.model).subscribe(
       result => {
         console.log('got image: ' + result.imageUrl);
         this.aircraftImage = result;
