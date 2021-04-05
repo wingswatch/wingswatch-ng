@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ReportingProvider } from '../providers/reporting.provider';
 import { InjurySeverityByYear } from '../models/Reporting/InjurySeverityByYear';
 import { IMultiSeriesNgX, ISeriesNgX } from '../models/Reporting/MultiSeriesNgX';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-injury-severity-by-year',
@@ -43,9 +43,6 @@ export class InjurySeverityByYearComponent implements OnInit {
     this.currentYear = d.getFullYear();
     this.yearsList = [];
 
-    // Add All Time
-    this.yearsList.push(-1);
-
     for (let i = this.currentYear - 1; i >= 1985; i--) {
       this.yearsList.push(i);
     }
@@ -54,8 +51,10 @@ export class InjurySeverityByYearComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      const year: string = params.year;
+
+      const year = params.year as number;
       this.getInjuryTypeByYear(year);
+
     });
   }
 
@@ -63,14 +62,14 @@ export class InjurySeverityByYearComponent implements OnInit {
     this.showWithUninjured = !this.showWithUninjured;
   }
 
-  getInjuryTypeByYear(year?: string) {
+  getInjuryTypeByYear(year?: number) {
 
-    let selectedYear: string;
+    let selectedYear: number;
 
     if (!year) {
       selectedYear = this.selectYear.nativeElement.value;
     } else {
-      selectedYear = year as string;
+      selectedYear = year as number;
     }
 
     this.reportingProvider.getInjurySeverityByYear(selectedYear).subscribe(
