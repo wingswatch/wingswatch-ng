@@ -18,7 +18,6 @@ import { AccidentsByLocationComponent } from './accidents-by-location/accidents-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { InjurySeverityByYearComponent } from './injury-severity-by-year/injury-severity-by-year.component';
-import { InjuryTypesAllYearsComponent } from './injury-types-all-years/injury-types-all-years.component';
 
 @NgModule({
   declarations: [
@@ -33,8 +32,7 @@ import { InjuryTypesAllYearsComponent } from './injury-types-all-years/injury-ty
     ChartAccidentsByMonthComponent,
     AccidentsByTypeComponent,
     AccidentsByLocationComponent,
-    InjurySeverityByYearComponent,
-    InjuryTypesAllYearsComponent
+    InjurySeverityByYearComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -48,11 +46,10 @@ import { InjuryTypesAllYearsComponent } from './injury-types-all-years/injury-ty
       { path: 'accident-details/:id', component: AccidentDetailsComponent },
       { path: 'us-map/:id', component: USMapComponent },
       { path: 'heat-map/:id', component: AccidentsHeatMapComponent },
-      { path: 'chart-accidents-by-month/:year', component: ChartAccidentsByMonthComponent },
+      { path: 'chart-accidents-by-month', component: ChartAccidentsByMonthComponent },
       { path: 'accidents-by-type', component: AccidentsByTypeComponent },
-      { path: 'accidents-by-location/:year', component: AccidentsByLocationComponent },
-      { path: 'injury-severity-by-year/:year', component: InjurySeverityByYearComponent },
-      { path: 'injury-types-all-years', component: InjuryTypesAllYearsComponent },
+      { path: 'accidents-by-location', component: AccidentsByLocationComponent },
+      { path: 'injury-severity-by-year', component: InjurySeverityByYearComponent }
     ])
   ],
   providers: [],
