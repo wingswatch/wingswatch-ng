@@ -7,7 +7,6 @@ import { MonthlyAccidents } from '../models/Reporting/MonthlyAccidents';
 import { AccidentByType } from '../models/Reporting/AccidentByType';
 import { AccidentLocationCount } from '../models/Reporting/AccidentLocationCount';
 import { InjurySeverityByYear } from '../models/Reporting/InjurySeverityByYear';
-import { InjuryTypesForPastYears } from '../models/Reporting/InjuryTypesForPastYears';
 import { InjuryTypesForPastMonths } from '../models/Reporting/InjuryTypeForPastMonths';
 import { environment } from 'src/environments/environment';
 
@@ -17,11 +16,11 @@ import { environment } from 'src/environments/environment';
 export class ReportingProvider {
   constructor(private http: HttpClient) { }
 
-  getAccidentsByMonth(year: string): Observable<MonthlyAccidents[]> {
+  getAccidentsByMonth(year: number): Observable<MonthlyAccidents[]> {
     return this.http.get<MonthlyAccidents[]>(`${environment.apiBaseUrl}Reporting/AccidentsByMonth/${year}`).pipe();
   }
 
-  getCoordinatesByYear(year: string): Observable<IAccidentCoordinates[]> {
+  getCoordinatesByYear(year: number): Observable<IAccidentCoordinates[]> {
     return this.http.get<IAccidentCoordinates[]>(`${environment.apiBaseUrl}Reporting/LatLon/${year}`).pipe();
   }
 
@@ -33,19 +32,15 @@ export class ReportingProvider {
     return this.http.get<AccidentByType[]>(`${environment.apiBaseUrl}Reporting/AccidentsByType`).pipe();
   }
 
-  getAccidentByLocation(year: string): Observable<AccidentLocationCount[]> {
+  getAccidentByLocation(year: number): Observable<AccidentLocationCount[]> {
     return this.http.get<AccidentLocationCount[]>(`${environment.apiBaseUrl}Reporting/AccidentsByLocation/${year}`).pipe();
   }
 
-  getInjurySeverityByYear(year: string): Observable<InjurySeverityByYear> {
+  getInjurySeverityByYear(year: number): Observable<InjurySeverityByYear> {
     return this.http.get<InjurySeverityByYear>(`${environment.apiBaseUrl}Reporting/GetInjuryTypesByYear/${year}`).pipe();
   }
 
-  getInjuryTypesAllYears(): Observable<InjuryTypesForPastYears[]>{
-    return this.http.get<InjuryTypesForPastYears[]>(`${environment.apiBaseUrl}Reporting/GetInjuryTypesAllYears`).pipe();
-  }
-
-  getInjuryTypesAllMonths(year: string): Observable<InjuryTypesForPastMonths[]>{
+  getInjuryTypesAllMonths(year: number): Observable<InjuryTypesForPastMonths[]>{
     return this.http.get<InjuryTypesForPastMonths[]>(`${environment.apiBaseUrl}Reporting/GetInjuryTypesByMonth/${year}`).pipe();
   }
 
