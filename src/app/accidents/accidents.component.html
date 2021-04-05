@@ -13,7 +13,6 @@
           <th>Accident #</th>
           <th>Event Date</th>
           <th>Aircraft Type</th>
-          <th>&nbsp;</th>
           <th>Location</th>
           <th>Severity</th>
         </tr>
@@ -23,9 +22,6 @@
           <td>{{ accident.accidentNumber }}</td>
           <td>{{ accident.eventDate | date:'MM/dd/yyyy' }}</td>
           <td>{{ (accident.aircraft.length > 0) ? accident.aircraft[0].make : '' }} {{ (accident.aircraft.length > 0) ? accident.aircraft[0].model : '' }}</td>
-          <td>
-            <span *ngIf="accident.latitude && accident.longitude"><img src="/assets/images/globe-20-height.png" class="globe" /></span>
-          </td>
           <td>{{ accident.location }}
           <td [ngClass]="{
               'fatal-injury': (accident.injurySeverity.includes('Fatal (')),
