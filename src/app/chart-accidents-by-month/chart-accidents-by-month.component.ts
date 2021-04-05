@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ReportingProvider } from '../providers/reporting.provider';
-import { ActivatedRoute } from '@angular/router';
 import { MonthlyAccidents } from '../models/Reporting/MonthlyAccidents';
 import { InjuryTypesForPastMonths } from '../models/Reporting/InjuryTypeForPastMonths';
 
@@ -11,8 +10,7 @@ import * as shape from 'd3';
   templateUrl: './chart-accidents-by-month.component.html',
   styleUrls: ['./chart-accidents-by-month.component.scss']
 })
-export class ChartAccidentsByMonthComponent implements OnInit {
-
+export class ChartAccidentsByMonthComponent {
   @ViewChild('selectYear') selectYear: ElementRef;
 
   multi: any[];
@@ -42,7 +40,7 @@ export class ChartAccidentsByMonthComponent implements OnInit {
   monthlyAccidents: InjuryTypesForPastMonths[];
   isFormatted: boolean;
   showGridLines: boolean;
-  toggled: boolean;
+  loading: boolean;
 
   cardColor: '#232837';
 
@@ -56,16 +54,11 @@ export class ChartAccidentsByMonthComponent implements OnInit {
       domain: ['#aae3f5', '#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d']
   };
 
-  constructor(
-    private reportingProvider: ReportingProvider,
-    private activatedRoute: ActivatedRoute) {
+  constructor(private reportingProvider: ReportingProvider) {
 
     const d = new Date();
     this.currentYear = d.getFullYear();
     this.yearsList = [];
-
-    // Add 'All Time'
-    this.yearsList.push(-1);
 
     for (let i = this.currentYear - 1; i >= 1985; i--) {
       this.yearsList.push(i);
@@ -73,16 +66,16 @@ export class ChartAccidentsByMonthComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
-      const year: string = params.year;
-      this.getMonthlyAccidents(year);
-      this.getInjuryTypesAllMonths(year);
-    });
-  }
+  onChangeYear(target: EventTarget | null) {
 
-  toggleChart() {
-    this.toggled = !this.toggled;
+    if (target) {
+
+      const year: number = (target as HTMLInputElement).value as unknown as number;
+
+      this.getMonthlyAccidents(year);
+
+    }
+
   }
 
   convertToMonth(monthId: number): string {
@@ -106,17 +99,9 @@ export class ChartAccidentsByMonthComponent implements OnInit {
 
   }
 
-  getInjuryTypesAllMonths(year?: string) {
+  getInjuryTypesAllMonths(year: number) {
 
-    let selectedYear: string;
-
-    if (!year) {
-      selectedYear = this.selectYear.nativeElement.value;
-    } else {
-      selectedYear = year as string;
-    }
-
-    this.reportingProvider.getInjuryTypesAllMonths(selectedYear).subscribe(
+    this.reportingProvider.getInjuryTypesAllMonths(year).subscribe(
       res => {
 
         this.monthlyAccidents = res;
@@ -160,22 +145,18 @@ export class ChartAccidentsByMonthComponent implements OnInit {
             series: minorArr
           }
         ];
-      },
-      err => console.error(err)
+
+        this.loading = false;
+
+      }
     );
   }
 
-  getMonthlyAccidents(year?: string) {
+  getMonthlyAccidents(year: number) {
 
-    let selectedYear: string;
+    this.loading = true;
 
-    if (!year) {
-      selectedYear = this.selectYear.nativeElement.value;
-    } else {
-      selectedYear = year as string;
-    }
-
-    this.reportingProvider.getAccidentsByMonth(selectedYear).subscribe(
+    this.reportingProvider.getAccidentsByMonth(year).subscribe(
       (accidents: MonthlyAccidents[]) => {
 
         this.monthlyAccidentSeries = accidents.map((el) => (
@@ -192,6 +173,8 @@ export class ChartAccidentsByMonthComponent implements OnInit {
             value: el.value
          }
         ));
+
+        this.getInjuryTypesAllMonths(year);
 
       },
       error => console.log(error)

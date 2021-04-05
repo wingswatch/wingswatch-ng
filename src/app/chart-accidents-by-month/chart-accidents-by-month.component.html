@@ -1,22 +1,15 @@
 <div class="container">
   <div class="select">
-    <select (change)="getInjuryTypesAllMonths()" #selectYear class="" id="select_year">
-      <option *ngFor="let year of yearsList" value="{{year}}" id="{{year}}">{{(year == -1) ? "All Time" : year}}</option>
+    <select (change)="onChangeYear($event.target)" #selectYear class="" id="select_year">
+      <option *ngFor="let year of yearsList" value="{{year}}" id="{{year}}">{{ year }}</option>
     </select>
   </div>
-  <div class="input-container">
-    <div class="custom-control custom-checkbox">
-        <input type="checkbox" (click)="toggleChart()" class="checkbox" id="defaultUnchecked">
-        <label class="control-label checkbox-label" for="defaultUnchecked">Toggle Chart</label>
-    </div>
-  </div>
-  <div *ngIf="!monthlyAccidents" class="loader text-center">
+  <div *ngIf="loading" class="loader text-center">
       <app-svg-spinner></app-svg-spinner>
   </div>
   <div *ngIf="monthlyAccidents" class="chart-container" >
       <h2>Accidents By Month</h2>
         <ngx-charts-area-chart
-            *ngIf="!toggled"
             [view]="view"
             [scheme]="colorScheme"
             [legend]="legend"
@@ -34,7 +27,6 @@
       </ngx-charts-area-chart>
 
       <ngx-charts-polar-chart
-        *ngIf="!toggled"
         [view]="view"
         [scheme]="colorScheme"
         [legend]="legend"
@@ -51,7 +43,6 @@
   </div>
   <div *ngIf="monthlyAccidents" class="chart-container" >
       <ngx-charts-heat-map
-          *ngIf="toggled"
           [view]="heatmapView"
           [scheme]="colorSchemeHeatmap"
           [legend]="legend"
