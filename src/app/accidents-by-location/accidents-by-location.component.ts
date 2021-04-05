@@ -37,14 +37,11 @@ export class AccidentsByLocationComponent {
     this.currentYear = d.getFullYear();
     this.yearsList = [];
 
-    // Add 'All Time'
-    this.yearsList.push(-1);
-
     for (let i = this.currentYear - 1; i >= 1985; i--) {
       this.yearsList.push(i);
     }
 
-    this.getAccidents('-1');
+    //this.getAccidents('-1');
 
   }
 
@@ -52,16 +49,11 @@ export class AccidentsByLocationComponent {
     this.toggled = !this.toggled;
   }
 
-  getAccidents(year?: string) {
+  getAccidents() {
 
-    let selectedYear: string;
-    if (!year) {
-      selectedYear = this.selectYear.nativeElement.value;
-    } else {
-      selectedYear = year as string;
-    }
+    const year = this.selectYear.nativeElement.value as number;
 
-    this.reportingProvider.getAccidentByLocation(selectedYear).subscribe(
+    this.reportingProvider.getAccidentByLocation(year).subscribe(
       accidents => {
         this.accidentLocationCounts = accidents;
         this.chartData =

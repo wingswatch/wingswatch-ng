@@ -16,7 +16,7 @@ declare global {
   templateUrl: './accidents-heat-map.component.html',
   styleUrls: ['./accidents-heat-map.component.scss']
 })
-export class AccidentsHeatMapComponent implements OnInit, OnDestroy {
+export class AccidentsHeatMapComponent implements OnDestroy {
   @ViewChild('mapRef') mapElement: ElementRef;
   @ViewChild('selectYear') selectYear: ElementRef;
 
@@ -43,40 +43,24 @@ export class AccidentsHeatMapComponent implements OnInit, OnDestroy {
 
    }
 
-  ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
-      const yearFromUrl = params.id;
-      this.getCoordinatesByYear(yearFromUrl);
-    });
-  }
-
   ngOnDestroy() {
     window.document.getElementById('google-map-script')?.remove();
   }
 
-  getCoordinatesByYear(year?: string) {
+  getCoordinatesByYear() {
 
-    let selectedYear: string;
+    const year = this.selectYear.nativeElement.value as number;
 
-    if (!year) {
-      selectedYear = this.selectYear.nativeElement.value;
-    } else {
-      selectedYear = year as string;
-    }
+    this.location.replaceState(`heat-map/${year}`);
 
-    this.location.replaceState(`heat-map/${selectedYear}`);
+    //setTimeout(() => {
+//      document.getElementById(year)?.setAttribute('selected', 'true');
+    //}, 0);
 
-    setTimeout(() => {
-      document.getElementById(selectedYear)?.setAttribute('selected', 'true');
-    }, 0);
-
-    this.reportingProvider.getCoordinatesByYear(selectedYear).subscribe(
+    this.reportingProvider.getCoordinatesByYear(year).subscribe(
       (result: IAccidentCoordinates[]) => {
         this.coordinates = result;
         this.renderMap();
-      },
-      error => {
-        console.error(error);
       }
     );
   }
