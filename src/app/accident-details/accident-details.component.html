@@ -14,16 +14,13 @@
 
     <div *ngIf="accident">
 
-      <h5 *ngIf="accident.accidentTitle">{{ accident.accidentTitle }}</h5>
-
       <table class='table table-striped'>
         <tr>
           <td>
             <b>Location</b>
           </td>
           <td>
-            {{ accident.location
-        }}
+            {{ accident.location }}
         </td>
         <td><b>Accident Number</b></td>
         <td>
@@ -34,7 +31,7 @@
           <td><b>Date</b></td>
           <td>{{ accident.eventDate | date:'MM/dd/yyyy' }}</td>
           <td><b>Registration</b></td>
-          <td> {{ accident.registrationNumber }}</td>
+          <td> {{ aircraft.registrationNumber }}</td>
         </tr>
         <tr>
           <td><b>Aircraft</b></td>
@@ -77,12 +74,6 @@
           <td>{{ aircraft.operator }}</td>
           <td><b>Weather Condition</b></td>
           <td> {{ accident.weatherCondition }}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td><b>Report Status</b></td>
-          <td> {{ accident.reportStatus }}</td>
         </tr>
         <tr *ngIf="accident.latitude || accident.longitude">
           <td><b>Latitude</b></td>
@@ -131,7 +122,7 @@
       </table>
     </div>
 
-    <div *ngIf="!narrative">
+    <div *ngIf="!narrativeLoaded">
       <div class="loadingContainer">
         <app-svg-spinner></app-svg-spinner>
         <span class="loadingText">Loading the full report information ... please wait.</span>
@@ -142,17 +133,17 @@
 
       <div *ngIf="narrative.factualNarrative">
         <h4>Factual Narrative</h4>
-        <p>{{ narrative.factualNarrative }}</p>
+        <p class="narrative">{{ narrative.factualNarrative }}</p>
       </div>
 
       <div *ngIf="narrative.narrativeSummary">
         <h4>Narrative Summary</h4>
-        <p>{{ narrative.narrativeSummary }}</p>
+        <p class="narrative">{{ narrative.narrativeSummary }}</p>
       </div>
 
       <div *ngIf="narrative.probableCause">
         <h4>Probably Cause</h4>
-        <p>{{ narrative.probableCause }}</p>
+        <p class="narrative">{{ narrative.probableCause }}</p>
       </div>
 
     </div>

@@ -19,10 +19,13 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
   public aircraftRenamed: boolean;
   public eventId: string;
   public narrative: Narrative;
+  public narrativeLoaded: boolean;
   public accident: Accident;
   public aircraft: Aircraft;
   public loadingComplete: boolean;
   public aircraftImage: AircraftImage;
+
+  private mapScriptCreated: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,23 +62,16 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
   getAccident(eventId: string) {
 
-    if (this.accident) {
-      return;
-    }
-
     this.accidentProvider.getAccident(eventId).subscribe(
-      result => {
-        this.accident = result;
-        // TODO - Support multiple aircraft
+      accident => {
+
+        this.accident = accident;
         this.aircraft = this.accident.aircraft[0];
-      },
-      error => {
-        if (!error.ok) {
-          return;
-        }
-        else {
-          console.log(error);
-        }
+
+        this.getAircraftImage(this.eventId);
+
+        this.renderMap();
+
       }
     );
   }
@@ -83,22 +79,16 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
   getNarrative(eventId: string) {
 
     this.accidentProvider.getNarrative(eventId).subscribe(
-      result => {
-
-        this.narrative = result;
-
-        if (this.aircraft) {
-          this.getAircraftImage(this.eventId);
-          this.renderMap();
-        }
-
-      },
-      error => console.error(error)
+      narrative => {
+        this.narrative = narrative;
+        this.narrativeLoaded = true;
+      }
     );
 
   }
 
   renderMap() {
+
     this.createMapElement();
 
     console.log('renderMap called');
@@ -109,9 +99,9 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
   }
 
-  createMapElement() {
+    createMapElement() {
 
-    if (window.document.getElementById('google-map-script')) {
+    if (this.mapScriptCreated) {
       console.log('google-map-script exists in createMapElement - returning');
       return;
     }
@@ -126,14 +116,19 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
     window.document.body.appendChild(s);
 
+    this.mapScriptCreated = true;
+
     console.log('Map element created in createMapElement()');
   }
 
   getAircraftImage(eventId: string) {
 
+    console.log('getting image');
+
     // TODO - Handle multiple aircraft
     this.accidentProvider.getAircraftImage(eventId, this.aircraft.make, this.aircraft.model).subscribe(
       result => {
+        console.log('got image: ' + result.imageUrl);
         this.aircraftImage = result;
         this.aircraftRenamed = (result.renamedAircraft !== '');
       },

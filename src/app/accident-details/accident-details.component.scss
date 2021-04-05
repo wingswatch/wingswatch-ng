@@ -44,22 +44,6 @@
     padding-right: 20px;
 }
 
-.fatalHeader {
-    color: red;
-}
-
-.seriousHeader {
-    color: orangered;
-}
-
-.minorHeader {
-    color: greenyellow;
-}
-
-.uninjuredHeader {
-    color: lawngreen;
-}
-
 .table {
   font-size: 1.0rem;
 }
@@ -83,4 +67,8 @@ app-svg-spinner {
 .aircraftAlternateName {
     font-size: 65%;
     padding-left: 10px;
+}
+
+.narrative {
+  white-space: pre-line;
 }
