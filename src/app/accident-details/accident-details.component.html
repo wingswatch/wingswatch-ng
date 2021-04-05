@@ -55,23 +55,23 @@
             {{ accident.injurySeverity }}
           </td>
           <td><b>Airport</b></td>
-          <td> {{ accident.airportName }} {{ accident.airportCode }}</td>
+          <td> {{ (accident.airportName) ? accident.airportName + ' ' + accident.airportCode : 'n/a' }}</td>
         </tr>
         <tr>
           <td><b>Aircraft Category</b></td>
           <td>{{ aircraft.aircraftCategory }}</td>
-          <td></td>
-          <td></td>
+          <td>Event Type</td>
+          <td>{{ accident.eventType }}</td>
         </tr>
         <tr *ngIf="aircraft.schedule || aircraft.purposeOfFlight">
           <td><b>Schedule</b></td>
-          <td>{{ aircraft.schedule }}</td>
+          <td>{{ (aircraft.schedule) ? aircraft.schedule :  'n/a' }}</td>
           <td><b>Purpose of Flight</b></td>
           <td> {{ aircraft.purposeOfFlight }}</td>
         </tr>
         <tr *ngIf="aircraft.operator || accident.weatherCondition">
           <td><b>Operator</b></td>
-          <td>{{ aircraft.operator }}</td>
+          <td>{{ (aircraft.operator) ? aircraft.operator : 'n/a' }}</td>
           <td><b>Weather Condition</b></td>
           <td> {{ accident.weatherCondition }}</td>
         </tr>
