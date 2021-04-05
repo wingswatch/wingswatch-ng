@@ -2,7 +2,7 @@
   <div class="chart-container">
     <div class="select">
       <select (change)="getAccidents()" #selectYear class="" id="select_year">
-        <option *ngFor="let year of yearsList" value="{{year}}" id="{{year}}">{{(year == -1) ? "All Time" : year}}</option>
+        <option *ngFor="let year of yearsList" value="{{year}}" id="{{year}}">{{ year }}</option>
       </select>
     </div>
     <h2>10 Most Recorded Locations</h2>
