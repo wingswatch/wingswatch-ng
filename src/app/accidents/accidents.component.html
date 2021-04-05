@@ -12,6 +12,7 @@
         <tr>
           <th>Accident #</th>
           <th>Event Date</th>
+          <th>Event Type</th>
           <th>Aircraft Type</th>
           <th>Location</th>
           <th>Severity</th>
@@ -19,9 +20,10 @@
       </thead>
       <tbody>
         <tr class="highlight" *ngFor="let accident of accidents" [routerLink]="['/accident-details', accident.eventId]">
-          <td>{{ accident.accidentNumber }}</td>
+          <td>{{ accident.ntsbNumber }}</td>
           <td>{{ accident.eventDate | date:'MM/dd/yyyy' }}</td>
-          <td>{{ (accident.aircraft.length > 0) ? accident.aircraft[0].make : '' }} {{ (accident.aircraft.length > 0) ? accident.aircraft[0].model : '' }}</td>
+          <td>{{ accident.eventType }}</td>
+          <td>{{ accident.make }} {{ accident.model }}</td>
           <td>{{ accident.location }}
           <td [ngClass]="{
               'fatal-injury': (accident.injurySeverity.includes('Fatal (')),
