@@ -3,9 +3,6 @@ import { Aircraft } from './aircraft';
 export class Accident {
   eventId: string;
   eventDate: Date;
-  reportStatus: string;
-  accidentTitle: string;
-  registrationNumber: string;
   airportCode: string;
   weatherCondition: string;
   reportingCountryCode: string;
