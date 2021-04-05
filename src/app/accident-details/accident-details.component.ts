@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { AccidentDetails } from '../models/accident-details';
+import { ActivatedRoute } from '@angular/router';
+import { Narrative } from '../models/narrative';
 import { AccidentProvider } from '../providers/accident.provider';
 import { Accident } from '../models/accident';
 import { Location } from '@angular/common';
 import { AircraftImage } from '../models/aircraft-image';
 import { Aircraft } from '../models/aircraft';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-accident-details',
@@ -13,22 +14,21 @@ import { Aircraft } from '../models/aircraft';
   styleUrls: ['./accident-details.component.scss']
 })
 export class AccidentDetailsComponent implements OnInit, OnDestroy {
-
   @ViewChild('mapRef') mapElement: ElementRef;
 
   public aircraftRenamed: boolean;
   public eventId: string;
-  public accidentDetails: AccidentDetails;
+  public narrative: Narrative;
   public accident: Accident;
   public aircraft: Aircraft;
   public loadingComplete: boolean;
-  public reportIssued: boolean;
   public aircraftImage: AircraftImage;
 
   constructor(
     private route: ActivatedRoute,
     private accidentProvider: AccidentProvider,
-    private location: Location) { }
+    private location: Location,
+    private titleService: Title) { }
 
   ngOnInit() {
 
@@ -40,8 +40,10 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
       // Replace the browswer URL with the current page
       this.location.replaceState('/accident-details/' + this.eventId);
 
+      this.titleService.setTitle(`Accident Details - ${this.eventId}`);
+
       this.getAccident(this.eventId);
-      this.getFullReport(this.eventId);
+      this.getNarrative(this.eventId);
 
     });
 
@@ -61,8 +63,6 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
       return;
     }
 
-    console.log('getAccident');
-
     this.accidentProvider.getAccident(eventId).subscribe(
       result => {
         this.accident = result;
@@ -80,16 +80,14 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  getFullReport(eventId: string) {
+  getNarrative(eventId: string) {
 
-    this.accidentProvider.getFullReport(eventId).subscribe(
+    this.accidentProvider.getNarrative(eventId).subscribe(
       result => {
-        this.accidentDetails = result;
-        this.loadingComplete = (this.accident !== null) && (this.accidentDetails !== null);
-        this.reportIssued = this.loadingComplete &&
-        (this.accidentDetails !== null && this.accidentDetails.analysis !== 'No report currently issued.');
 
-        if (this.loadingComplete) {
+        this.narrative = result;
+
+        if (this.aircraft) {
           this.getAircraftImage(this.eventId);
           this.renderMap();
         }
@@ -134,7 +132,7 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
   getAircraftImage(eventId: string) {
 
     // TODO - Handle multiple aircraft
-    this.accidentProvider.getAircraftImage(eventId, this.accident.aircraft[0].make, this.accident.aircraft[0].model).subscribe(
+    this.accidentProvider.getAircraftImage(eventId, this.aircraft.make, this.aircraft.model).subscribe(
       result => {
         this.aircraftImage = result;
         this.aircraftRenamed = (result.renamedAircraft !== '');

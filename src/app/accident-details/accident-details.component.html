@@ -50,10 +50,11 @@
         <tr>
           <td><b>Injury Severity</b></td>
           <td [ngClass]="{
-                'fatalClass': (accident.injurySeverity.includes('Fatal(')),
-                'nonFatalClass': (accident.injurySeverity === 'Non-Fatal'),
-                'unavailableClass': (accident.injurySeverity === 'Unavailable')
-              }">
+            'fatal-injury': (accident.injurySeverity.includes('Fatal (')),
+            'non-fatal-injury': (accident.injurySeverity === 'Non-Fatal'),
+            'serious-injury': (accident.injurySeverity === 'Serious'),
+            'minor-injury': (accident.injurySeverity === 'Minor')
+            }">
             {{ accident.injurySeverity }}
           </td>
           <td><b>Airport</b></td>
@@ -130,38 +131,31 @@
       </table>
     </div>
 
-    <div *ngIf="!accidentDetails">
+    <div *ngIf="!narrative">
       <div class="loadingContainer">
         <app-svg-spinner></app-svg-spinner>
         <span class="loadingText">Loading the full report information ... please wait.</span>
       </div>
     </div>
-    <div *ngIf="accidentDetails && accidentDetails.analysis !== 'No report currently issued.'">
-      <div *ngIf="reportIssued && accidentDetails.analysis">
-        <h4>Analysis</h4>
-        <p [innerHTML]="accidentDetails.analysis">
-        </p>
-      </div>
-      <div *ngIf="loadingComplete && reportIssued && accident.reportingCountryCode === 'US'">
-        <h4>
-          NTSB Link
-        </h4>
-        <p>
-          <a href="https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID={{ eventId
-              }}&AKey=1&RType=HTML&IType=FA" target="_blank" rel="noopener">
-            National Transportation Safety Board Aviation Accident Report
-          </a>
-        </p>
+
+    <div *ngIf="narrative">
+
+      <div *ngIf="narrative.factualNarrative">
+        <h4>Factual Narrative</h4>
+        <p>{{ narrative.factualNarrative }}</p>
       </div>
 
-      <div *ngIf="loadingComplete && !reportIssued">
-        <h4>
-          NTSB Link
-        </h4>
-        <p>
-          No NTSB report has been issued at this time.
-        </p>
+      <div *ngIf="narrative.narrativeSummary">
+        <h4>Narrative Summary</h4>
+        <p>{{ narrative.narrativeSummary }}</p>
       </div>
+
+      <div *ngIf="narrative.probableCause">
+        <h4>Probably Cause</h4>
+        <p>{{ narrative.probableCause }}</p>
+      </div>
+
+    </div>
 
       <!--- GOOGLE MAP --->
       <div *ngIf="accident && accident.latitude && accident.longitude">
@@ -180,7 +174,7 @@
 
       <br />
 
-      <div *ngIf="aircraftImage">
+      <div *ngIf="aircraftImage && this.aircraft">
 
         <h2>
           <span class="mapHeader">Aircraft Image</span>
@@ -200,8 +194,7 @@
           <div class="card-body">
             <img *ngIf="aircraftImage && aircraftImage.imageUrl" src="{{ aircraftImage.imageUrl }}" class="aircraftImage">
             <div *ngIf="aircraftImage && !aircraftImage.imageUrl || !aircraftImage.imageUrl.includes('wikipedia')">
-              <p>No image found for {{ aircraft.make }} {{aircraft.model}}</p>
-              <p><a [routerLink]="['/contact']">Report this to us</a> and we'll get the image.</p>
+              <p>No image found for {{ aircraft.make }} {{aircraft.model}}.  We'll get one!</p>
             </div>
           </div>
         </div>
@@ -214,5 +207,4 @@
 
     </div>
   </div>
-</div>
 
