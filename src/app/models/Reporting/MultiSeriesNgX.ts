@@ -1,9 +1,9 @@
-export interface IMultiSeriesNgX {
-    name: string | number;
-    series: ISeriesNgX[];
+export interface MultiSeriesNgX {
+    name: string;
+    series: SeriesNgX[];
 }
 
-export interface ISeriesNgX {
+export interface SeriesNgX {
     name: string | number;
-    value: string | number;
+    value: number;
 }
