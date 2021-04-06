@@ -1,10 +1,9 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ReportingProvider } from '../providers/reporting.provider';
-import { MonthlyAccidents } from '../models/Reporting/MonthlyAccidents';
 import { InjuryTypesForPastMonths } from '../models/Reporting/InjuryTypeForPastMonths';
+import { SeriesNgX } from '../models/Reporting/MultiSeriesNgX';
 
 import * as shape from 'd3';
-import { SeriesNgX } from '../models/Reporting/MultiSeriesNgX';
 
 @Component({
   selector: 'app-chart-accidents-by-month',
