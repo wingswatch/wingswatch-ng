@@ -4,6 +4,7 @@ import { MonthlyAccidents } from '../models/Reporting/MonthlyAccidents';
 import { InjuryTypesForPastMonths } from '../models/Reporting/InjuryTypeForPastMonths';
 
 import * as shape from 'd3';
+import { SeriesNgX } from '../models/Reporting/MultiSeriesNgX';
 
 @Component({
   selector: 'app-chart-accidents-by-month',
@@ -18,28 +19,14 @@ export class ChartAccidentsByMonthComponent {
   heatmapView: [number, number] = [500, 600];
   cardView: [number, number] = [700, 400];
 
-  // options
-  gradient = true;
-  legend = true;
-  showLabels = true;
-  animations = true;
-  xAxis = true;
-  yAxis = true;
   curve = shape.curveCardinal;
   polarCurve = shape.curveCardinalClosed;
-  showYAxisLabel = true;
-  showXAxisLabel = true;
   xAxisLabel: 'Months';
   yAxisLabel: 'Number of Accidents';
-  timeline = true;
-  currentYear: any;
+  currentYear: number;
   yearsList: Array<number>;
   monthlyAccidentSeries: any[];
-  monthlyAccidentSeriesHeatmap: any[];
-  monthlyAccidentSeriesFormatted: any[];
-  monthlyAccidents: InjuryTypesForPastMonths[];
-  isFormatted: boolean;
-  showGridLines: boolean;
+  injuryTypes: InjuryTypesForPastMonths[];
   loading: boolean;
 
   cardColor: '#232837';
@@ -60,7 +47,7 @@ export class ChartAccidentsByMonthComponent {
     this.currentYear = d.getFullYear();
     this.yearsList = [];
 
-    for (let i = this.currentYear - 1; i >= 1985; i--) {
+    for (let i = this.currentYear - 1; i >= 2008; i--) {
       this.yearsList.push(i);
     }
 
@@ -70,7 +57,8 @@ export class ChartAccidentsByMonthComponent {
 
     if (target) {
 
-      const year: number = (target as HTMLInputElement).value as unknown as number;
+      const el = target as HTMLInputElement;
+      const year = Number(el.value);
 
       this.getMonthlyAccidents(year);
 
@@ -102,32 +90,28 @@ export class ChartAccidentsByMonthComponent {
   getInjuryTypesAllMonths(year: number) {
 
     this.reportingProvider.getInjuryTypesAllMonths(year).subscribe(
-      res => {
+      injuryTypes => {
 
-        this.monthlyAccidents = res;
+        this.injuryTypes = injuryTypes;
 
-        let fatalArr = [];
-        let seriousArr = [];
-        let minorArr = [];
-
-        fatalArr = this.monthlyAccidents.map((el) => (
+        const fatalArr: SeriesNgX[] = this.injuryTypes.map(i => (
           {
-            name: this.convertToMonth(el.month),
-            value: el.injuries.fatal
+            name: this.convertToMonth(i.month),
+            value: i.injuries.fatal
           }
         ));
 
-        seriousArr = this.monthlyAccidents.map((el) => (
+        const seriousArr: SeriesNgX[] = this.injuryTypes.map(i => (
           {
-            name: this.convertToMonth(el.month),
-            value: el.injuries.serious
+            name: this.convertToMonth(i.month),
+            value: i.injuries.serious
           }
         ));
 
-        minorArr = this.monthlyAccidents.map((el) => (
+        const minorArr: SeriesNgX[] = this.injuryTypes.map(i => (
           {
-            name: this.convertToMonth(el.month),
-            value: el.injuries.minor
+            name: this.convertToMonth(i.month),
+            value: i.injuries.minor
           }
         ));
 
@@ -157,7 +141,7 @@ export class ChartAccidentsByMonthComponent {
     this.loading = true;
 
     this.reportingProvider.getAccidentsByMonth(year).subscribe(
-      (accidents: MonthlyAccidents[]) => {
+      accidents => {
 
         this.monthlyAccidentSeries = accidents.map((el) => (
            {
@@ -166,13 +150,6 @@ export class ChartAccidentsByMonthComponent {
             }
           )
         ).sort((a, b) => a.name - b.name);
-
-        this.monthlyAccidentSeriesFormatted = this.monthlyAccidentSeries.map((el) => (
-         {
-            name: this.convertToMonth(el.name),
-            value: el.value
-         }
-        ));
 
         this.getInjuryTypesAllMonths(year);
 

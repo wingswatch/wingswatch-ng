@@ -7,50 +7,48 @@
   <div *ngIf="loading" class="loader text-center">
       <app-svg-spinner></app-svg-spinner>
   </div>
-  <div *ngIf="monthlyAccidents" class="chart-container" >
+  <div *ngIf="monthlyAccidentSeries" class="chart-container" >
       <h2>Accidents By Month</h2>
         <ngx-charts-area-chart
             [view]="view"
             [scheme]="colorScheme"
-            [legend]="legend"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxis]="xAxis"
-            [yAxis]="yAxis"
+            [legend]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxis]="true"
+            [yAxis]="true"
             [curve]="curve"
-            [gradient]="gradient"
-            [showGridLines]="showGridLines"
+            [showGridLines]="false"
             [xAxisLabel]="xAxisLabel"
             [yAxisLabel]="yAxisLabel"
-            [timeline]="timeline"
+            [timeline]="true"
             [results]="monthlyAccidentSeries">
       </ngx-charts-area-chart>
 
       <ngx-charts-polar-chart
         [view]="view"
         [scheme]="colorScheme"
-        [legend]="legend"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
+        [legend]="true"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
         [showGridLines]="true"
-        [xAxis]="xAxis"
-        [yAxis]="yAxis"
+        [xAxis]="true"
+        [yAxis]="true"
         [curve]="polarCurve"
         [xAxisLabel]="xAxisLabel"
         [yAxisLabel]="yAxisLabel"
         [results]="monthlyAccidentSeries">
     </ngx-charts-polar-chart>
   </div>
-  <div *ngIf="monthlyAccidents" class="chart-container" >
+  <div *ngIf="injuryTypes" class="chart-container" >
       <ngx-charts-heat-map
           [view]="heatmapView"
           [scheme]="colorSchemeHeatmap"
-          [legend]="legend"
-          [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel"
-          [xAxis]="xAxis"
-          [yAxis]="yAxis"
-          [gradient]="gradient"
+          [legend]="true"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          [xAxis]="true"
+          [yAxis]="true"
           xAxisLabel="Severity"
           yAxisLabel="Month"
           [results]="monthlyAccidentSeries">
