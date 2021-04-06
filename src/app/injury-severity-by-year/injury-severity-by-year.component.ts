@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ReportingProvider } from '../providers/reporting.provider';
 import { InjurySeverityByYear } from '../models/Reporting/InjurySeverityByYear';
-import { IMultiSeriesNgX, ISeriesNgX } from '../models/Reporting/MultiSeriesNgX';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MultiSeriesNgX, SeriesNgX } from '../models/Reporting/MultiSeriesNgX';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-injury-severity-by-year',
@@ -14,11 +14,11 @@ export class InjurySeverityByYearComponent implements OnInit {
 
   currentYear: number;
   yearsList: Array<number>;
-  multi: IMultiSeriesNgX[];
+  multi: MultiSeriesNgX[];
   view: [number, number] = [900, 300];
   injuryTypes: InjurySeverityByYear;
-  single: ISeriesNgX[];
-  singleWithUninjured: ISeriesNgX[];
+  single: SeriesNgX[];
+  singleWithUninjured: SeriesNgX[];
   showWithUninjured: boolean;
 
   // options

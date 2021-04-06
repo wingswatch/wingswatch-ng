@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { AccidentLocationCount } from '../models/Reporting/AccidentLocationCount';
-import { ISeriesNgX } from '../models/Reporting/MultiSeriesNgX';
+import { SeriesNgX } from '../models/Reporting/MultiSeriesNgX';
 import { ReportingProvider } from '../providers/reporting.provider';
 
 @Component({
@@ -22,7 +22,7 @@ export class AccidentsByLocationComponent {
   showLabels = true;
   isDoughnut: boolean;
   legendPosition: 'right';
-  chartData: ISeriesNgX[];
+  chartData: SeriesNgX[];
   accidentLocationCounts: AccidentLocationCount[] = [];
   toggled = false;
   chartType: string = this.toggled ? 'Pie Chart' : 'Grid';
