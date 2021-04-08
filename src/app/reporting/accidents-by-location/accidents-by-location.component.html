@@ -1,27 +1,24 @@
-<div class="d3-pie-charts container">
-  <div class="chart-container">
+<div class="chart-container">
+  <h2>{{ eventLocationCounts.length }} Most Recorded Locations</h2>
 
-    <h2>{{ eventLocationCounts.length }} Most Recorded Locations</h2>
+  <div *ngIf="!eventLocationCounts">
+    <app-svg-spinner></app-svg-spinner>
+  </div>
 
-    <div *ngIf="!eventLocationCounts">
-      <app-svg-spinner></app-svg-spinner>
-    </div>
-
-    <div class="table-container">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Location</th>
-            <th>Accident Count</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="highlight" *ngFor="let eventCounts of eventLocationCounts">
-            <td>{{ eventCounts.location }}</td>
-            <td>{{ eventCounts.eventCount }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="table-container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Location</th>
+          <th>Accident Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight" *ngFor="let eventCounts of eventLocationCounts">
+          <td>{{ eventCounts.location }}</td>
+          <td>{{ eventCounts.eventCount }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
