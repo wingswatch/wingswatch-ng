@@ -1,9 +1,24 @@
 <div class="container">
   <div class="number-cards">
+
     <h3>Top Events By Type - {{ year }}</h3>
+
     <div *ngIf="!eventsByType" class="loader text-center">
       <app-svg-spinner></app-svg-spinner>
     </div>
+
+    <div class="select">
+      <select
+        #selectYear
+        (change)="onChangeYear($event.target)"
+      >
+        <option *ngFor="let year of yearsList" value="{{ year }}" id="{{ year }}">
+          {{ year }}
+        </option>
+  
+      </select>
+    </div>
+
     <div class="chart">
       <ngx-charts-bar-horizontal
       [view]="view"

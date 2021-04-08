@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportingService } from '../../services/reporting.service';
-import { EventByType } from '../../models/Reporting/EventByType';
 import { SeriesNgX } from 'src/app/models/Reporting/MultiSeriesNgX';
 
 @Component({
@@ -12,7 +11,8 @@ export class AccidentsByTypeComponent implements OnInit {
 
   view: [number, number] = [900, 1500];
   eventsByType: SeriesNgX[];
-  year = new Date().getFullYear();
+  year = new Date().getFullYear() - 1;
+  yearsList: Array<number> = [];
 
   yAxisLabel = 'Make/Model';
   xAxisLabel = 'Event Count';
@@ -25,8 +25,17 @@ export class AccidentsByTypeComponent implements OnInit {
 
   ngOnInit() {
 
-    // TODO - We need a date selection on this page
-    this.reportingService.getAccidentByType(this.year).subscribe(
+    for (let i = this.year; i >= 2008; i--) {
+      this.yearsList.push(i);
+    };
+
+    this.getEvents(this.year);
+
+  }
+
+  getEvents(year: number): void {
+
+    this.reportingService.getAccidentByType(year).subscribe(
       accidents => {
         console.log(accidents);
         this.eventsByType = accidents.map(el => (
@@ -35,8 +44,23 @@ export class AccidentsByTypeComponent implements OnInit {
             value: el.eventCount
           }
         ));
+
+        console.log(this.eventsByType);
       }
     );
+
+  }
+
+  onChangeYear(target: EventTarget | null): void {
+
+    if (target) {
+
+      const el = target as HTMLInputElement;
+      const year = Number(el.value);
+
+      this.getEvents(year);
+
+    }
 
   }
 
