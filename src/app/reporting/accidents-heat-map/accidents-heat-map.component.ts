@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
-import { ReportingService } from '../services/reporting.service';
-import { EventCoordinates } from '../models/event-coordinates';
+import { ReportingService } from '../../services/reporting.service';
+import { EventCoordinates } from '../../models/event-coordinates';
 
 declare global {
   interface Window {

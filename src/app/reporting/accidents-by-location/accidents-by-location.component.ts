@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { EventLocationCount } from '../models/Reporting/EventLocationCount';
-import { SeriesNgX } from '../models/Reporting/MultiSeriesNgX';
-import { ReportingService } from '../services/reporting.service';
+import { EventLocationCount } from '../../models/Reporting/EventLocationCount';
+import { SeriesNgX } from '../../models/Reporting/MultiSeriesNgX';
+import { ReportingService } from '../../services/reporting.service';
 
 @Component({
   selector: 'app-accidents-by-location',

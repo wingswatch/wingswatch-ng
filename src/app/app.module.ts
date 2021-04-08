@@ -10,14 +10,14 @@ import { AccidentsComponent } from './accidents/accidents.component';
 import { AccidentDetailsComponent } from './accident-details/accident-details.component';
 import { SvgSpinnerComponent } from './svg-spinner/svg-spinner.component';
 import { USMapComponent } from './usmap/usmap.component';
-import { AccidentsHeatMapComponent } from './accidents-heat-map/accidents-heat-map.component';
-import { ChartAccidentsByMonthComponent } from './chart-accidents-by-month/chart-accidents-by-month.component';
-import { AccidentsByTypeComponent } from './acidents-by-type/accidents-by-type.component';
-import { AccidentsByLocationComponent } from './accidents-by-location/accidents-by-location.component';
+import { AccidentsHeatMapComponent } from './reporting/accidents-heat-map/accidents-heat-map.component';
+import { ChartAccidentsByMonthComponent } from './reporting/chart-accidents-by-month/chart-accidents-by-month.component';
+import { AccidentsByTypeComponent } from './reporting/acidents-by-type/accidents-by-type.component';
+import { AccidentsByLocationComponent } from './reporting/accidents-by-location/accidents-by-location.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { InjurySeverityByYearComponent } from './injury-severity-by-year/injury-severity-by-year.component';
+import { InjurySeverityByYearComponent } from './reporting/injury-severity-by-year/injury-severity-by-year.component';
 
 @NgModule({
   declarations: [

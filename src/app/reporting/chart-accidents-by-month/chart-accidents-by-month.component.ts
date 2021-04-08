@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { ReportingService } from '../services/reporting.service';
-import { InjuryTypesForPastMonths } from '../models/Reporting/InjuryTypeForPastMonths';
-import { SeriesNgX } from '../models/Reporting/MultiSeriesNgX';
+import { ReportingService } from '../../services/reporting.service';
+import { InjuryTypesForPastMonths } from '../../models/Reporting/InjuryTypeForPastMonths';
+import { SeriesNgX } from '../../models/Reporting/MultiSeriesNgX';
 
 import * as shape from 'd3';
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ReportingService } from '../services/reporting.service';
-import { InjurySeverityByYear } from '../models/Reporting/InjurySeverityByYear';
-import { MultiSeriesNgX, SeriesNgX } from '../models/Reporting/MultiSeriesNgX';
+import { ReportingService } from '../../services/reporting.service';
+import { InjurySeverityByYear } from '../../models/Reporting/InjurySeverityByYear';
+import { MultiSeriesNgX, SeriesNgX } from '../../models/Reporting/MultiSeriesNgX';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

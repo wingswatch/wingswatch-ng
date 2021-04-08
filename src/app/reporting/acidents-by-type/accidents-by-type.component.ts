@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ReportingService } from '../services/reporting.service';
-import { EventByType } from '../models/Reporting/EventByType';
+import { ReportingService } from '../../services/reporting.service';
+import { EventByType } from '../../models/Reporting/EventByType';
 
 @Component({
   selector: 'app-accidents-by-type',
