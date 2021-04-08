@@ -2,6 +2,7 @@ import { Aircraft } from './aircraft';
 
 export class NtsbEvent {
   eventId: string;
+  ntsbNumber: string;
   eventDate: Date;
   airportCode: string;
   weatherCondition: string;
@@ -10,7 +11,6 @@ export class NtsbEvent {
   airportName: string;
   injurySeverity: string;
   location: string;
-  accidentNumber: string;
   latitude?: number;
   longitude?: number;
   totalFatalInjuries?: number;
