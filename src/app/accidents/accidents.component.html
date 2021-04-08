@@ -1,16 +1,16 @@
 <div class="container">
-    <h1 id="tableLabel">Accident Summaries</h1>
+    <h1 id="tableLabel">Event Summaries</h1>
 
-    <p>The following is a list of the latest aviation accidents and incidents as reported by the NTSB.</p>
+    <p>The following is a list of the latest aviation incidents and accidents as reported by the NTSB.</p>
 
-    <div *ngIf="!accidents">
+    <div *ngIf="!events">
       <app-svg-spinner></app-svg-spinner>
     </div>
 
-    <table *ngIf="accidents" class="table table-striped">
+    <table *ngIf="events" class="table table-striped">
       <thead>
         <tr>
-          <th>Accident #</th>
+          <th>Event #</th>
           <th>Event Date</th>
           <th>Event Type</th>
           <th>Aircraft Type</th>
@@ -19,19 +19,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="highlight" *ngFor="let accident of accidents" [routerLink]="['/event-details', accident.eventId]">
-          <td>{{ accident.ntsbNumber }}</td>
-          <td>{{ accident.eventDate | date:'MM/dd/yyyy' }}</td>
-          <td>{{ accident.eventType }}</td>
-          <td>{{ accident.make }} {{ accident.model }}</td>
-          <td>{{ accident.location }}
+        <tr class="highlight" *ngFor="let event of events" [routerLink]="['/event-details', event.eventId]">
+          <td>{{ event.ntsbNumber }}</td>
+          <td>{{ event.eventDate | date:'MM/dd/yyyy' }}</td>
+          <td>{{ event.eventType }}</td>
+          <td>{{ event.make }} {{ event.model }}</td>
+          <td>{{ event.location }}
           <td [ngClass]="{
-              'fatal-injury': (accident.injurySeverity.includes('Fatal (')),
-              'non-fatal-injury': (accident.injurySeverity === 'Non-Fatal'),
-              'serious-injury': (accident.injurySeverity === 'Serious'),
-              'minor-injury': (accident.injurySeverity === 'Minor')
+              'fatal-injury': (event.injurySeverity.includes('Fatal (')),
+              'non-fatal-injury': (event.injurySeverity === 'Non-Fatal'),
+              'serious-injury': (event.injurySeverity === 'Serious'),
+              'minor-injury': (event.injurySeverity === 'Minor')
             }">
-            {{ accident.injurySeverity }}
+            {{ event.injurySeverity }}
           </td>
         </tr>
       </tbody>

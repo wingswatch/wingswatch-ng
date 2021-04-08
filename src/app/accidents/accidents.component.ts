@@ -9,7 +9,7 @@ import { EventService } from '../services/event.service';
 })
 export class AccidentsComponent implements OnInit {
 
-  accidents: EventSearchResult[];
+  events: EventSearchResult[];
 
   constructor(private service: EventService) { }
 
@@ -28,7 +28,7 @@ export class AccidentsComponent implements OnInit {
 
   getEvents(): void {
     this.service.getEvents().subscribe(
-      events => this.accidents = events
+      events => this.events = events
     );
 
   }
@@ -38,7 +38,7 @@ export class AccidentsComponent implements OnInit {
     if (!searchTerms) { return; }
 
     this.service.search(searchTerms).subscribe(
-      result => this.accidents = result
+      result => this.events = result
     );
   }
 

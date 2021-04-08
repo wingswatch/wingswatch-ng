@@ -1,7 +1,7 @@
 <div class="container">
   <div class="page-wrap">
     <h3>
-      Event Details - {{ eventId }}
+      Event Details - {{ event.ntsbNumber }}
     </h3>
 
     <p>
@@ -22,9 +22,9 @@
           <td>
             {{ event.location }}
         </td>
-        <td><b>event Number</b></td>
+        <td><b>ID #</b></td>
         <td>
-          {{ event.accidentNumber }}
+          {{ eventId }}
         </td>
         </tr>
         <tr>
@@ -153,7 +153,7 @@
         <div class="map-container">
           <div class="map">
             <h2>
-              <span class="mapHeader">event Location</span><small class="text-muted">{{ event.latitude}} / {{event.longitude}}</small>
+              <span class="mapHeader">Event Location</span><small class="text-muted">{{ event.latitude}} / {{event.longitude}}</small>
             </h2><div class="card mt-3">
               <div class="card-body">
                 <div #mapRef class="mapStyle"></div>
