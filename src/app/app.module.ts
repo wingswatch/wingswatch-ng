@@ -45,11 +45,11 @@ import { InjurySeverityByYearComponent } from './reporting/injury-severity-by-ye
       { path: 'events', component: AccidentsComponent },
       { path: 'event-details/:id', component: AccidentDetailsComponent },
       { path: 'us-map/:id', component: USMapComponent },
-      { path: 'heat-map/:id', component: AccidentsHeatMapComponent },
-      { path: 'chart-events-by-month', component: ChartAccidentsByMonthComponent },
-      { path: 'events-by-type', component: AccidentsByTypeComponent },
-      { path: 'events-by-location', component: AccidentsByLocationComponent },
-      { path: 'injury-severity-by-year', component: InjurySeverityByYearComponent }
+      { path: 'reporting/heat-map/:id', component: AccidentsHeatMapComponent },
+      { path: 'reporting/chart-events-by-month', component: ChartAccidentsByMonthComponent },
+      { path: 'reporting/events-by-type', component: AccidentsByTypeComponent },
+      { path: 'reporting/events-by-location', component: AccidentsByLocationComponent },
+      { path: 'reporting/injury-severity-by-year', component: InjurySeverityByYearComponent }
     ])
   ],
   providers: [],
