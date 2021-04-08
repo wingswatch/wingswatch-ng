@@ -52,9 +52,9 @@ export class AccidentsByTypeComponent implements OnInit {
     if (target) {
 
       const el = target as HTMLInputElement;
-      const year = Number(el.value);
+      this.year = Number(el.value);
 
-      this.getEvents(year);
+      this.getEvents(this.year);
 
     }
 
