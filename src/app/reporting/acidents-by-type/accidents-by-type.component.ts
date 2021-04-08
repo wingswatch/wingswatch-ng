@@ -17,10 +17,6 @@ export class AccidentsByTypeComponent implements OnInit {
   yAxisLabel = 'Make/Model';
   xAxisLabel = 'Event Count';
 
-  colorScheme = {
-    domain: ['#7887AB', '#4F628E', '#2E4272', '#162955', '#061539']
-  };
-
   constructor(private reportingService: ReportingService) { }
 
   ngOnInit() {
