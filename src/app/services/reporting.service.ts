@@ -29,8 +29,8 @@ export class ReportingService {
     return this.http.get<EventByType[]>(`${environment.apiBaseUrl}Reporting/EventsByType/${year}`);
   }
 
-  getAccidentByLocation(year: number): Observable<EventLocationCount[]> {
-    return this.http.get<EventLocationCount[]>(`${environment.apiBaseUrl}Reporting/AccidentsByLocation/${year}`);
+  getAccidentByLocation(): Observable<EventLocationCount[]> {
+    return this.http.get<EventLocationCount[]>(`${environment.apiBaseUrl}Reporting/EventsByLocation`);
   }
 
   getInjurySeverityByYear(year: number): Observable<InjurySeverityByYear> {
