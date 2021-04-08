@@ -16,15 +16,13 @@ export class AccidentsByTypeComponent implements OnInit {
     domain: ['#7887AB', '#4F628E', '#2E4272', '#162955', '#061539']
   };
 
-  cardColor = '#232837';
-
   constructor(private reportingService: ReportingService) { }
 
   ngOnInit() {
 
     // TODO - We need a date selection on this page
     this.reportingService.getAccidentByType(2020).subscribe(
-      (accidents: EventByType[]) => {
+      accidents => {
         this.accidentsByType = accidents.map(el => (
           {
             name: el.makeModel,
