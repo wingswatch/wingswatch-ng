@@ -33,15 +33,12 @@ export class AccidentsByTypeComponent implements OnInit {
 
     this.reportingService.getAccidentByType(year).subscribe(
       accidents => {
-        console.log(accidents);
         this.eventsByType = accidents.map(el => (
           {
             name: el.makeModel,
             value: el.eventCount
           }
         ));
-
-        console.log(this.eventsByType);
       }
     );
 
