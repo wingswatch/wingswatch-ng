@@ -1,32 +1,45 @@
 <div class="d3-pie-charts container">
   <div class="chart-container">
     <div class="select">
-      <select (change)="getAccidents()" #selectYear class="" id="select_year">
-        <option *ngFor="let year of yearsList" value="{{year}}" id="{{year}}">{{ year }}</option>
+      <select (change)="getEvents()" #selectYear class="" id="select_year">
+        <option
+          *ngFor="let year of yearsList"
+          value="{{ year }}"
+          id="{{ year }}"
+        >
+          {{ year }}
+        </option>
       </select>
     </div>
     <h2>10 Most Recorded Locations</h2>
-    <div *ngIf="!accidentLocationCounts" class="loader text-center">
+    <div *ngIf="!eventLocationCounts" class="loader text-center">
       <app-svg-spinner></app-svg-spinner>
     </div>
-    <ngx-charts-pie-chart *ngIf="!toggled && chartData"
-                          [view]="view"
-                          [scheme]="colorScheme"
-                          [results]="chartData"
-                          [gradient]="gradient"
-                          [legend]="showLegend"
-                          [labels]="showLabels"
-                          [legendPosition]="legendPosition"
-                          [doughnut]="isDoughnut">
+    <ngx-charts-pie-chart
+      *ngIf="!toggled && chartData"
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="chartData"
+      [gradient]="gradient"
+      [legend]="showLegend"
+      [labels]="showLabels"
+      [legendPosition]="legendPosition"
+      [doughnut]="isDoughnut"
+    >
     </ngx-charts-pie-chart>
 
-    <ngx-charts-pie-grid *ngIf="toggled && accidentLocationCounts"
-                         [view]="view"
-                         [scheme]="colorScheme"
-                         [results]="accidentLocationCounts">
+    <ngx-charts-pie-grid
+      *ngIf="toggled && eventLocationCounts"
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="eventLocationCounts"
+    >
     </ngx-charts-pie-grid>
+
     <div class="input-container">
-      <button class="btn btn-dark" (click)="toggleChart()" type="button">Toggle Chart</button>
+      <button class="btn btn-dark" (click)="toggleChart()" type="button">
+        Toggle Chart
+      </button>
     </div>
   </div>
 
@@ -39,9 +52,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="highlight" *ngFor="let accident of accidentLocationCounts">
+        <tr class="highlight" *ngFor="let accident of eventLocationCounts">
           <td>{{ accident.location }}</td>
-          <td>{{ accident.accidentCount }}</td>
+          <td>{{ accident.eventCount }}</td>
         </tr>
       </tbody>
     </table>

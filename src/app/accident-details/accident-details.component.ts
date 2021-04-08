@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Narrative } from '../models/narrative';
-import { Accident } from '../models/accident';
+import { NtsbEvent } from '../models/ntsb-event';
 import { Location } from '@angular/common';
 import { AircraftImage } from '../models/aircraft-image';
 import { Aircraft } from '../models/aircraft';
 import { Title } from '@angular/platform-browser';
-import { AccidentService } from '../services/accident.service';
+import { EventService } from '../services/event.service';
 
 @Component({
   selector: 'app-accident-details',
@@ -20,7 +20,7 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
   public eventId: string;
   public narrative: Narrative;
   public narrativeLoaded: boolean;
-  public accident: Accident;
+  public event: NtsbEvent;
   public aircraft: Aircraft;
   public loadingComplete: boolean;
   public aircraftImage: AircraftImage;
@@ -29,7 +29,7 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private accidentService: AccidentService,
+    private eventService: EventService,
     private location: Location,
     private titleService: Title) { }
 
@@ -41,11 +41,11 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
       this.eventId = params.id;
 
       // Replace the browswer URL with the current page
-      this.location.replaceState('/accident-details/' + this.eventId);
+      //this.location.replaceState('/detail/' + this.eventId);
 
       this.titleService.setTitle(`Accident Details - ${this.eventId}`);
 
-      this.getAccident(this.eventId);
+      this.getEvent(this.eventId);
       this.getNarrative(this.eventId);
 
     });
@@ -60,15 +60,15 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
   }
 
-  getAccident(eventId: string) {
+  getEvent(eventId: string) {
 
-    this.accidentService.getAccidentDetail(eventId).subscribe(
-      accident => {
+    this.eventService.getEventDetail(eventId).subscribe(
+      event => {
 
-        this.accident = accident;
-        this.aircraft = this.accident.aircraft[0];
+        this.event = event;
+        this.aircraft = this.event.aircraft[0];
 
-        this.getAircraftImage(this.eventId);
+        this.getAircraftImage();
 
         this.renderMap();
 
@@ -78,7 +78,7 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
   getNarrative(eventId: string) {
 
-    this.accidentService.getNarrative(eventId).subscribe(
+    this.eventService.getNarrative(eventId).subscribe(
       narrative => {
         this.narrative = narrative;
         this.narrativeLoaded = true;
@@ -121,16 +121,15 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
     console.log('Map element created in createMapElement()');
   }
 
-  getAircraftImage(eventId: string) {
+  getAircraftImage() {
 
     console.log('getting image');
 
     // TODO - Handle multiple aircraft
-    this.accidentService.getAircraftImage(eventId, this.aircraft.make, this.aircraft.model).subscribe(
-      result => {
-        console.log('got image: ' + result.imageUrl);
-        this.aircraftImage = result;
-        this.aircraftRenamed = (result.renamedAircraft !== '');
+    this.eventService.getAircraftImage(this.aircraft.make, this.aircraft.model).subscribe(
+      aci => {
+          this.aircraftImage = aci;
+          this.aircraftRenamed = (aci.renamedAircraft !== '');
       },
       error => {
         console.error('Could not get aircraft image for eventID' + this.eventId);
@@ -150,14 +149,14 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
     }
 
     const map = new window.google.maps.Map(this.mapElement.nativeElement, {
-      center: { lat: this.accident.latitude, lng: this.accident.longitude },
+      center: { lat: this.event.latitude, lng: this.event.longitude },
       zoom: 15
     });
 
     map.setMapTypeId(window.google.maps.MapTypeId.SATELLITE);
 
     new window.google.maps.Marker({
-      position: { lat: this.accident.latitude, lng: this.accident.longitude },
+      position: { lat: this.event.latitude, lng: this.event.longitude },
       map,
       draggable: true,
       animation: window.google.maps.Animation.DROP

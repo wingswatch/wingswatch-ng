@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ReportingProvider } from '../providers/reporting.provider';
+import { ReportingService } from '../services/reporting.service';
 import { InjurySeverityByYear } from '../models/Reporting/InjurySeverityByYear';
 import { MultiSeriesNgX, SeriesNgX } from '../models/Reporting/MultiSeriesNgX';
 import { ActivatedRoute } from '@angular/router';
@@ -36,7 +36,7 @@ export class InjurySeverityByYearComponent implements OnInit {
     domain: ['#A10A28','#C7B42C', '#AAAAAA', '#aae3f5', '#3e5560']
   };
 
-  constructor(private reportingProvider: ReportingProvider, private activatedRoute: ActivatedRoute) {
+  constructor(private reportingService: ReportingService, private activatedRoute: ActivatedRoute) {
 
     const d = new Date();
 
@@ -58,11 +58,11 @@ export class InjurySeverityByYearComponent implements OnInit {
     });
   }
 
-  toggleUninjured() {
+  toggleUninjured(): void {
     this.showWithUninjured = !this.showWithUninjured;
   }
 
-  getInjuryTypeByYear(year?: number) {
+  getInjuryTypeByYear(year?: number): void {
 
     let selectedYear: number;
 
@@ -72,7 +72,7 @@ export class InjurySeverityByYearComponent implements OnInit {
       selectedYear = year as number;
     }
 
-    this.reportingProvider.getInjurySeverityByYear(selectedYear).subscribe(
+    this.reportingService.getInjurySeverityByYear(selectedYear).subscribe(
       res => {
         this.injuryTypes = res;
 

@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { AccidentLocationCount } from '../models/Reporting/AccidentLocationCount';
+import { EventLocationCount } from '../models/Reporting/EventLocationCount';
 import { SeriesNgX } from '../models/Reporting/MultiSeriesNgX';
-import { ReportingProvider } from '../providers/reporting.provider';
+import { ReportingService } from '../services/reporting.service';
 
 @Component({
   selector: 'app-accidents-by-location',
@@ -23,7 +23,7 @@ export class AccidentsByLocationComponent {
   isDoughnut: boolean;
   legendPosition: 'right';
   chartData: SeriesNgX[];
-  accidentLocationCounts: AccidentLocationCount[] = [];
+  eventLocationCounts: EventLocationCount[] = [];
   toggled = false;
   chartType: string = this.toggled ? 'Pie Chart' : 'Grid';
 
@@ -31,7 +31,7 @@ export class AccidentsByLocationComponent {
     domain: ['#7887AB', '#4F628E', '#2E4272', '#162955', '#061539']
   };
 
-  constructor(private reportingProvider: ReportingProvider) {
+  constructor(private reportingService: ReportingService) {
 
     const d = new Date();
     this.currentYear = d.getFullYear();
@@ -41,27 +41,24 @@ export class AccidentsByLocationComponent {
       this.yearsList.push(i);
     }
 
-    //this.getAccidents('-1');
-
   }
 
   toggleChart() {
     this.toggled = !this.toggled;
   }
 
-  getAccidents() {
+  getEvents() {
 
     const year = this.selectYear.nativeElement.value as number;
 
-    this.reportingProvider.getAccidentByLocation(year).subscribe(
+    this.reportingService.getAccidentByLocation(year).subscribe(
       accidents => {
-        this.accidentLocationCounts = accidents;
+        this.eventLocationCounts = accidents;
         this.chartData =
-        accidents.map((el) => (
-          { name: el.location, value: el.accidentCount }
+          accidents.map((el) => (
+            { name: el.location, value: el.eventCount }
         ));
-      },
-      error => console.log(error)
+      }
     );
 
   }

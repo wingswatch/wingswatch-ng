@@ -16,11 +16,11 @@ p {
     margin-right: 25px;
 }
 
-.accidentsLink {
+.eventsLink {
     font-size: 24px;
 }
 
-button.accidents {
+button.events {
     background-color:transparent;
     font-size: 20px;
     padding: 15px;
@@ -30,12 +30,12 @@ button.accidents {
     text-transform: uppercase;
 }
 
-button.accidents:hover {
+button.events:hover {
    color: #fff;
    background-color: rgba(37,170,225, 0.1);
 }
 
-.accidents .logo {
+.events .logo {
     height: 60px;
 }
 

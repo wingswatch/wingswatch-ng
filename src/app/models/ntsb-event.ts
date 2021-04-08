@@ -1,6 +1,6 @@
 import { Aircraft } from './aircraft';
 
-export class Accident {
+export class NtsbEvent {
   eventId: string;
   eventDate: Date;
   airportCode: string;

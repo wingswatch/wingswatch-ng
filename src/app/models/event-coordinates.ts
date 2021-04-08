@@ -1,4 +1,4 @@
-export interface IAccidentCoordinates {
+export interface EventCoordinates {
     latitude: number;
     longitude: number;
     eventID: string;

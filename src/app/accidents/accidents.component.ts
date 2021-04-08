@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventSearchResult } from '../models/event-search-result';
-import { AccidentService } from '../services/accident.service';
+import { EventService } from '../services/event.service';
 
 @Component({
   selector: 'app-accidents',
@@ -11,36 +11,34 @@ export class AccidentsComponent implements OnInit {
 
   accidents: EventSearchResult[];
 
-  constructor(private service: AccidentService) { }
+  constructor(private service: EventService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
     const searchVal = (document.getElementById('nav_searchTerm') as HTMLInputElement).value;
 
     if (searchVal) {
-      this.filterAccidents(searchVal);
+      this.filterEvents(searchVal);
     }
     else {
-      this.getAccidents();
+      this.getEvents();
     }
 
   }
 
-  getAccidents() {
-    this.service.getAccidents().subscribe(
-      result => this.accidents = result,
-      error => console.error(error)
+  getEvents(): void {
+    this.service.getEvents().subscribe(
+      events => this.accidents = events
     );
 
   }
 
-  filterAccidents(searchTerms: string) {
+  filterEvents(searchTerms: string): void {
 
     if (!searchTerms) { return; }
 
     this.service.search(searchTerms).subscribe(
-      result => this.accidents = result,
-      error => console.error(error)
+      result => this.accidents = result
     );
   }
 

@@ -19,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="highlight" *ngFor="let accident of accidents" [routerLink]="['/accident-details', accident.eventId]">
+        <tr class="highlight" *ngFor="let accident of accidents" [routerLink]="['/event-details', accident.eventId]">
           <td>{{ accident.ntsbNumber }}</td>
           <td>{{ accident.eventDate | date:'MM/dd/yyyy' }}</td>
           <td>{{ accident.eventType }}</td>

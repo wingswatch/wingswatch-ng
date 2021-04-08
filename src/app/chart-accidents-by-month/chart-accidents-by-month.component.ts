@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { ReportingProvider } from '../providers/reporting.provider';
+import { ReportingService } from '../services/reporting.service';
 import { InjuryTypesForPastMonths } from '../models/Reporting/InjuryTypeForPastMonths';
 import { SeriesNgX } from '../models/Reporting/MultiSeriesNgX';
 
@@ -24,7 +24,7 @@ export class ChartAccidentsByMonthComponent {
   yAxisLabel: 'Number of Accidents';
   currentYear: number;
   yearsList: Array<number>;
-  monthlyAccidentSeries: any[];
+  monthlyEventSeries: any[];
   injuryTypes: InjuryTypesForPastMonths[];
   loading: boolean;
 
@@ -40,7 +40,7 @@ export class ChartAccidentsByMonthComponent {
       domain: ['#aae3f5', '#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d']
   };
 
-  constructor(private reportingProvider: ReportingProvider) {
+  constructor(private reportingService: ReportingService) {
 
     const d = new Date();
     this.currentYear = d.getFullYear();
@@ -86,9 +86,9 @@ export class ChartAccidentsByMonthComponent {
 
   }
 
-  getInjuryTypesAllMonths(year: number) {
+  getInjuryTypesAllMonths(year: number): void {
 
-    this.reportingProvider.getInjuryTypesAllMonths(year).subscribe(
+    this.reportingService.getInjuryTypesAllMonths(year).subscribe(
       injuryTypes => {
 
         this.injuryTypes = injuryTypes;
@@ -114,7 +114,7 @@ export class ChartAccidentsByMonthComponent {
           }
         ));
 
-        this.monthlyAccidentSeries = [
+        this.monthlyEventSeries = [
           {
             name: 'Fatalities',
             series: fatalArr
@@ -139,21 +139,20 @@ export class ChartAccidentsByMonthComponent {
 
     this.loading = true;
 
-    this.reportingProvider.getAccidentsByMonth(year).subscribe(
+    this.reportingService.getAccidentsByMonth(year).subscribe(
       accidents => {
 
-        this.monthlyAccidentSeries = accidents.map((el) => (
+        this.monthlyEventSeries = accidents.map((el) => (
            {
              name: el.monthId,
-             value: el.accidentCount
+             value: el.eventCount
             }
           )
         ).sort((a, b) => a.name - b.name);
 
         this.getInjuryTypesAllMonths(year);
 
-      },
-      error => console.log(error)
+      }
     );
 
   }

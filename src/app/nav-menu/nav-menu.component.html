@@ -26,7 +26,7 @@
             <a class="nav-link text-light" [routerLink]="['/']">Home</a>
           </li>
           <li (click)="toggle()" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-light" [routerLink]="['/accidents']">Accidents</a>
+            <a class="nav-link text-light" [routerLink]="['/events']">Events</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link text-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -34,10 +34,10 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item text-light" [routerLink]="['/heat-map', '2020']">Heat Maps</a>
-              <a class="dropdown-item text-light" [routerLink]="['/chart-accidents-by-month']">Accidents By Month</a>
-              <a class="dropdown-item text-light" [routerLink]="['/accidents-by-type']">Accidents By Type</a>
-              <a class="dropdown-item text-light" [routerLink]="['/accidents-by-location']">Accidents By Location</a>
-              <a class="dropdown-item text-light" [routerLink]="['/injury-severity-by-year']">Accident Types By Year</a>
+              <a class="dropdown-item text-light" [routerLink]="['/chart-events-by-month']">Events By Month</a>
+              <a class="dropdown-item text-light" [routerLink]="['/events-by-type']">Events By Type</a>
+              <a class="dropdown-item text-light" [routerLink]="['/events-by-location']">Events By Location</a>
+              <a class="dropdown-item text-light" [routerLink]="['/injury-severity-by-year']">Event Types By Year</a>
             </div>
           </li>
           <li class="search-field">

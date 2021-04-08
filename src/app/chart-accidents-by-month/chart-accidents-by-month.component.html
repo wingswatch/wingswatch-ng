@@ -1,58 +1,73 @@
 <div class="container">
   <div class="select">
-    <select (change)="onChangeYear($event.target)" #selectYear class="" id="select_year">
-      <option *ngFor="let year of yearsList" value="{{year}}" id="{{year}}">{{ year }}</option>
+    <select
+      #selectYear
+      (change)="onChangeYear($event.target)"
+    >
+      <option *ngFor="let year of yearsList" value="{{ year }}" id="{{ year }}">
+        {{ year }}
+      </option>
+
     </select>
   </div>
-  <div *ngIf="loading" class="loader text-center">
-      <app-svg-spinner></app-svg-spinner>
-  </div>
-  <div *ngIf="monthlyAccidentSeries" class="chart-container" >
-      <h2>Accidents By Month</h2>
-        <ngx-charts-area-chart
-            [view]="view"
-            [scheme]="colorScheme"
-            [legend]="true"
-            [showXAxisLabel]="true"
-            [showYAxisLabel]="true"
-            [xAxis]="true"
-            [yAxis]="true"
-            [curve]="curve"
-            [showGridLines]="false"
-            [xAxisLabel]="xAxisLabel"
-            [yAxisLabel]="yAxisLabel"
-            [timeline]="true"
-            [results]="monthlyAccidentSeries">
-      </ngx-charts-area-chart>
 
-      <ngx-charts-polar-chart
-        [view]="view"
-        [scheme]="colorScheme"
-        [legend]="true"
-        [showXAxisLabel]="true"
-        [showYAxisLabel]="true"
-        [showGridLines]="true"
-        [xAxis]="true"
-        [yAxis]="true"
-        [curve]="polarCurve"
-        [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel"
-        [results]="monthlyAccidentSeries">
-    </ngx-charts-polar-chart>
+  <div *ngIf="loading" class="loader text-center">
+    <app-svg-spinner></app-svg-spinner>
   </div>
-  <div *ngIf="injuryTypes" class="chart-container" >
-      <ngx-charts-heat-map
-          [view]="heatmapView"
-          [scheme]="colorSchemeHeatmap"
-          [legend]="true"
-          [showXAxisLabel]="true"
-          [showYAxisLabel]="true"
-          [xAxis]="true"
-          [yAxis]="true"
-          xAxisLabel="Severity"
-          yAxisLabel="Month"
-          [results]="monthlyAccidentSeries">
-      </ngx-charts-heat-map>
+
+  <div *ngIf="monthlyEventSeries" class="chart-container">
+
+    <h2>Accidents By Month</h2>
+
+    <ngx-charts-area-chart
+      [view]="view"
+      [scheme]="colorScheme"
+      [legend]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      [curve]="curve"
+      [showGridLines]="false"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [timeline]="true"
+      [results]="monthlyEventSeries"
+    >
+    </ngx-charts-area-chart>
+
+    <ngx-charts-polar-chart
+      [view]="view"
+      [scheme]="colorScheme"
+      [legend]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [showGridLines]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      [curve]="polarCurve"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [results]="monthlyEventSeries"
+    >
+    </ngx-charts-polar-chart>
+
+  </div>
+
+  <div *ngIf="injuryTypes" class="chart-container">
+    <ngx-charts-heat-map
+      xAxisLabel="Severity"
+      yAxisLabel="Month"
+      [view]="heatmapView"
+      [scheme]="colorSchemeHeatmap"
+      [legend]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      [results]="monthlyEventSeries"
+    >
+    </ngx-charts-heat-map>
 
   </div>
 </div>

@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
-import { ReportingProvider } from '../providers/reporting.provider';
-import { IAccidentCoordinates } from '../models/accident-coordinates';
-import { ActivatedRoute } from '@angular/router';
+import { ReportingService } from '../services/reporting.service';
+import { EventCoordinates } from '../models/event-coordinates';
 
 declare global {
   interface Window {
@@ -20,26 +19,22 @@ export class AccidentsHeatMapComponent implements OnDestroy {
   @ViewChild('mapRef') mapElement: ElementRef;
   @ViewChild('selectYear') selectYear: ElementRef;
 
-  coordinates: IAccidentCoordinates[];
+  coordinates: EventCoordinates[];
   usCenter = { lat: 39.8282, lng: -98.5795 };
-  yearsList: Array<number>;
+  yearsList: Array<number> = [];
   currentYear: number;
 
   private mapLoaded: boolean;
 
   constructor(
-    private reportingProvider: ReportingProvider,
-    private location: Location,
-    private activatedRoute: ActivatedRoute) {
-    //---------------Generate years---------------//
-    const d = new Date();
-    this.currentYear = d.getFullYear();
-    this.yearsList = [];
-    //Writing reverse for loop so current year is at top
+    private reportingService: ReportingService,
+    private location: Location) {
+
+    this.currentYear = new Date().getFullYear();
+
     for (let i = this.currentYear; i >= 1985; i--) {
       this.yearsList.push(i);
     }
-     //---------------Generate years---------------//
 
    }
 
@@ -53,13 +48,9 @@ export class AccidentsHeatMapComponent implements OnDestroy {
 
     this.location.replaceState(`heat-map/${year}`);
 
-    //setTimeout(() => {
-//      document.getElementById(year)?.setAttribute('selected', 'true');
-    //}, 0);
-
-    this.reportingProvider.getCoordinatesByYear(year).subscribe(
-      (result: IAccidentCoordinates[]) => {
-        this.coordinates = result;
+    this.reportingService.getCoordinatesByYear(year).subscribe(
+      ec => {
+        this.coordinates = ec;
         this.renderMap();
       }
     );
@@ -174,7 +165,7 @@ export class AccidentsHeatMapComponent implements OnDestroy {
     return this.coordinates.map((el) => (
       new window.google.maps.Marker({
         position: { lat: el.latitude, lng: el.longitude },
-        url: `accident-details/${el.eventID}`,
+        url: `event-detail/${el.eventID}`,
         location: el.location,
         make: el.make,
         model: el.model,

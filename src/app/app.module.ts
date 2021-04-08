@@ -42,13 +42,13 @@ import { InjurySeverityByYearComponent } from './injury-severity-by-year/injury-
     BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'accidents', component: AccidentsComponent },
-      { path: 'accident-details/:id', component: AccidentDetailsComponent },
+      { path: 'events', component: AccidentsComponent },
+      { path: 'event-details/:id', component: AccidentDetailsComponent },
       { path: 'us-map/:id', component: USMapComponent },
       { path: 'heat-map/:id', component: AccidentsHeatMapComponent },
-      { path: 'chart-accidents-by-month', component: ChartAccidentsByMonthComponent },
-      { path: 'accidents-by-type', component: AccidentsByTypeComponent },
-      { path: 'accidents-by-location', component: AccidentsByLocationComponent },
+      { path: 'chart-events-by-month', component: ChartAccidentsByMonthComponent },
+      { path: 'events-by-type', component: AccidentsByTypeComponent },
+      { path: 'events-by-location', component: AccidentsByLocationComponent },
       { path: 'injury-severity-by-year', component: InjurySeverityByYearComponent }
     ])
   ],

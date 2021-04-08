@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ReportingProvider } from '../providers/reporting.provider';
-import { AccidentByType } from '../models/Reporting/AccidentByType';
+import { ReportingService } from '../services/reporting.service';
+import { EventByType } from '../models/Reporting/EventByType';
 
 @Component({
   selector: 'app-accidents-by-type',
@@ -18,20 +18,22 @@ export class AccidentsByTypeComponent implements OnInit {
 
   cardColor = '#232837';
 
-  constructor(private reportingProvider: ReportingProvider) { }
+  constructor(private reportingService: ReportingService) { }
 
   ngOnInit() {
-    this.reportingProvider.getAccidentByType().subscribe(
-      (accidents: AccidentByType[]) => {
+
+    // TODO - We need a date selection on this page
+    this.reportingService.getAccidentByType(2020).subscribe(
+      (accidents: EventByType[]) => {
         this.accidentsByType = accidents.map(el => (
           {
             name: el.makeModel,
             value: el.accidentCount
           }
         ));
-      },
-      error => console.log(error)
+      }
     );
+
   }
 
 }
