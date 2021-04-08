@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportingService } from '../../services/reporting.service';
 import { EventByType } from '../../models/Reporting/EventByType';
+import { SeriesNgX } from 'src/app/models/Reporting/MultiSeriesNgX';
 
 @Component({
   selector: 'app-accidents-by-type',
@@ -10,7 +11,11 @@ import { EventByType } from '../../models/Reporting/EventByType';
 export class AccidentsByTypeComponent implements OnInit {
 
   view: [number, number] = [900, 1500];
-  accidentsByType: any;
+  eventsByType: SeriesNgX[];
+  year = new Date().getFullYear();
+
+  yAxisLabel = 'Make/Model';
+  xAxisLabel = 'Event Count';
 
   colorScheme = {
     domain: ['#7887AB', '#4F628E', '#2E4272', '#162955', '#061539']
@@ -21,12 +26,13 @@ export class AccidentsByTypeComponent implements OnInit {
   ngOnInit() {
 
     // TODO - We need a date selection on this page
-    this.reportingService.getAccidentByType(2020).subscribe(
+    this.reportingService.getAccidentByType(this.year).subscribe(
       accidents => {
-        this.accidentsByType = accidents.map(el => (
+        console.log(accidents);
+        this.eventsByType = accidents.map(el => (
           {
             name: el.makeModel,
-            value: el.accidentCount
+            value: el.eventCount
           }
         ));
       }

@@ -1,16 +1,20 @@
 <div class="container">
   <div class="number-cards">
-    <h3>Top 50 Accidents By Type</h3>
-    <div *ngIf="!accidentsByType" class="loader text-center">
+    <h3>Top Events By Type - {{ year }}</h3>
+    <div *ngIf="!eventsByType" class="loader text-center">
       <app-svg-spinner></app-svg-spinner>
     </div>
     <div class="chart">
-      <ngx-charts-number-card *ngIf="accidentsByType"
-                              [view]="view"
-                              [scheme]="colorScheme"
-                              [results]="accidentsByType"
-                              cardColor="#232837">
-      </ngx-charts-number-card>
+      <ngx-charts-bar-horizontal
+      [view]="view"
+      [results]="eventsByType"
+      [xAxis]="true"
+      [yAxis]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel">
+    </ngx-charts-bar-horizontal>
     </div>
   </div>
 </div>

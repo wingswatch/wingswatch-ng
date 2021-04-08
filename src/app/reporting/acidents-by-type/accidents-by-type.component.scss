@@ -1,14 +1,9 @@
-.number-cards {
-  margin: 0 auto;
-  width: fit-content;
-}
-
 h2, h3 {
   text-align: center;
 }
 
-.loader {
-  display: block;
-  width: 25%;
-  margin: 0 auto;
+::ng-deep .ngx-charts { 
+  text { 
+    fill: #fff !important; 
+  } 
 }
