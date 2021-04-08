@@ -9,6 +9,7 @@ import { EventLocationCount } from '../models/Reporting/EventLocationCount';
 import { InjurySeverityByYear } from '../models/Reporting/InjurySeverityByYear';
 import { InjuryTypesForPastMonths } from '../models/Reporting/InjuryTypeForPastMonths';
 import { environment } from 'src/environments/environment';
+import { EventsByState } from '../models/Reporting/EventsByState';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,10 @@ export class ReportingService {
 
   getInjuryTypesAllMonths(year: number): Observable<InjuryTypesForPastMonths[]>{
     return this.http.get<InjuryTypesForPastMonths[]>(`${environment.apiBaseUrl}Reporting/GetInjuryTypesByMonth/${year}`);
+  }
+
+  getEventsByState(year: number): Observable<EventsByState[]> {
+    return this.http.get<EventsByState[]>(`${environment.apiBaseUrl}Reporting/EventsByState/${year}`);
   }
 
 }

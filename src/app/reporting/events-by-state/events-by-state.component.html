@@ -1,0 +1,24 @@
+<div class="d3-pie-charts container">
+  <h2>Most Recorded Events - By State</h2>
+
+  <div *ngIf="!stateEventCounts">
+    <app-svg-spinner></app-svg-spinner>
+  </div>
+
+  <div *ngIf="stateEventCounts" class="table-container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>State</th>
+          <th class="center">Events</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight" *ngFor="let eventCounts of stateEventCounts">
+          <td>{{ eventCounts.state }}</td>
+          <td class="center">{{ eventCounts.eventCount }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

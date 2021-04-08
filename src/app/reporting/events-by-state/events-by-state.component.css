@@ -1,0 +1,21 @@
+
+.table-container {
+    width: 300px;
+    margin: auto;
+  }
+  
+  /*Sticky table header*/
+  th {
+    background-color: #516272;
+    position: sticky;
+    top: 0;
+  }
+
+  .center {
+      text-align: center;
+  }
+  
+  h2 {
+    text-align: center;
+    padding: 15px;
+  }
