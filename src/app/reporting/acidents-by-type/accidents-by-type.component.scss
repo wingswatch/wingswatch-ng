@@ -29,13 +29,14 @@ select {
 /* Custom Select */
 .select {
   position: relative;
-  display: inline-block;
-  width: 17%;
+  display: block;
+  width: 9rem;
   height: auto;
   line-height: 3;
+  overflow: hidden;
   border-radius: .25em;
   border: 2px solid #4E5D6C;
-  margin: 15px auto;
+  margin: 15px auto 0;
 }
 
 select {
