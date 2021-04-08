@@ -1,43 +1,20 @@
 <div class="page-wrap">
   <div class="masthead top">
-    <div class="masthead-image">
-      <img class="main" src="./assets/images/airplane-cessna.svg" />
-    </div>
+    <img class="main" src="./assets/images/airplane-cessna.svg" />
     <div class="masthead-text">
-      <h1>
-        Welcome to WingsWatch
-      </h1>
-      <h4>The internet's most comprehensive site for aviation incidents and events.</h4>
-      <button type="button" class="events show-mobile" [routerLink]="['/events']">
-        <span>
-          See the latest
-        </span>
-      </button>
+      <h1>Welcome to WingsWatch</h1>
+      <h4>
+        The internet's most comprehensive site for aviation incidents and
+        accidents.
+      </h4>
     </div>
   </div>
-  <div class="description text-light">
-    <div class="wrapper clearfix">
-      <div class="left">
-        <p><img src="assets/images/new-small.png" class="new-image" />What's New?</p>
-        <ul>
-          <li>Check out the new <a [routerLink]="['/heat-map']">Heat Maps</a></li>
-          <li>New chart: <a [routerLink]="['/chart-events-by-month']">Events By Month</a></li>
-          <li>New report: <a [routerLink]="['/events-by-type']">Events By Type</a></li>
-          <li>New report: <a [routerLink]="['/events-by-location']">Events By Location</a></li>
-          <li><a [routerLink]="['/event-details','20200308X53043']">Aircraft images</a> for almost all types</li>
-        </ul>
-        <p>Much more to come ... stay tuned!</p>
-        <p>Please <a [routerLink]="['/contact']">contact us</a> with suggestions or feedback.</p>
-      </div>
-      <div class="right hide-mobile">
-        <button type="button" class="events" [routerLink]="['/events']">
-          <img src="./assets/images/plane-60.png" class="logo" />
-          <span class="cta">
-            See the latest
-          </span>
-        </button>
-      </div>
-    </div>
+  <div class="d-flex justify-content-center text-light">
+    
+    <button type="button" class="button-events" [routerLink]="['/events']">
+      <img src="./assets/images/plane-60.png" class="button-image" />
+      <span class="latest"> See the latest </span>
+    </button>
+
   </div>
 </div>
-
