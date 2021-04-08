@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ReportingService } from '../../services/reporting.service';
 import { InjuryTypesForPastMonths } from '../../models/Reporting/InjuryTypeForPastMonths';
 import { SeriesNgX } from '../../models/Reporting/MultiSeriesNgX';
@@ -10,7 +10,7 @@ import * as shape from 'd3';
   templateUrl: './chart-accidents-by-month.component.html',
   styleUrls: ['./chart-accidents-by-month.component.scss']
 })
-export class ChartAccidentsByMonthComponent {
+export class ChartAccidentsByMonthComponent implements OnInit {
   @ViewChild('selectYear') selectYear: ElementRef;
 
   multi: any[];
@@ -40,7 +40,9 @@ export class ChartAccidentsByMonthComponent {
       domain: ['#aae3f5', '#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d']
   };
 
-  constructor(private reportingService: ReportingService) {
+  constructor(private reportingService: ReportingService) { }
+
+  ngOnInit() {
 
     const d = new Date();
     this.currentYear = d.getFullYear();
@@ -48,7 +50,9 @@ export class ChartAccidentsByMonthComponent {
 
     for (let i = this.currentYear - 1; i >= 2008; i--) {
       this.yearsList.push(i);
-    }
+    };
+
+    this.getMonthlyAccidents(this.currentYear - 1);
 
   }
 
