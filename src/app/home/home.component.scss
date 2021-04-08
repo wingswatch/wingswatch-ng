@@ -13,7 +13,7 @@ p {
 }
 
 button.button-events {
-    background-color: #4E5D6C;;
+    background-color: var(--dark);
     font-size: 20px;
     padding: 15px;
     border-radius: 10px;
@@ -23,7 +23,7 @@ button.button-events {
     margin-top: 2em;
 }
 
-button.events:hover {
+button.button-events:hover {
    color: #fff;
    background-color: rgba(37,170,225, 0.1);
 }
