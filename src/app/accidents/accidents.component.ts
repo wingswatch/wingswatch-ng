@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Behavior } from 'popper.js';
+import { Subscription } from 'rxjs';
 import { EventSearchResult } from '../models/event-search-result';
 import { EventService } from '../services/event.service';
+import { SearchService } from '../services/search.service';
 
 @Component({
   selector: 'app-accidents',
@@ -11,33 +14,32 @@ export class AccidentsComponent implements OnInit {
 
   events: EventSearchResult[];
 
-  constructor(private service: EventService) { }
+  //sub: Subscription;
+
+  constructor(private eventService: EventService, private searchService: SearchService) { }
 
   ngOnInit(): void {
 
-    const searchVal = (document.getElementById('nav_searchTerm') as HTMLInputElement).value;
+    this.searchService.currentSearchTerm$.subscribe(
+      searchTerms => {
+        this.performSearch(searchTerms);
+      }
+    );
 
-    if (searchVal) {
-      this.filterEvents(searchVal);
-    }
-    else {
-      this.getEvents();
-    }
+    this.getEvents();
 
   }
 
   getEvents(): void {
-    this.service.getEvents().subscribe(
+    this.eventService.getEvents().subscribe(
       events => this.events = events
     );
 
   }
 
-  filterEvents(searchTerms: string): void {
+  performSearch(searchTerms: string): void {
 
-    if (!searchTerms) { return; }
-
-    this.service.search(searchTerms).subscribe(
+    this.eventService.search(searchTerms).subscribe(
       result => this.events = result
     );
   }

@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { SearchService } from '../services/search.service';
 
 @Component({
   selector: 'app-search-box',
   templateUrl: './search-box.component.html',
   styleUrls: ['./search-box.component.scss']
 })
-export class SearchBoxComponent implements OnInit {
+export class SearchBoxComponent {
 
-  constructor() { }
+  constructor(private searchService: SearchService, private router: Router) { }
 
-  ngOnInit(): void {
+  clickSearch() {
+    const searchTerms  = (document.getElementById('search_term') as HTMLInputElement).value;
+    this.searchService.broadcastSearchTerm(searchTerms);
+    this.router.navigate(['/events']);
   }
-
-  clickSearch() {}
 
 }

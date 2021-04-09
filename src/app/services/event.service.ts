@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { NtsbEvent } from '../models/ntsb-event';
 import { Observable } from 'rxjs';
 import { Narrative } from '../models/narrative';
@@ -27,7 +27,9 @@ export class EventService {
   }
 
   public search(searchTerms: string): Observable<EventSearchResult[]> {
-    return this.http.get<EventSearchResult[]>(environment.apiBaseUrl + 'events/search/' + searchTerms);
+    let params = new HttpParams();
+    params = params.append('searchTerms', searchTerms);
+    return this.http.get<EventSearchResult[]>(environment.apiBaseUrl + 'events/search', { params });
   }
 
   public getAircraftImage(make: string, model: string): Observable<AircraftImage> {
