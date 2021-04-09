@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,24 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-menu.component.scss']
 })
 export class NavMenuComponent {
-  @ViewChild('nav_searchTerm', { static: true }) navSearchTerm: ElementRef;
-
-  isExpanded = false;
 
   constructor(private router: Router) { }
-
-  collapse() {
-    this.isExpanded = false;
-  }
-
-  toggle() {
-    this.isExpanded = !this.isExpanded;
-  }
-
-  redirectToAccidents() {
-    this.toggle();
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(['/accidents']));
-  }
 
 }

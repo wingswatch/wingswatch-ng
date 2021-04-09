@@ -19,6 +19,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { InjurySeverityByYearComponent } from './reporting/injury-severity-by-year/injury-severity-by-year.component';
 import { EventsByStateComponent } from './reporting/events-by-state/events-by-state.component';
+import { SearchBoxComponent } from './search-box/search-box.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { EventsByStateComponent } from './reporting/events-by-state/events-by-st
     AccidentsByTypeComponent,
     AccidentsByLocationComponent,
     InjurySeverityByYearComponent,
-    EventsByStateComponent
+    EventsByStateComponent,
+    SearchBoxComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

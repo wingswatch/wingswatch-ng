@@ -9,23 +9,16 @@
               type="button"
               data-target=".navbar-collapse"
               aria-label="Toggle navigation"
-              [attr.aria-expanded]="isExpanded"
-              (click)="toggle()">
-        <div id="nav-icon1" [ngClass]="{ open: isExpanded }">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+              >
       </button>
-      <div class="navbar-collapse collapse"
-           [ngClass]="{ show: isExpanded }">
+      <div class="navbar-collapse collapse">
         <ul class="navbar-nav flex-grow">
-          <li (click)="toggle()" class="nav-item"
+          <li class="nav-item"
               [routerLinkActive]="['link-active']"
               [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-light" [routerLink]="['/']">Home</a>
           </li>
-          <li (click)="toggle()" class="nav-item" [routerLinkActive]="['link-active']">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-light" [routerLink]="['/events']">Events</a>
           </li>
           <li class="nav-item dropdown">
@@ -42,10 +35,7 @@
             </div>
           </li>
           <li class="search-field">
-            <form class="form-inline my-2 my-lg-0">
-              <input (keypress.enter)="redirectToAccidents()" #nav_searchTerm id="nav_searchTerm" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-              <button (click)="redirectToAccidents()" class="btn my-2 my-sm-0 text-light" type="submit">Search</button>
-            </form>
+            <app-search-box></app-search-box>
           </li>
         </ul>
       </div>
