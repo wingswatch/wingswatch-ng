@@ -10,9 +10,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./injury-severity-by-year.component.scss']
 })
 export class InjurySeverityByYearComponent implements OnInit {
-  @ViewChild('selectYear') selectYear: ElementRef;
 
-  currentYear: number;
+  year: number;
   yearsList: Array<number>;
   multi: MultiSeriesNgX[];
   view: [number, number] = [900, 300];
@@ -22,14 +21,7 @@ export class InjurySeverityByYearComponent implements OnInit {
   showWithUninjured: boolean;
 
   // options
-  showXAxis = true;
-  showYAxis = true;
-  gradient = true;
-  showLegend = true;
-  showGridLines = false;
-  showXAxisLabel = true;
   xAxisLabel = 'Injuries';
-  showYAxisLabel = true;
   yAxisLabel = 'Number of Injuries';
 
   colorScheme = {
@@ -38,41 +30,39 @@ export class InjurySeverityByYearComponent implements OnInit {
 
   constructor(private reportingService: ReportingService, private activatedRoute: ActivatedRoute) {
 
-    const d = new Date();
-
-    this.currentYear = d.getFullYear();
+    this.year = new Date().getFullYear() - 1;
     this.yearsList = [];
 
-    for (let i = this.currentYear - 1; i >= 1985; i--) {
+    for (let i = this.year - 1; i >= 1985; i--) {
       this.yearsList.push(i);
     }
 
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params => {
-
-      const year = params.year as number;
-      this.getInjuryTypeByYear(year);
-
-    });
+      this.getInjuryTypeByYear();
   }
 
   toggleUninjured(): void {
     this.showWithUninjured = !this.showWithUninjured;
   }
 
-  getInjuryTypeByYear(year?: number): void {
+  onChangeYear(target: EventTarget | null) {
 
-    let selectedYear: number;
+    if (target) {
 
-    if (!year) {
-      selectedYear = this.selectYear.nativeElement.value;
-    } else {
-      selectedYear = year as number;
+      const el = target as HTMLInputElement;
+      this.year = Number(el.value);
+
+      this.getInjuryTypeByYear();
+
     }
 
-    this.reportingService.getInjurySeverityByYear(selectedYear).subscribe(
+  }
+
+  getInjuryTypeByYear(): void {
+
+    this.reportingService.getInjurySeverityByYear(this.year).subscribe(
       res => {
         this.injuryTypes = res;
 
