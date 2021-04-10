@@ -1,22 +1,13 @@
 @import 'assets/css/bootstrap.css';
 
-.fatal-injury  {
-    color: red;
-}
+/* We mark these global properties with !important they always override component-specific settings
+    For example, if every cell in a table has "text-light" applied to it, but we still need to use
+    the injury severity modifies on a particular cell with dynamic CSS, that needs to take precedence.
+*/
 
-.non-fatal-injury {
-    color: green;
+:root {
+    --fatal-color: red;
+    --non-fatal-color: green;
+    --serious-color: orangered;
+    --minor-color: gray;
 }
-
-.serious-injury {
-    color: orangered;
-}
-
-.minor-injury {
-    color: greenyellow;
-}
-
-.minor-injury {
-    color: gray;
-}
-  
