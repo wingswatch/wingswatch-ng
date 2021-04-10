@@ -1,47 +1,66 @@
 <div class="container">
-    <h3>Total Accidents by Year</h3>
-    <hr />
-    <div class="input-container">
-        <div class="select">
-            <select (change)="getInjuryTypeByYear()" #selectYear class="" id="select_year">
-            <option *ngFor="let year of yearsList" value="{{year}}" id="{{year}}">{{ year }}</option>
-            </select>
-        </div>
-        <div class="custom-control custom-checkbox">
-                <input #totalCheckbox type="checkbox" (click)="toggleUninjured()" class="checkbox" id="totalCheckbox">
-                <label class="control-label checkbox-label" for="totalCheckbox">Include Uninjured</label>
-            </div>
-      </div>
-  
-    <div *ngIf="!injuryTypes" class="loader text-center"> 
-        <app-svg-spinner></app-svg-spinner>
-    </div>
-    <div *ngIf="injuryTypes" class="chart-container">
-        <div class="bar-chart">
-                <ngx-charts-bar-vertical
-                [view]="view"
-                [scheme]="colorScheme"
-                [results]="showWithUninjured ? singleWithUninjured : single"
-                [gradient]="gradient"
-                [xAxis]="showXAxis"
-                [yAxis]="showYAxis"
-                [legend]="showLegend"
-                [showGridLines]="showGridLines"
-                [showXAxisLabel]="showXAxisLabel"
-                [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xAxisLabel"
-                [yAxisLabel]="yAxisLabel">
-          </ngx-charts-bar-vertical>
-        
-        </div>
-        <div class="pie-chart">
-                <ngx-charts-advanced-pie-chart
-                [view]="view"
-                [scheme]="colorScheme"
-                [results]="showWithUninjured ? singleWithUninjured : single"
-                [gradient]="gradient">
-        </ngx-charts-advanced-pie-chart>
-        </div>
 
+  <h3>Total Accidents by Year</h3>
+
+  <hr />
+
+  <div class="input-container">
+    <div>
+      <div class="select">
+        <select (change)="onChangeYear($event.target)">
+          <option
+            *ngFor="let year of yearsList"
+            value="{{ year }}"
+            id="{{ year }}"
+          >
+            {{ year }}
+          </option>
+        </select>
+      </div>
     </div>
+  </div>
+
+  <div>
+    <input
+      type="checkbox"
+      (click)="toggleUninjured()"
+      class="checkbox"
+      id="totalCheckbox"
+    />
+    <label for="totalCheckbox" class="pl-2 text-muted"
+      >Include Uninjured</label
+    >
+  </div>
+
+  <div *ngIf="!injuryTypes" class="loader text-center">
+    <app-svg-spinner></app-svg-spinner>
+  </div>
+  <div *ngIf="injuryTypes" class="chart-container">
+    <div class="bar-chart">
+      <ngx-charts-bar-vertical
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="showWithUninjured ? singleWithUninjured : single"
+        [gradient]="false"
+        [xAxis]="true"
+        [yAxis]="true"
+        [legend]="true"
+        [showGridLines]="true"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+      >
+      </ngx-charts-bar-vertical>
+    </div>
+    <div class="pie-chart">
+      <ngx-charts-advanced-pie-chart
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="showWithUninjured ? singleWithUninjured : single"
+        [gradient]="false"
+      >
+      </ngx-charts-advanced-pie-chart>
+    </div>
+  </div>
 </div>
