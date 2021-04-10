@@ -11,11 +11,14 @@ export class NtsbEvent {
   airportName: string;
   injurySeverity: string;
   location: string;
-  latitude?: number;
+  latitude: string;
+  longitudeDecimal: number;
+  latitudeDecimal: number;
   longitude?: number;
   totalFatalInjuries?: number;
   totalSeriousInjuries?: number;
   totalMinorInjuries?: number;
   totalUninjured?: number;
   aircraft: Array<Aircraft>;
+  eventTime: string;
 }

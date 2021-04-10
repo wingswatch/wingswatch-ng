@@ -2,9 +2,7 @@ import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/co
 import { ActivatedRoute } from '@angular/router';
 import { Narrative } from '../models/narrative';
 import { NtsbEvent } from '../models/ntsb-event';
-import { Location } from '@angular/common';
 import { AircraftImage } from '../models/aircraft-image';
-import { Aircraft } from '../models/aircraft';
 import { Title } from '@angular/platform-browser';
 import { EventService } from '../services/event.service';
 
@@ -21,7 +19,6 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
   public narrative: Narrative;
   public narrativeLoaded: boolean;
   public event: NtsbEvent;
-  public aircraft: Aircraft;
   public loadingComplete: boolean;
   public aircraftImage: AircraftImage;
 
@@ -30,7 +27,6 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private eventService: EventService,
-    private location: Location,
     private titleService: Title) { }
 
   ngOnInit() {
@@ -66,7 +62,6 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
       event => {
 
         this.event = event;
-        this.aircraft = this.event.aircraft[0];
 
         this.getAircraftImage();
 
@@ -87,6 +82,7 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
   }
 
+  // TODO:  Move Google Map to it's own component
   renderMap() {
 
     this.createMapElement();
@@ -126,7 +122,7 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
     console.log('getting image');
 
     // TODO - Handle multiple aircraft
-    this.eventService.getAircraftImage(this.aircraft.make, this.aircraft.model).subscribe(
+    this.eventService.getAircraftImage(this.event.aircraft[0].make, this.event.aircraft[0].model).subscribe(
       aci => {
           this.aircraftImage = aci;
           this.aircraftRenamed = (aci.renamedAircraft !== '');

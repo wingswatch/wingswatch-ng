@@ -1,0 +1,255 @@
+<div class="container">
+  <div class="page-wrap">
+    <h3>Event Details - {{ event.ntsbNumber }}</h3>
+
+    <p>
+      <small><a [routerLink]="['/events']">&lt;- Back to Event List</a></small>
+    </p>
+
+    <div *ngIf="!event">
+      <app-svg-spinner></app-svg-spinner>
+    </div>
+
+    <div *ngIf="event">
+      <table class="table table-striped">
+        <tr>
+          <td>
+            <b>Location</b>
+          </td>
+          <td>
+            {{ event.location }}
+          </td>
+          <td><b>ID #</b></td>
+          <td>
+            {{ eventId }}
+          </td>
+        </tr>
+        <tr>
+          <td><b>Date</b></td>
+          <td>{{ event.eventDate | date: "MM/dd/yyyy" }}</td>
+          <td>Time</td>
+          <td>{{ event.eventTime }}</td>
+        </tr>
+        <tr>
+          <td><b>Injury Severity</b></td>
+          <td
+            [ngClass]="{
+              'fatal-injury': event.injurySeverity.includes('Fatal ('),
+              'non-fatal-injury': event.injurySeverity === 'Non-Fatal',
+              'serious-injury': event.injurySeverity === 'Serious',
+              'minor-injury': event.injurySeverity === 'Minor'
+            }"
+          >
+            {{ event.injurySeverity }}
+          </td>
+          <td><b>Airport</b></td>
+          <td>
+            {{
+              event.airportName
+                ? event.airportName + " " + event.airportCode
+                : "n/a"
+            }}
+          </td>
+        </tr>
+        <tr>
+          <td>Event Type</td>
+          <td>{{ event.eventType }}</td>
+          <td>Weather Condition</td>
+          <td>{{ event.weatherCondition }}</td>
+        </tr>
+        <tr *ngIf="event.latitude || event.longitude">
+          <td><b>Latitude</b></td>
+          <td>{{ event.latitude }} ({{ event.latitudeDecimal }}</td>
+          <td><b>Longitude</b></td>
+          <td>{{ event.longitude }} ({{ event.longitudeDecimal }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <h4>Aircraft</h4>
+    <!---------- AIRCRAFT ----------->
+
+    <div *ngFor="let aircraft of event.aircraft">
+      <table class="table table-striped">
+      <tr>
+        <td><b>Aircraft</b></td>
+        <td>{{ aircraft.make }} {{ aircraft.model }}</td>
+        <td><b>Aircraft Damage</b></td>
+        <td
+          [ngClass]="{
+            destroyedClass:
+              event &&
+              aircraft.aircraftDamage &&
+              aircraft.aircraftDamage.includes('Destroyed'),
+            substantialClass:
+              event &&
+              aircraft.aircraftDamage &&
+              aircraft.aircraftDamage.includes('Substantial')
+          }"
+        >
+          {{ aircraft.aircraftDamage }}
+        </td>
+      </tr>
+        <tr>
+          <td><b>Registration</b></td>
+          <td>{{ aircraft.registrationNumber }}</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><b>Aircraft Category</b></td>
+          <td>{{ aircraft.aircraftCategory }}</td>
+          <td>Event Type</td>
+          <td>{{ event.eventType }}</td>
+        </tr>
+        <tr *ngIf="aircraft.schedule || aircraft.purposeOfFlight">
+          <td><b>Schedule</b></td>
+          <td>{{ aircraft.schedule ? aircraft.schedule : "n/a" }}</td>
+          <td><b>Purpose of Flight</b></td>
+          <td>{{ aircraft.purposeOfFlight }}</td>
+        </tr>
+        <tr *ngIf="aircraft.operator || event.weatherCondition">
+          <td><b>Operator</b></td>
+          <td>{{ aircraft.operator ? aircraft.operator : "n/a" }}</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="event.latitude || event.longitude">
+          <td><b>Latitude</b></td>
+          <td>{{ event.latitude }}</td>
+          <td><b>Longitude</b></td>
+          <td>{{ event.longitude }}</td>
+        </tr>
+      </table>
+    </div>
+
+
+    <!---------- INJURIES ----------->
+
+    <h4>Injuries</h4>
+
+    <div
+      *ngIf="
+        event &&
+        (event.totalFatalInjuries ||
+          event.totalSeriousInjuries ||
+          event.totalMinorInjuries ||
+          event.totalUninjured)
+      "
+    >
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="fatalHeader">Fatal</th>
+            <th class="seriousHeader">Serious</th>
+            <th class="minorHeader">Minor</th>
+            <th class="uninjuredHeader">Uninjured</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              {{ event.totalFatalInjuries || 0 }}
+            </td>
+            <td>
+              {{ event.totalSeriousInjuries || 0 }}
+            </td>
+            <td>
+              {{ event.totalMinorInjuries || 0 }}
+            </td>
+            <td>
+              {{ event.totalUninjured || 0 }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="!narrativeLoaded">
+      <div class="loadingContainer">
+        <app-svg-spinner></app-svg-spinner>
+        <span class="loadingText"
+          >Loading the full report information ... please wait.</span
+        >
+      </div>
+    </div>
+
+    <div *ngIf="narrative">
+      <div *ngIf="narrative.factualNarrative">
+        <h4>Factual Narrative</h4>
+        <p class="narrative">{{ narrative.factualNarrative }}</p>
+      </div>
+
+      <div *ngIf="narrative.narrativeSummary">
+        <h4>Narrative Summary</h4>
+        <p class="narrative">{{ narrative.narrativeSummary }}</p>
+      </div>
+
+      <div *ngIf="narrative.probableCause">
+        <h4>Probably Cause</h4>
+        <p class="narrative">{{ narrative.probableCause }}</p>
+      </div>
+    </div>
+
+    <!--- GOOGLE MAP --->
+    <div *ngIf="event && event.latitude && event.longitude">
+      <div class="map-container">
+        <div class="map">
+          <h2>
+            <span class="mapHeader">Event Location</span
+            ><small class="text-muted"
+              >{{ event.latitude }} / {{ event.longitude }}</small
+            >
+          </h2>
+          <div class="card mt-3">
+            <div class="card-body">
+              <div #mapRef class="mapStyle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <div *ngIf="aircraftImage">
+      <h2>
+        <h4>Aircraft Image</h4>
+        <span *ngIf="event">
+          <small class="text-muted">
+            <span>{{ event.aircraft[0].make }} {{ event.aircraft[0].model }}</span>
+            <span *ngIf="aircraftImage && aircraftRenamed">
+              <span class="aircraftAlternateName">
+                ({{ aircraftImage.renamedAircraft }})
+              </span>
+            </span>
+          </small>
+        </span>
+      </h2>
+
+      <div class="card mt-3">
+        <div class="card-body">
+          <img
+            *ngIf="aircraftImage && aircraftImage.imageUrl"
+            src="{{ aircraftImage.imageUrl }}"
+            class="aircraftImage"
+          />
+          <div
+            *ngIf="
+              (aircraftImage && !aircraftImage.imageUrl) ||
+              !aircraftImage.imageUrl.includes('wikipedia')
+            "
+          >
+            <div>
+              No image found for {{ event.aircraft[0].make }} {{ event.aircraft[0].model }}.  We'll get one!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="p-3">
+      <small><a [routerLink]="['/events']">&lt;- Back to event List</a></small>
+    </p>
+  </div>
+</div>
