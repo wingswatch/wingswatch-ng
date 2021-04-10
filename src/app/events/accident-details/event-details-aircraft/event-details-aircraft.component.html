@@ -1,0 +1,41 @@
+<h4>Aircraft</h4>
+
+<div *ngFor="let aircraft of eventAircraft">
+    <table class="table table-striped text-light">
+    <tr>
+      <td><b>Aircraft</b></td>
+      <td>{{ aircraft.make }} {{ aircraft.model }}</td>
+      <td><b>Aircraft Damage</b></td>
+      <td
+        [ngClass]="{
+          destroyedClass:
+            aircraft.aircraftDamage &&
+            aircraft.aircraftDamage.includes('Destroyed'),
+          substantialClass:
+            aircraft.aircraftDamage &&
+            aircraft.aircraftDamage.includes('Substantial')
+        }"
+      >
+        {{ aircraft.aircraftDamage }}
+      </td>
+    </tr>
+      <tr>
+        <td><b>Registration</b></td>
+        <td>{{ aircraft.registrationNumber }}</td>
+        <td><b>Aircraft Category</b></td>
+        <td>{{ aircraft.aircraftCategory }}</td>
+      </tr>
+      <tr *ngIf="aircraft.schedule || aircraft.purposeOfFlight">
+        <td><b>Schedule</b></td>
+        <td>{{ aircraft.schedule ? aircraft.schedule : "n/a" }}</td>
+        <td><b>Purpose of Flight</b></td>
+        <td>{{ aircraft.purposeOfFlight }}</td>
+      </tr>
+      <tr *ngIf="aircraft.operator">
+        <td><b>Operator</b></td>
+        <td>{{ aircraft.operator ? aircraft.operator : "n/a" }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>

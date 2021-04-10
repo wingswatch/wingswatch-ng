@@ -6,8 +6,8 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { AccidentsComponent } from './accidents/accidents.component';
-import { AccidentDetailsComponent } from './accident-details/accident-details.component';
+import { AccidentsComponent } from './events/accidents/accidents.component';
+import { AccidentDetailsComponent } from './events/accident-details/accident-details.component';
 import { SvgSpinnerComponent } from './svg-spinner/svg-spinner.component';
 import { USMapComponent } from './usmap/usmap.component';
 import { AccidentsHeatMapComponent } from './reporting/accidents-heat-map/accidents-heat-map.component';
@@ -20,6 +20,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { InjurySeverityByYearComponent } from './reporting/injury-severity-by-year/injury-severity-by-year.component';
 import { EventsByStateComponent } from './reporting/events-by-state/events-by-state.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
+import { EventDetailsAircraftComponent } from './events/accident-details/event-details-aircraft/event-details-aircraft.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { SearchBoxComponent } from './search-box/search-box.component';
     AccidentsByLocationComponent,
     InjurySeverityByYearComponent,
     EventsByStateComponent,
-    SearchBoxComponent
+    SearchBoxComponent,
+    EventDetailsAircraftComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

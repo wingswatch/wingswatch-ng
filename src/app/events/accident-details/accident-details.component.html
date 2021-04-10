@@ -10,8 +10,10 @@
       <app-svg-spinner></app-svg-spinner>
     </div>
 
+    <h4>Event</h4>
+
     <div *ngIf="event">
-      <table class="table table-striped">
+      <table class="table table-striped text-light">
         <tr>
           <td>
             <b>Location</b>
@@ -34,10 +36,10 @@
           <td><b>Injury Severity</b></td>
           <td
             [ngClass]="{
-              'fatal-injury': event.injurySeverity.includes('Fatal ('),
-              'non-fatal-injury': event.injurySeverity === 'Non-Fatal',
-              'serious-injury': event.injurySeverity === 'Serious',
-              'minor-injury': event.injurySeverity === 'Minor'
+              'fatal-injury': (event.injurySeverity.includes('Fatal (')),
+              'non-fatal-injury': (event.injurySeverity === 'Non-Fatal'),
+              'serious-injury': (event.injurySeverity === 'Serious'),
+              'minor-injury': (event.injurySeverity === 'Minor')
             }"
           >
             {{ event.injurySeverity }}
@@ -66,63 +68,9 @@
       </table>
     </div>
 
-    <h4>Aircraft</h4>
-    <!---------- AIRCRAFT ----------->
-
-    <div *ngFor="let aircraft of event.aircraft">
-      <table class="table table-striped">
-      <tr>
-        <td><b>Aircraft</b></td>
-        <td>{{ aircraft.make }} {{ aircraft.model }}</td>
-        <td><b>Aircraft Damage</b></td>
-        <td
-          [ngClass]="{
-            destroyedClass:
-              event &&
-              aircraft.aircraftDamage &&
-              aircraft.aircraftDamage.includes('Destroyed'),
-            substantialClass:
-              event &&
-              aircraft.aircraftDamage &&
-              aircraft.aircraftDamage.includes('Substantial')
-          }"
-        >
-          {{ aircraft.aircraftDamage }}
-        </td>
-      </tr>
-        <tr>
-          <td><b>Registration</b></td>
-          <td>{{ aircraft.registrationNumber }}</td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><b>Aircraft Category</b></td>
-          <td>{{ aircraft.aircraftCategory }}</td>
-          <td>Event Type</td>
-          <td>{{ event.eventType }}</td>
-        </tr>
-        <tr *ngIf="aircraft.schedule || aircraft.purposeOfFlight">
-          <td><b>Schedule</b></td>
-          <td>{{ aircraft.schedule ? aircraft.schedule : "n/a" }}</td>
-          <td><b>Purpose of Flight</b></td>
-          <td>{{ aircraft.purposeOfFlight }}</td>
-        </tr>
-        <tr *ngIf="aircraft.operator || event.weatherCondition">
-          <td><b>Operator</b></td>
-          <td>{{ aircraft.operator ? aircraft.operator : "n/a" }}</td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr *ngIf="event.latitude || event.longitude">
-          <td><b>Latitude</b></td>
-          <td>{{ event.latitude }}</td>
-          <td><b>Longitude</b></td>
-          <td>{{ event.longitude }}</td>
-        </tr>
-      </table>
-    </div>
-
+    <app-event-details-aircraft
+      [eventAircraft]="event.aircraft"
+    ></app-event-details-aircraft>
 
     <!---------- INJURIES ----------->
 
@@ -138,15 +86,12 @@
       "
     >
       <table class="table table-striped">
-        <thead>
           <tr>
-            <th class="fatalHeader">Fatal</th>
-            <th class="seriousHeader">Serious</th>
-            <th class="minorHeader">Minor</th>
-            <th class="uninjuredHeader">Uninjured</th>
+            <th>Fatal</th>
+            <th>Serious</th>
+            <th>Minor</th>
+            <th>Uninjured</th>
           </tr>
-        </thead>
-        <tbody>
           <tr>
             <td>
               {{ event.totalFatalInjuries || 0 }}
@@ -161,7 +106,6 @@
               {{ event.totalUninjured || 0 }}
             </td>
           </tr>
-        </tbody>
       </table>
     </div>
 
@@ -177,7 +121,7 @@
     <div *ngIf="narrative">
       <div *ngIf="narrative.factualNarrative">
         <h4>Factual Narrative</h4>
-        <p class="narrative">{{ narrative.factualNarrative }}</p>
+        <p class="narrative text-light">{{ narrative.factualNarrative }}</p>
       </div>
 
       <div *ngIf="narrative.narrativeSummary">
@@ -217,7 +161,9 @@
         <h4>Aircraft Image</h4>
         <span *ngIf="event">
           <small class="text-muted">
-            <span>{{ event.aircraft[0].make }} {{ event.aircraft[0].model }}</span>
+            <span
+              >{{ event.aircraft[0].make }} {{ event.aircraft[0].model }}</span
+            >
             <span *ngIf="aircraftImage && aircraftRenamed">
               <span class="aircraftAlternateName">
                 ({{ aircraftImage.renamedAircraft }})
@@ -241,7 +187,8 @@
             "
           >
             <div>
-              No image found for {{ event.aircraft[0].make }} {{ event.aircraft[0].model }}.  We'll get one!
+              No image found for {{ event.aircraft[0].make }}
+              {{ event.aircraft[0].model }}. We'll get one!
             </div>
           </div>
         </div>

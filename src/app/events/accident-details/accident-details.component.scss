@@ -2,26 +2,6 @@
     max-width: 1200px;
 }
 
-.fatalClass {
-  color: red;
-}
-
-.nonFatalClass {
-  color: lawngreen;
-}
-
-.unavailableClass {
-  color: gray;
-}
-
-.destroyedClass {
-    color: red;
-}
-
-.substantialClass {
-    color: darkorange;
-}
-
 .loadingContainer {
     height: 100px;
     position: relative;
@@ -67,4 +47,26 @@ app-svg-spinner {
 
 .narrative {
   white-space: pre-line;
+  color: red;
 }
+
+td {
+  color: var(--light);
+}
+
+.fatal-injury {
+  color: var(--fatal-color);
+}
+
+.non-fatal-injury {
+  color: var(--non-fatal-color)
+}
+
+.serious-injury {
+  color: var(--serious-color);
+}
+
+.minor-injury {
+  color: var(--minor-color);
+}
+
