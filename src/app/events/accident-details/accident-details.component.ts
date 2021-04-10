@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Narrative } from '../models/narrative';
-import { NtsbEvent } from '../models/ntsb-event';
-import { AircraftImage } from '../models/aircraft-image';
+import { Narrative } from '../../models/narrative';
+import { NtsbEvent } from '../../models/ntsb-event';
+import { AircraftImage } from '../../models/aircraft-image';
 import { Title } from '@angular/platform-browser';
-import { EventService } from '../services/event.service';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'app-accident-details',
@@ -85,9 +85,7 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
   // TODO:  Move Google Map to it's own component
   renderMap() {
 
-    this.createMapElement();
-
-    console.log('renderMap called');
+    this.createMapScript();
 
     window.initMap = () => {
       this.loadMap();
@@ -95,14 +93,12 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
   }
 
-    createMapElement() {
+    createMapScript() {
 
     if (this.mapScriptCreated) {
       console.log('google-map-script exists in createMapElement - returning');
       return;
     }
-
-    console.log('createMapElement');
 
     const s = window.document.createElement('script');
 
@@ -114,12 +110,9 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
     this.mapScriptCreated = true;
 
-    console.log('Map element created in createMapElement()');
   }
 
   getAircraftImage() {
-
-    console.log('getting image');
 
     // TODO - Handle multiple aircraft
     this.eventService.getAircraftImage(this.event.aircraft[0].make, this.event.aircraft[0].model).subscribe(
@@ -128,7 +121,6 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
           this.aircraftRenamed = (aci.renamedAircraft !== '');
       },
       error => {
-        console.error('Could not get aircraft image for eventID' + this.eventId);
         console.error(error);
       }
 
@@ -136,8 +128,6 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
   }
 
   loadMap = () => {
-
-    console.log('loadMap called');
 
     if (!this.mapElement) {
       console.error('could not find this.mapElement');
