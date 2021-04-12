@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ReportingService } from '../../services/reporting.service';
 import { InjuryTypesForPastMonths } from '../../models/Reporting/InjuryTypeForPastMonths';
-import { SeriesNgX } from '../../models/Reporting/MultiSeriesNgX';
+import { MultiSeriesNgX, SeriesNgX } from '../../models/Reporting/MultiSeriesNgX';
 
 import * as shape from 'd3';
 
@@ -24,8 +24,9 @@ export class ChartAccidentsByMonthComponent implements OnInit {
   yAxisLabel: 'Number of Accidents';
   currentYear: number;
   yearsList: Array<number>;
-  monthlyEventSeries: any[];
-  injuryTypes: InjuryTypesForPastMonths[];
+
+  injuryHeatmap: MultiSeriesNgX[];
+
   loading: boolean;
 
   cardColor: '#232837';
@@ -52,7 +53,8 @@ export class ChartAccidentsByMonthComponent implements OnInit {
       this.yearsList.push(i);
     };
 
-    this.getMonthlyAccidents(this.currentYear - 1);
+    this.getInjuryTypesAllMonths(this.currentYear - 1);
+
 
   }
 
@@ -63,7 +65,7 @@ export class ChartAccidentsByMonthComponent implements OnInit {
       const el = target as HTMLInputElement;
       const year = Number(el.value);
 
-      this.getMonthlyAccidents(year);
+      this.getInjuryTypesAllMonths(year);
 
     }
 
@@ -95,30 +97,28 @@ export class ChartAccidentsByMonthComponent implements OnInit {
     this.reportingService.getInjuryTypesAllMonths(year).subscribe(
       injuryTypes => {
 
-        this.injuryTypes = injuryTypes;
-
-        const fatalArr: SeriesNgX[] = this.injuryTypes.map(i => (
+        const fatalArr: SeriesNgX[] = injuryTypes.map(i => (
           {
             name: this.convertToMonth(i.month),
             value: i.injuries.fatal
           }
         ));
 
-        const seriousArr: SeriesNgX[] = this.injuryTypes.map(i => (
+        const seriousArr: SeriesNgX[] = injuryTypes.map(i => (
           {
             name: this.convertToMonth(i.month),
             value: i.injuries.serious
           }
         ));
 
-        const minorArr: SeriesNgX[] = this.injuryTypes.map(i => (
+        const minorArr: SeriesNgX[] = injuryTypes.map(i => (
           {
             name: this.convertToMonth(i.month),
             value: i.injuries.minor
           }
         ));
 
-        this.monthlyEventSeries = [
+        this.injuryHeatmap = [
           {
             name: 'Fatalities',
             series: fatalArr
@@ -137,28 +137,6 @@ export class ChartAccidentsByMonthComponent implements OnInit {
 
       }
     );
-  }
-
-  getMonthlyAccidents(year: number) {
-
-    this.loading = true;
-
-    this.reportingService.getAccidentsByMonth(year).subscribe(
-      accidents => {
-
-        this.monthlyEventSeries = accidents.map((el) => (
-           {
-             name: el.monthId,
-             value: el.eventCount
-            }
-          )
-        ).sort((a, b) => a.name - b.name);
-
-        this.getInjuryTypesAllMonths(year);
-
-      }
-    );
-
   }
 
 }

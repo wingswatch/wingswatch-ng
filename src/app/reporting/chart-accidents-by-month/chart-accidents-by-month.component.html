@@ -1,13 +1,9 @@
 <div class="container">
   <div class="select">
-    <select
-      #selectYear
-      (change)="onChangeYear($event.target)"
-    >
+    <select #selectYear (change)="onChangeYear($event.target)">
       <option *ngFor="let year of yearsList" value="{{ year }}" id="{{ year }}">
         {{ year }}
       </option>
-
     </select>
   </div>
 
@@ -15,11 +11,9 @@
     <app-svg-spinner></app-svg-spinner>
   </div>
 
-  <div *ngIf="monthlyEventSeries" class="chart-container">
-
-    <h2>Accidents By Month</h2>
-
+  <div *ngIf="!loading" class="chart-container">
     <ngx-charts-area-chart
+      *ngIf="injuryHeatmap"
       [view]="view"
       [scheme]="colorScheme"
       [legend]="true"
@@ -27,34 +21,15 @@
       [showYAxisLabel]="true"
       [xAxis]="true"
       [yAxis]="true"
-      [curve]="curve"
-      [showGridLines]="false"
       [xAxisLabel]="xAxisLabel"
       [yAxisLabel]="yAxisLabel"
       [timeline]="true"
-      [results]="monthlyEventSeries"
+      [results]="injuryHeatmap"
     >
     </ngx-charts-area-chart>
-
-    <ngx-charts-polar-chart
-      [view]="view"
-      [scheme]="colorScheme"
-      [legend]="true"
-      [showXAxisLabel]="true"
-      [showYAxisLabel]="true"
-      [showGridLines]="true"
-      [xAxis]="true"
-      [yAxis]="true"
-      [curve]="polarCurve"
-      [xAxisLabel]="xAxisLabel"
-      [yAxisLabel]="yAxisLabel"
-      [results]="monthlyEventSeries"
-    >
-    </ngx-charts-polar-chart>
-
   </div>
 
-  <div *ngIf="injuryTypes" class="chart-container">
+  <div *ngIf="injuryHeatmap" class="chart-container">
     <ngx-charts-heat-map
       xAxisLabel="Severity"
       yAxisLabel="Month"
@@ -65,9 +40,8 @@
       [showYAxisLabel]="true"
       [xAxis]="true"
       [yAxis]="true"
-      [results]="monthlyEventSeries"
+      [results]="injuryHeatmap"
     >
     </ngx-charts-heat-map>
-
   </div>
 </div>
