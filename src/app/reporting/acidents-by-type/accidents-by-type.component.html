@@ -19,7 +19,7 @@
       </select>
     </div>
 
-    <div class="chart">
+    <div *ngIf="eventsByType" class="chart">
       <ngx-charts-bar-horizontal
       [view]="view"
       [results]="eventsByType"
