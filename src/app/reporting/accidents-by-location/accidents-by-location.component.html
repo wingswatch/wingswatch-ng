@@ -1,9 +1,9 @@
-<div class="chart-container">
-  <h2>{{ eventLocationCounts.length }} Most Recorded Locations</h2>
+<div *ngIf="!eventLocationCounts">
+  <app-svg-spinner></app-svg-spinner>
+</div>
 
-  <div *ngIf="!eventLocationCounts">
-    <app-svg-spinner></app-svg-spinner>
-  </div>
+<div class="chart-container" *ngIf="eventLocationCounts" >
+  <h2>{{ eventLocationCounts.length }} Most Recorded Locations</h2>
 
   <div class="table-container">
     <table class="table table-striped">
