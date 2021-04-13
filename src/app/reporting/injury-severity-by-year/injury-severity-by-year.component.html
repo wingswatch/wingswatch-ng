@@ -1,4 +1,4 @@
-<div class="container">
+<div class="chart-continer">
 
   <h3>Total Accidents by Year - {{ year }}</h3>
 
@@ -34,4 +34,32 @@
     <app-svg-spinner></app-svg-spinner>
   </div>
 
+  <div *ngIf="injuryTypes" class="chart-container">
+    <div class="bar-chart">
+      <ngx-charts-bar-vertical
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="showWithUninjured ? singleWithUninjured : single"
+        [gradient]="false"
+        [xAxis]="true"
+        [yAxis]="true"
+        [legend]="true"
+        [showGridLines]="true"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+      >
+      </ngx-charts-bar-vertical>
+    </div>
+    <div class="pie-chart">
+      <ngx-charts-advanced-pie-chart
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="showWithUninjured ? singleWithUninjured : single"
+        [gradient]="false"
+      >
+      </ngx-charts-advanced-pie-chart>
+    </div>
+  </div>
   </div>
