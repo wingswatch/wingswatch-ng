@@ -135,14 +135,14 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
     }
 
     const map = new window.google.maps.Map(this.mapElement.nativeElement, {
-      center: { lat: this.event.latitude, lng: this.event.longitude },
+      center: { lat: this.event.latitudeDecimal, lng: this.event.longitudeDecimal },
       zoom: 15
     });
 
     map.setMapTypeId(window.google.maps.MapTypeId.SATELLITE);
 
     new window.google.maps.Marker({
-      position: { lat: this.event.latitude, lng: this.event.longitude },
+      position: { lat: this.event.latitudeDecimal, lng: this.event.longitudeDecimal },
       map,
       draggable: true,
       animation: window.google.maps.Animation.DROP
