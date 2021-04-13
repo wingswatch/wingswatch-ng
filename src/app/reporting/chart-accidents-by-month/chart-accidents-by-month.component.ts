@@ -27,7 +27,7 @@ export class ChartAccidentsByMonthComponent implements OnInit {
 
   injuryHeatmap: MultiSeriesNgX[];
 
-  loading: boolean;
+  loading = true;
 
   cardColor: '#232837';
 
