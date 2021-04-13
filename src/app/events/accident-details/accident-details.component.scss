@@ -1,36 +1,26 @@
-.page-wrap {
-    max-width: 1200px;
-}
-
-.loadingContainer {
-    height: 100px;
-    position: relative;
-}
-
 .loadingText {
-  padding-left: 75px;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
+  padding-top: 25px;
+}
+
+.spinner {
+  padding-top: 200px;
+}
+
+h1,
+h2 {
+  padding: 25px !important;
 }
 
 .mapStyle {
-  width:100%;
-  height:400px;
+  width: 100%;
+  height: 400px;
 }
 
-.table {
-  font-size: 1.0rem;
-}
-
-  .table th, .table td {
-    padding: 0.50em;
-    text-align: left;
-  }
-
-app-svg-spinner {
-    padding-bottom: 20px;
+.table th,
+.table td {
+  padding: 0.5em;
+  text-align: left;
+  font-size: var(--default-font-size);
 }
 
 .aircraftImage {
@@ -41,12 +31,14 @@ app-svg-spinner {
 }
 
 .aircraftAlternateName {
-    font-size: 65%;
-    padding-left: 10px;
+  font-size: 0.8em;
+  padding-left: 10px;
 }
 
 .narrative {
   white-space: pre-line;
+  text-align: left;
+  font-size: 1em;
   color: red;
 }
 
@@ -59,7 +51,7 @@ td {
 }
 
 .non-fatal-injury {
-  color: var(--non-fatal-color)
+  color: var(--non-fatal-color);
 }
 
 .serious-injury {
@@ -70,3 +62,11 @@ td {
   color: var(--minor-color);
 }
 
+#injuriesTable {
+  td {
+    text-align: center;
+  }
+  th {
+    text-align: center;
+  }
+}

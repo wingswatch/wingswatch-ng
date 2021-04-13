@@ -1,18 +1,18 @@
-<div class="container">
-  <div class="page-wrap">
-    <h3>Event Details - {{ event.ntsbNumber }}</h3>
+<div *ngIf="!event" class="spinner">
+  <app-svg-spinner></app-svg-spinner>
+</div>
+
+<div *ngIf="event" class="page-wrap">
+
+    <h1>Event Details - {{ event.ntsbNumber }}</h1>
 
     <p>
       <small><a [routerLink]="['/events']">&lt;- Back to Event List</a></small>
     </p>
 
-    <div *ngIf="!event">
-      <app-svg-spinner></app-svg-spinner>
-    </div>
+    <h2>Event</h2>
 
-    <h4>Event</h4>
-
-    <div *ngIf="event">
+    <div>
       <table class="table table-striped text-light">
         <tr>
           <td>
@@ -61,12 +61,14 @@
         </tr>
         <tr *ngIf="event.latitude || event.longitude">
           <td><b>Latitude</b></td>
-          <td>{{ event.latitude }} ({{ event.latitudeDecimal }}</td>
+          <td>{{ event.latitude }} ({{ event.latitudeDecimal }})</td>
           <td><b>Longitude</b></td>
-          <td>{{ event.longitude }} ({{ event.longitudeDecimal }}</td>
+          <td>{{ event.longitude }} ({{ event.longitudeDecimal }})</td>
         </tr>
       </table>
     </div>
+
+    <h2>Aircraft</h2>
 
     <app-event-details-aircraft
       [eventAircraft]="event.aircraft"
@@ -74,75 +76,66 @@
 
     <!---------- INJURIES ----------->
 
-    <h4>Injuries</h4>
+    <h2>Injuries</h2>
 
-    <div
-      *ngIf="
-        event &&
-        (event.totalFatalInjuries ||
-          event.totalSeriousInjuries ||
-          event.totalMinorInjuries ||
-          event.totalUninjured)
-      "
-    >
-      <table class="table table-striped">
-          <tr>
-            <th>Fatal</th>
-            <th>Serious</th>
-            <th>Minor</th>
-            <th>Uninjured</th>
-          </tr>
-          <tr>
-            <td>
-              {{ event.totalFatalInjuries || 0 }}
-            </td>
-            <td>
-              {{ event.totalSeriousInjuries || 0 }}
-            </td>
-            <td>
-              {{ event.totalMinorInjuries || 0 }}
-            </td>
-            <td>
-              {{ event.totalUninjured || 0 }}
-            </td>
-          </tr>
-      </table>
-    </div>
+    <table id="injuriesTable" class="table table-striped">
+        <tr>
+          <th>Fatal</th>
+          <th>Serious</th>
+          <th>Minor</th>
+          <th>Uninjured</th>
+        </tr>
+        <tr>
+          <td>
+            {{ event.totalFatalInjuries || 0 }}
+          </td>
+          <td>
+            {{ event.totalSeriousInjuries || 0 }}
+          </td>
+          <td>
+            {{ event.totalMinorInjuries || 0 }}
+          </td>
+          <td>
+            {{ event.totalUninjured || 0 }}
+          </td>
+        </tr>
+    </table>
 
-    <div *ngIf="!narrativeLoaded">
-      <div class="loadingContainer">
-        <app-svg-spinner></app-svg-spinner>
-        <span class="loadingText"
-          >Loading the full report information ... please wait.</span
-        >
+    <div  *ngIf="!narrativeLoaded">
+
+      <app-svg-spinner></app-svg-spinner>
+      
+      <div class="loadingText">
+          Loading the full report information ... please wait.
       </div>
+
     </div>
 
     <div *ngIf="narrative">
       <div *ngIf="narrative.factualNarrative">
-        <h4>Factual Narrative</h4>
+        <h2>Factual Narrative</h2>
         <p class="narrative text-light">{{ narrative.factualNarrative }}</p>
       </div>
 
       <div *ngIf="narrative.narrativeSummary">
-        <h4>Narrative Summary</h4>
+        <h2>Narrative Summary</h2>
         <p class="narrative">{{ narrative.narrativeSummary }}</p>
       </div>
 
       <div *ngIf="narrative.probableCause">
-        <h4>Probably Cause</h4>
+        <h2>Probable Cause</h2>
         <p class="narrative">{{ narrative.probableCause }}</p>
       </div>
     </div>
 
     <!--- GOOGLE MAP --->
-    <div *ngIf="event && event.latitude && event.longitude">
+    <div *ngIf="event.latitude && event.longitude">
       <div class="map-container">
         <div class="map">
           <h2>
             <span class="mapHeader">Event Location</span
             ><small class="text-muted"
-              >{{ event.latitude }} / {{ event.longitude }}</small
+              > - {{ event.latitude }} / {{ event.longitude }} ({{ event.latitudeDecimal }} /  {{ event.longitudeDecimal }})</small
             >
           </h2>
           <div class="card mt-3">
@@ -158,19 +151,18 @@
 
     <div *ngIf="aircraftImage">
       <h2>
-        <h4>Aircraft Image</h4>
-        <span *ngIf="event">
-          <small class="text-muted">
-            <span
-              >{{ event.aircraft[0].make }} {{ event.aircraft[0].model }}</span
+        <h2>Aircraft Image
+        <span>
+            <small class="text-muted"
+              > - {{ event.aircraft[0].make }} {{ event.aircraft[0].model }}</small
             >
             <span *ngIf="aircraftImage && aircraftRenamed">
               <span class="aircraftAlternateName">
                 ({{ aircraftImage.renamedAircraft }})
               </span>
             </span>
-          </small>
         </span>
+      </h2>
       </h2>
 
       <div class="card mt-3">
@@ -196,7 +188,6 @@
     </div>
 
     <p class="p-3">
-      <small><a [routerLink]="['/events']">&lt;- Back to event List</a></small>
+      <small><a [routerLink]="['/events']">&lt;- Back to Event List</a></small>
     </p>
-  </div>
-</div>
+  
