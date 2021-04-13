@@ -20,6 +20,7 @@ import { EventsByStateComponent } from './reporting/events-by-state/events-by-st
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { EventDetailsAircraftComponent } from './events/accident-details/event-details-aircraft/event-details-aircraft.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { AppRoutingModule } from './app-routing.module';
     InjurySeverityByYearComponent,
     EventsByStateComponent,
     SearchBoxComponent,
-    EventDetailsAircraftComponent
+    EventDetailsAircraftComponent,
+    AdvancedSearchComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
