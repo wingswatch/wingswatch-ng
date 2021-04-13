@@ -1,3 +1,8 @@
+.chart-container {
+  margin: 15px auto;
+  width: fit-content;
+}
+
 /*For text labels*/
 ::ng-deep .ngx-charts text {
     fill: #fff !important;
@@ -71,25 +76,10 @@
     display: inline-block;
   }
   
-  .container {
-    text-align: center;
-    margin: 0 auto;
-  }
-  
-  .chart-container {
-      margin: 15px auto;
-      width: fit-content;
-  }
-
   .number-cards, .formatted, .unformatted {
     width: fit-content;
     margin: 0 auto;
   }
-
-  .chart-container {
-    margin: 15px auto;
-    width: fit-content;
-}
 
 .custom-checkbox {
   float: right;
