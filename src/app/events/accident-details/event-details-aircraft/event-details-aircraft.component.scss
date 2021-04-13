@@ -9,3 +9,8 @@
 .narrative {
     white-space: pre-line;
   }
+
+  td {
+      text-align: left;
+      font-size: var(--default-font-size);
+  }
