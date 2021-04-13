@@ -10,4 +10,11 @@
     --non-fatal-color: green;
     --serious-color: orangered;
     --minor-color: gray;
+    --default-font-size: 1.3em;
+}
+
+.container {
+    max-width: 1200px;
+    text-align: center;
+    font-size: var(--default-font-size);
 }
