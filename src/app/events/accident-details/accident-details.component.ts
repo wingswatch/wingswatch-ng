@@ -36,13 +36,10 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
       // Get our event ID from the URL
       this.eventId = params.id;
 
-      // Replace the browswer URL with the current page
-      //this.location.replaceState('/detail/' + this.eventId);
-
       this.titleService.setTitle(`Accident Details - ${this.eventId}`);
 
-      this.getEvent(this.eventId);
-      this.getNarrative(this.eventId);
+      this.getEvent();
+      this.getNarrative();
 
     });
 
@@ -56,9 +53,9 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
   }
 
-  getEvent(eventId: string) {
+  getEvent() {
 
-    this.eventService.getEventDetail(eventId).subscribe(
+    this.eventService.getEventDetail(this.eventId).subscribe(
       event => {
 
         this.event = event;
@@ -71,9 +68,9 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  getNarrative(eventId: string) {
+  getNarrative() {
 
-    this.eventService.getNarrative(eventId).subscribe(
+    this.eventService.getNarrative(this.eventId).subscribe(
       narrative => {
         this.narrative = narrative;
         this.narrativeLoaded = true;

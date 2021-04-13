@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { EventSearchResult } from '../../models/event-search-result';
 import { EventService } from '../../services/event.service';
 import { SearchService } from '../../services/search.service';
@@ -12,9 +13,11 @@ export class AccidentsComponent implements OnInit {
 
   events: EventSearchResult[];
 
-  constructor(private eventService: EventService, private searchService: SearchService) { }
+  constructor(private eventService: EventService, private searchService: SearchService, private title: Title) { }
 
   ngOnInit(): void {
+
+    this.title.setTitle('WingsWatch - Events');
 
     this.searchService.currentSearchTerm$.subscribe(
       searchTerms => {

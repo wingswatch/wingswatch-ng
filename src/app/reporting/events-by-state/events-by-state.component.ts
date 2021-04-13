@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { EventsByState } from 'src/app/models/Reporting/EventsByState';
 import { ReportingService } from 'src/app/services/reporting.service';
 
@@ -11,9 +12,11 @@ export class EventsByStateComponent implements OnInit {
 
   stateEventCounts: EventsByState[];
 
-  constructor(private reportingService: ReportingService) { }
+  constructor(private reportingService: ReportingService, private title: Title) { }
 
   ngOnInit() {
+
+    this.title.setTitle('Events by State');
 
     this.reportingService.getEventsByState(2020).subscribe(
       events => {

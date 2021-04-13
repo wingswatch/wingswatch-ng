@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportingService } from '../../services/reporting.service';
 import { SeriesNgX } from 'src/app/models/Reporting/MultiSeriesNgX';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-accidents-by-type',
@@ -17,9 +18,11 @@ export class AccidentsByTypeComponent implements OnInit {
   yAxisLabel = 'Make/Model';
   xAxisLabel = 'Event Count';
 
-  constructor(private reportingService: ReportingService) { }
+  constructor(private reportingService: ReportingService, private title: Title) { }
 
   ngOnInit() {
+
+    this.title.setTitle('Events by Type');
 
     for (let i = this.year; i >= 2008; i--) {
       this.yearsList.push(i);

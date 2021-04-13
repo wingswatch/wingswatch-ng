@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReportingService } from '../../services/reporting.service';
 import { InjurySeverityByYear } from '../../models/Reporting/InjurySeverityByYear';
 import { MultiSeriesNgX, SeriesNgX } from '../../models/Reporting/MultiSeriesNgX';
-import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-injury-severity-by-year',
@@ -20,7 +20,6 @@ export class InjurySeverityByYearComponent implements OnInit {
   singleWithUninjured: SeriesNgX[];
   showWithUninjured: boolean;
 
-  // options
   xAxisLabel = 'Injuries';
   yAxisLabel = 'Number of Injuries';
 
@@ -28,7 +27,11 @@ export class InjurySeverityByYearComponent implements OnInit {
     domain: ['#A10A28','#C7B42C', '#AAAAAA', '#aae3f5', '#3e5560']
   };
 
-  constructor(private reportingService: ReportingService, private activatedRoute: ActivatedRoute) {
+  constructor(private reportingService: ReportingService, private title: Title) { }
+
+  ngOnInit(): void {
+
+    this.title.setTitle('WingsWatch - NTSB Event Database');
 
     this.year = new Date().getFullYear() - 1;
     this.yearsList = [];
@@ -37,10 +40,8 @@ export class InjurySeverityByYearComponent implements OnInit {
       this.yearsList.push(i);
     }
 
-  }
+    this.getInjuryTypeByYear();
 
-  ngOnInit(): void {
-      this.getInjuryTypeByYear();
   }
 
   toggleUninjured(): void {

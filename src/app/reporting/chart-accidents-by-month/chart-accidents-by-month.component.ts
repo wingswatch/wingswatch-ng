@@ -1,9 +1,9 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ReportingService } from '../../services/reporting.service';
-import { InjuryTypesForPastMonths } from '../../models/Reporting/InjuryTypeForPastMonths';
 import { MultiSeriesNgX, SeriesNgX } from '../../models/Reporting/MultiSeriesNgX';
 
 import * as shape from 'd3';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-chart-accidents-by-month',
@@ -41,9 +41,11 @@ export class ChartAccidentsByMonthComponent implements OnInit {
       domain: ['#aae3f5', '#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d']
   };
 
-  constructor(private reportingService: ReportingService) { }
+  constructor(private reportingService: ReportingService, private title: Title) { }
 
   ngOnInit() {
+
+    this.title.setTitle('Events by Month');
 
     const d = new Date();
     this.currentYear = d.getFullYear();
