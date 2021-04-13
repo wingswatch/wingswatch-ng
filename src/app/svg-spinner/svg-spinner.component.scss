@@ -26,15 +26,11 @@
   }
 }
 
-
 .svg-container {
-  margin: 0 auto;
-  padding-top: 25px;
-  padding-bottom: 25px;
-  height: 50px;
-  width: 50px;
-  max-height: 15rem;
-  max-width: 15rem;
+  display: block;
+  margin: auto;
+  height: 75px;
+  width: 75px;
 }
 
 svg {
