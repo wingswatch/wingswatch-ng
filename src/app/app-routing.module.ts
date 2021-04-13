@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
 import { AccidentDetailsComponent } from './events/accident-details/accident-details.component';
 import { AccidentsComponent } from './events/accidents/accidents.component';
 import { HomeComponent } from './home/home.component';
@@ -19,7 +20,8 @@ const routes: Routes = [
     { path: 'reporting/events-by-type', component: AccidentsByTypeComponent },
     { path: 'reporting/events-by-location', component: AccidentsByLocationComponent },
     { path: 'reporting/injury-severity-by-year', component: InjurySeverityByYearComponent },
-    { path: 'reporting/events-by-state', component: EventsByStateComponent }
+    { path: 'reporting/events-by-state', component: EventsByStateComponent },
+    { path: 'search', component: AdvancedSearchComponent }
 ];
 
 @NgModule({
