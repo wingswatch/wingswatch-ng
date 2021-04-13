@@ -1,5 +1,5 @@
-.container {
-  max-width: 1200px;
+.link-active {
+  color: white !important;
 }
 
 a.navbar-brand {
@@ -32,4 +32,13 @@ a.navbar-brand {
 
 li {
     padding: 10px;
+}
+
+.logo {
+  height: 50px;
+}
+
+.search-field {
+  display: flex;
+  align-items: center;
 }
