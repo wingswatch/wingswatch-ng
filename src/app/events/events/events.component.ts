@@ -5,11 +5,11 @@ import { EventService } from '../../services/event.service';
 import { SearchService } from '../../services/search.service';
 
 @Component({
-  selector: 'app-accidents',
-  templateUrl: './accidents.component.html',
-  styleUrls: ['./accidents.component.scss']
+  selector: 'app-events',
+  templateUrl: './events.component.html',
+  styleUrls: ['./events.component.scss']
 })
-export class AccidentsComponent implements OnInit {
+export class EventsComponent implements OnInit {
 
   events: EventSearchResult[];
 
