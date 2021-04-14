@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
 import { AccidentDetailsComponent } from './events/accident-details/accident-details.component';
-import { AccidentsComponent } from './events/accidents/accidents.component';
+import { EventsComponent } from './events/events/events.component';
 import { HomeComponent } from './home/home.component';
 import { AccidentsByLocationComponent } from './reporting/accidents-by-location/accidents-by-location.component';
 import { AccidentsHeatMapComponent } from './reporting/accidents-heat-map/accidents-heat-map.component';
@@ -13,7 +13,7 @@ import { InjurySeverityByYearComponent } from './reporting/injury-severity-by-ye
 
 const routes: Routes = [
     { path: '', component: HomeComponent, pathMatch: 'full' },
-    { path: 'events', component: AccidentsComponent },
+    { path: 'events', component: EventsComponent },
     { path: 'event-details/:id', component: AccidentDetailsComponent },
     { path: 'reporting/heat-map/:id', component: AccidentsHeatMapComponent },
     { path: 'reporting/chart-events-by-month', component: ChartAccidentsByMonthComponent },

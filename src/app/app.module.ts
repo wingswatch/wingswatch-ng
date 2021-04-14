@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { AccidentsComponent } from './events/accidents/accidents.component';
 import { AccidentDetailsComponent } from './events/accident-details/accident-details.component';
 import { SvgSpinnerComponent } from './svg-spinner/svg-spinner.component';
 import { AccidentsHeatMapComponent } from './reporting/accidents-heat-map/accidents-heat-map.component';
@@ -21,13 +20,16 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 import { EventDetailsAircraftComponent } from './events/accident-details/event-details-aircraft/event-details-aircraft.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
+import { EventsComponent } from './events/events/events.component';
+
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    AccidentsComponent,
+    EventsComponent,
     AccidentDetailsComponent,
     SvgSpinnerComponent,
     AccidentsHeatMapComponent,
@@ -49,7 +51,8 @@ import { AdvancedSearchComponent } from './advanced-search/advanced-search.compo
     HeatMapModule,
     AreaChartModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
