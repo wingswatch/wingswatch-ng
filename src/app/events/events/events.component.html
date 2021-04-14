@@ -9,7 +9,9 @@
     <p-table 
     *ngIf="events" 
     [value]="events" 
-    styleClass="p-datatable-striped">
+    styleClass="p-datatable-striped"
+    [rowHover]="true"
+    >
 
     <ng-template pTemplate="header">
         <tr>
