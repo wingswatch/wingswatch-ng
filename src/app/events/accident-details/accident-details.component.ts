@@ -22,8 +22,6 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
   public loadingComplete: boolean;
   public aircraftImage: AircraftImage;
 
-  private mapScriptCreated: boolean;
-
   constructor(
     private route: ActivatedRoute,
     private eventService: EventService,
@@ -92,11 +90,12 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
     createMapScript() {
 
-    if (this.mapScriptCreated) {
+    if (document.getElementById('google-map-script')) {
       console.log('google-map-script exists in createMapElement - returning');
       return;
     }
 
+    window.google = undefined;
     const s = window.document.createElement('script');
 
     s.id = 'google-map-script';
@@ -104,8 +103,6 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
     s.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAB_TCx0r3XRweCaJZ6-JT-O6F_mJ9Z_XY&callback=initMap';
 
     window.document.body.appendChild(s);
-
-    this.mapScriptCreated = true;
 
   }
 
