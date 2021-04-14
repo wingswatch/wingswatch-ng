@@ -1,4 +1,4 @@
-    <h1 id="tableLabel">Event Summaries</h1>
+    <h2>Event Summaries</h2>
 
     <p>The following is a list of the latest aviation incidents and accidents as reported by the NTSB.</p>
 
@@ -6,19 +6,24 @@
       <app-svg-spinner></app-svg-spinner>
     </div>
 
-    <table *ngIf="events" class="table table-striped">
-      <thead>
+    <p-table 
+    *ngIf="events" 
+    [value]="events" 
+    styleClass="p-datatable-striped">
+
+    <ng-template pTemplate="header">
         <tr>
-          <th>Event #</th>
-          <th>Event Date</th>
-          <th>Event Type</th>
-          <th>Aircraft Type</th>
-          <th>Location</th>
-          <th>Severity</th>
+          <th pSortableColumn="ntsbNumber">Event<p-sortIcon field="ntsbNumber"></p-sortIcon></th>
+          <th pSortableColumn="eventDate">Event Date<p-sortIcon field="eventDate"></p-sortIcon></th>
+          <th pSortableColumn="eventType">Event Type<p-sortIcon field="eventType"></p-sortIcon></th>
+          <th pSortableColumn="make">Aircraft Type<p-sortIcon field="make"></p-sortIcon></th>
+          <th pSortableColumn="location">Location<p-sortIcon field="location"></p-sortIcon></th>
+          <th pSortableColumn="injurySeverity">Severity<p-sortIcon field="injurySeverity"></p-sortIcon></th>
         </tr>
-      </thead>
-      <tbody>
-        <tr class="highlight" *ngFor="let event of events" [routerLink]="['/event-details', event.eventId]">
+      </ng-template>
+
+      <ng-template pTemplate="body" let-event>
+        <tr class="highlight" [routerLink]="['/event-details', event.eventId]">
           <td>{{ event.ntsbNumber }}</td>
           <td>{{ event.eventDate | date:'MM/dd/yyyy' }}</td>
           <td>{{ event.eventType }}</td>
@@ -33,6 +38,6 @@
             {{ event.injurySeverity }}
           </td>
         </tr>
-      </tbody>
-    </table>
+      </ng-template>
+    </p-table>
 

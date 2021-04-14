@@ -1,9 +1,9 @@
-.table {
-    font-size: 1rem;
-}
-
 .globe {
   filter: invert(100%);
+}
+
+h2 {
+  padding: 0.75rem;
 }
 
 .highlight:hover {
@@ -14,10 +14,6 @@
 th {
     cursor: pointer;
 }
-
-  th:hover {
-    background-color: rgba(0, 0, 0, 0.4);
-  }
 
   .fatal-injury {
     color: var(--fatal-color);
@@ -35,4 +31,19 @@ th {
     color: var(--minor-color);
   }
   
-  
+  :host ::ng-deep .p-datatable .p-datatable-tbody > tr > td
+  {
+    padding: .5em .5em !important;
+  }
+
+  :host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+    padding: .75em .75em !important;
+  }
+
+  :host ::ng-deep .p-datatable .p-datatable-tbody > tr {
+    background: #2a323d5c;
+  }
+
+  :host ::ng-deep .p-datatable {
+    
+  }
