@@ -20,9 +20,6 @@ import { SharedModule } from '../shared.module';
     InjurySeverityByYearComponent,
     EventsByStateComponent
   ],
-  exports: [
-    AccidentsByTypeComponent
-  ],
   imports: [
     CommonModule,
     ReportingRoutingModule,
