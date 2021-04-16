@@ -8,12 +8,13 @@ import { EventsByStateComponent } from './events-by-state/events-by-state.compon
 import { InjurySeverityByYearComponent } from './injury-severity-by-year/injury-severity-by-year.component';
 
 const routes: Routes = [
-  { path: 'reporting/events-by-location', component: AccidentsByLocationComponent },
-  { path: 'reporting/heat-map/:id', component: AccidentsHeatMapComponent },
-  { path: 'reporting/chart-events-by-month', component: ChartAccidentsByMonthComponent },
-  { path: 'reporting/events-by-type', component: AccidentsByTypeComponent },
-  { path: 'reporting/injury-severity-by-year', component: InjurySeverityByYearComponent },
-  { path: 'reporting/events-by-state', component: EventsByStateComponent },
+  { path: '', component: AccidentsByLocationComponent },
+  { path: 'events-by-location', component: AccidentsByLocationComponent },
+  { path: 'heat-map/:id', component: AccidentsHeatMapComponent },
+  { path: 'chart-events-by-month', component: ChartAccidentsByMonthComponent },
+  { path: 'events-by-type', component: AccidentsByTypeComponent },
+  { path: 'injury-severity-by-year', component: InjurySeverityByYearComponent },
+  { path: 'events-by-state', component: EventsByStateComponent },
 ];
 
 @NgModule({
