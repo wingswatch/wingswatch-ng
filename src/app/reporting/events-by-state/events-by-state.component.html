@@ -1,10 +1,12 @@
   <h2>Most Recorded Events - By State</h2>
 
-  <div *ngIf="!stateEventCounts">
+  <app-select-year (yearChanged)="onChangeYear($event)"></app-select-year>
+
+  <div *ngIf="!stateEventCounts.length">
     <app-svg-spinner></app-svg-spinner>
   </div>
 
-  <div *ngIf="stateEventCounts" class="table-container">
+  <div *ngIf="stateEventCounts.length" class="table-container">
     <table class="table table-striped">
       <thead>
         <tr>

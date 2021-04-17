@@ -18,12 +18,25 @@ export class EventsByStateComponent implements OnInit {
 
     this.title.setTitle('Events by State');
 
-    this.reportingService.getEventsByState(2020).subscribe(
+    const lastYear = new Date().getFullYear() - 1;
+    this.getData(lastYear);
+
+  }
+
+  getData(year: number): void {
+
+    this.stateEventCounts = [];
+
+    this.reportingService.getEventsByState(year).subscribe(
       events => {
         this.stateEventCounts = events;
       }
     );
 
+  }
+
+  onChangeYear(selectedYear: number): void {
+    this.getData(selectedYear);
   }
 
 }
