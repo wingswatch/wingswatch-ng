@@ -1,16 +1,16 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ReportingService } from '../../services/reporting.service';
 import { MultiSeriesNgX, SeriesNgX } from '../../models/Reporting/MultiSeriesNgX';
+import { Title } from '@angular/platform-browser';
 
 import * as shape from 'd3';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-chart-accidents-by-month',
-  templateUrl: './chart-accidents-by-month.component.html',
-  styleUrls: ['./chart-accidents-by-month.component.scss']
+  templateUrl: './chart-events-by-month.component.html',
+  styleUrls: ['./chart-events-by-month.component.scss']
 })
-export class ChartAccidentsByMonthComponent implements OnInit {
+export class ChartEventsByMonthComponent implements OnInit {
   @ViewChild('selectYear') selectYear: ElementRef;
 
   multi: any[];
