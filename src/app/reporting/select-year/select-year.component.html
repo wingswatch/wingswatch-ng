@@ -1,0 +1,7 @@
+<div class="select">
+    <select #selectYear (change)="onChangeYear($event.target)">
+      <option *ngFor="let year of yearsList" value="{{ year }}" id="{{ year }}">
+        {{ year }}
+      </option>
+    </select>
+  </div>

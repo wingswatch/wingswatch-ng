@@ -10,6 +10,7 @@ import { AccidentsByTypeComponent } from './acidents-by-type/accidents-by-type.c
 import { InjurySeverityByYearComponent } from './injury-severity-by-year/injury-severity-by-year.component';
 import { EventsByStateComponent } from './events-by-state/events-by-state.component';
 import { SharedModule } from '../shared.module';
+import { SelectYearComponent } from './select-year/select-year.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SharedModule } from '../shared.module';
     ChartAccidentsByMonthComponent,
     AccidentsByTypeComponent,
     InjurySeverityByYearComponent,
-    EventsByStateComponent
+    EventsByStateComponent,
+    SelectYearComponent
   ],
   imports: [
     CommonModule,
