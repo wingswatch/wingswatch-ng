@@ -11,16 +11,12 @@ import { ReportingService } from 'src/app/services/reporting.service';
 export class EventsByStateComponent implements OnInit {
 
   stateEventCounts: EventsByState[];
+  year = new Date().getFullYear() - 1;
 
   constructor(private reportingService: ReportingService, private title: Title) { }
 
   ngOnInit() {
-
     this.title.setTitle('Events by State');
-
-    const lastYear = new Date().getFullYear() - 1;
-    this.getData(lastYear);
-
   }
 
   getData(year: number): void {
@@ -36,6 +32,7 @@ export class EventsByStateComponent implements OnInit {
   }
 
   onChangeYear(selectedYear: number): void {
+    this.year = selectedYear;
     this.getData(selectedYear);
   }
 
