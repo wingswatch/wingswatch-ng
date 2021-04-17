@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReportingService } from '../../services/reporting.service';
 import { MultiSeriesNgX, SeriesNgX } from '../../models/Reporting/MultiSeriesNgX';
 import { Title } from '@angular/platform-browser';
@@ -11,7 +11,6 @@ import * as shape from 'd3';
   styleUrls: ['./chart-events-by-month.component.scss']
 })
 export class ChartEventsByMonthComponent implements OnInit {
-  @ViewChild('selectYear') selectYear: ElementRef;
 
   multi: any[];
   view: [number, number] = [1100, 500];
@@ -48,29 +47,20 @@ export class ChartEventsByMonthComponent implements OnInit {
     this.title.setTitle('Events by Month');
 
     const d = new Date();
-    this.currentYear = d.getFullYear();
+    this.currentYear = d.getFullYear() - 1;
     this.yearsList = [];
 
-    for (let i = this.currentYear - 1; i >= 2008; i--) {
+    for (let i = this.currentYear; i >= 2008; i--) {
       this.yearsList.push(i);
     };
 
-    this.getInjuryTypesAllMonths(this.currentYear - 1);
+    this.getInjuryTypesAllMonths(this.currentYear);
 
 
   }
 
-  onChangeYear(target: EventTarget | null) {
-
-    if (target) {
-
-      const el = target as HTMLInputElement;
-      const year = Number(el.value);
-
-      this.getInjuryTypesAllMonths(year);
-
-    }
-
+  onChangeYear(selectedYear: number): void {
+    this.getInjuryTypesAllMonths(selectedYear);
   }
 
   convertToMonth(monthId: number): string {

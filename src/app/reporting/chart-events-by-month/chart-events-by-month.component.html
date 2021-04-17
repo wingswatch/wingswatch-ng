@@ -1,10 +1,4 @@
-  <div class="select">
-    <select #selectYear (change)="onChangeYear($event.target)">
-      <option *ngFor="let year of yearsList" value="{{ year }}" id="{{ year }}">
-        {{ year }}
-      </option>
-    </select>
-  </div>
+  <app-select-year (yearChanged)="onChangeYear($event)"></app-select-year>
 
   <div *ngIf="loading" class="loader text-center">
     <app-svg-spinner></app-svg-spinner>
