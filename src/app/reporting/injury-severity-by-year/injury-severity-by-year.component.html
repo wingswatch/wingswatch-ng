@@ -1,22 +1,8 @@
 <div class="chart-continer">
 
-  <h3>Total Accidents by Year - {{ year }}</h3>
+  <h3>Injury Severity by Year - {{ year }}</h3>
 
-  <div class="input-container">
-    <div>
-      <div class="select">
-        <select (change)="onChangeYear($event.target)">
-          <option
-            *ngFor="let year of yearsList"
-            value="{{ year }}"
-            id="{{ year }}"
-          >
-            {{ year }}
-          </option>
-        </select>
-      </div>
-    </div>
-  </div>
+  <app-select-year (yearChanged)="onChangeYear($event)"></app-select-year>
 
   <div>
     <input

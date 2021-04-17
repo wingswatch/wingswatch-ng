@@ -12,7 +12,6 @@ import { Title } from '@angular/platform-browser';
 export class InjurySeverityByYearComponent implements OnInit {
 
   year: number;
-  yearsList: Array<number>;
   multi: MultiSeriesNgX[];
   view: [number, number] = [900, 300];
   injuryTypes: InjurySeverityByYear;
@@ -30,35 +29,16 @@ export class InjurySeverityByYearComponent implements OnInit {
   constructor(private reportingService: ReportingService, private title: Title) { }
 
   ngOnInit(): void {
-
     this.title.setTitle('WingsWatch - NTSB Event Database');
-
-    this.year = new Date().getFullYear() - 1;
-    this.yearsList = [];
-
-    for (let i = this.year - 1; i >= 1985; i--) {
-      this.yearsList.push(i);
-    }
-
-    this.getInjuryTypeByYear();
-
   }
 
   toggleUninjured(): void {
     this.showWithUninjured = !this.showWithUninjured;
   }
 
-  onChangeYear(target: EventTarget | null) {
-
-    if (target) {
-
-      const el = target as HTMLInputElement;
-      this.year = Number(el.value);
-
-      this.getInjuryTypeByYear();
-
-    }
-
+  onChangeYear(selectedYear: number): void {
+    this.year = selectedYear;
+    this.getInjuryTypeByYear();
   }
 
   getInjuryTypeByYear(): void {
