@@ -10,7 +10,7 @@ import { InjurySeverityByYearComponent } from './injury-severity-by-year/injury-
 import { EventsByStateComponent } from './events-by-state/events-by-state.component';
 import { SharedModule } from '../shared.module';
 import { SelectYearComponent } from './select-year/select-year.component';
-import { ChartEventsByMonthComponent } from './chart-accidents-by-month/chart-events-by-month.component';
+import { ChartEventsByMonthComponent } from './chart-events-by-month/chart-events-by-month.component';
 
 @NgModule({
   declarations: [
