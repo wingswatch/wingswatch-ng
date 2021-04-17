@@ -2,12 +2,12 @@
 
     <p>The following is a list of the latest aviation incidents and accidents as reported by the NTSB.</p>
 
-    <div *ngIf="!events">
+    <div *ngIf="!events.length">
       <app-svg-spinner></app-svg-spinner>
     </div>
 
     <p-table 
-    *ngIf="events" 
+    *ngIf="events.length" 
     [value]="events" 
     styleClass="p-datatable-striped"
     [rowHover]="true"

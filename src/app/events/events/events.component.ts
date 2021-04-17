@@ -30,17 +30,26 @@ export class EventsComponent implements OnInit {
   }
 
   getEvents(): void {
+
+    this.events = [];
+
     this.eventService.getEvents().subscribe(
-      events => this.events = events
+      events => {
+        this.events = events;
+      }
     );
 
   }
 
   performSearch(searchTerms: string): void {
 
+    this.events = [];
+
     // TODO: Add aircraft damage to result
     this.eventService.search(searchTerms).subscribe(
-      result => this.events = result
+      result => {
+        this.events = result;
+      }
     );
   }
 
