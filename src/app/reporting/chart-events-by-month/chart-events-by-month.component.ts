@@ -6,7 +6,7 @@ import { Title } from '@angular/platform-browser';
 import * as shape from 'd3';
 
 @Component({
-  selector: 'app-chart-accidents-by-month',
+  selector: 'app-chart-events-by-month',
   templateUrl: './chart-events-by-month.component.html',
   styleUrls: ['./chart-events-by-month.component.scss']
 })
@@ -20,7 +20,7 @@ export class ChartEventsByMonthComponent implements OnInit {
   curve = shape.curveCardinal;
   polarCurve = shape.curveCardinalClosed;
   xAxisLabel: 'Months';
-  yAxisLabel: 'Number of Accidents';
+  yAxisLabel: 'Number of Events';
   currentYear: number;
   yearsList: Array<number>;
 

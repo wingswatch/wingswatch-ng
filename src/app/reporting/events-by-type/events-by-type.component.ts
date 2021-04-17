@@ -4,11 +4,11 @@ import { SeriesNgX } from 'src/app/models/Reporting/MultiSeriesNgX';
 import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-accidents-by-type',
-  templateUrl: './accidents-by-type.component.html',
-  styleUrls: ['./accidents-by-type.component.scss']
+  selector: 'app-events-by-type',
+  templateUrl: './events-by-type.component.html',
+  styleUrls: ['./events-by-type.component.scss']
 })
-export class AccidentsByTypeComponent implements OnInit {
+export class EventsByTypeComponent implements OnInit {
 
   view: [number, number] = [900, 1500];
   eventsByType: SeriesNgX[];
