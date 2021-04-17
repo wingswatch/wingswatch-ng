@@ -2,20 +2,10 @@
 
     <h3>Top Events By Type - {{ year }}</h3>
 
+    <app-select-year (yearChanged)="onChangeYear($event)"></app-select-year>
+
     <div *ngIf="!eventsByType">
       <app-svg-spinner></app-svg-spinner>
-    </div>
-
-    <div class="select" *ngIf="eventsByType">
-      <select
-        #selectYear
-        (change)="onChangeYear($event.target)"
-      >
-        <option *ngFor="let year of yearsList" value="{{ year }}" id="{{ year }}">
-          {{ year }}
-        </option>
-  
-      </select>
     </div>
 
     <div *ngIf="eventsByType" class="chart">

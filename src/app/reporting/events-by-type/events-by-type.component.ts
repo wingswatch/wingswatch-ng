@@ -13,7 +13,6 @@ export class EventsByTypeComponent implements OnInit {
   view: [number, number] = [900, 1500];
   eventsByType: SeriesNgX[];
   year = new Date().getFullYear() - 1;
-  yearsList: Array<number> = [];
 
   yAxisLabel = 'Make/Model';
   xAxisLabel = 'Event Count';
@@ -21,15 +20,7 @@ export class EventsByTypeComponent implements OnInit {
   constructor(private reportingService: ReportingService, private title: Title) { }
 
   ngOnInit() {
-
     this.title.setTitle('Events by Type');
-
-    for (let i = this.year; i >= 2008; i--) {
-      this.yearsList.push(i);
-    };
-
-    this.getEvents(this.year);
-
   }
 
   getEvents(year: number): void {
@@ -47,17 +38,9 @@ export class EventsByTypeComponent implements OnInit {
 
   }
 
-  onChangeYear(target: EventTarget | null): void {
-
-    if (target) {
-
-      const el = target as HTMLInputElement;
-      this.year = Number(el.value);
-
-      this.getEvents(this.year);
-
-    }
-
+  onChangeYear(selectedYear: number): void {
+    this.year = selectedYear;
+    this.getEvents(selectedYear);
   }
 
 }
