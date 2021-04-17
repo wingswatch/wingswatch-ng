@@ -25,18 +25,12 @@ export class EventsComponent implements OnInit {
       }
     );
 
-    this.getEvents();
-
   }
 
   getEvents(): void {
 
-    this.events = [];
-
     this.eventService.getEvents().subscribe(
-      events => {
-        this.events = events;
-      }
+      events => this.events = events
     );
 
   }
@@ -45,12 +39,15 @@ export class EventsComponent implements OnInit {
 
     this.events = [];
 
-    // TODO: Add aircraft damage to result
-    this.eventService.search(searchTerms).subscribe(
-      result => {
-        this.events = result;
-      }
-    );
-  }
+    if (!searchTerms) {
+      this.getEvents();
+    }
+    else {
 
+      // TODO: Add aircraft damage to result
+      this.eventService.search(searchTerms).subscribe(
+        result => this.events = result
+      );
+    }
+  }
 }
