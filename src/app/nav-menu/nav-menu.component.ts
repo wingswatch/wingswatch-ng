@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-menu',
@@ -8,6 +7,6 @@ import { Router } from '@angular/router';
 })
 export class NavMenuComponent {
 
-  constructor(private router: Router) { }
+  constructor() { }
 
 }

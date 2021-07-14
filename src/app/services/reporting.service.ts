@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EventCoordinates } from '../models/event-coordinates';
 import { Observable } from 'rxjs/internal/Observable';
-import { NtsbEvent } from '../models/ntsb-event';
 import { MonthlyEvents } from '../models/Reporting/MonthlyEvents';
 import { EventByType } from '../models/Reporting/EventByType';
 import { EventLocationCount } from '../models/Reporting/EventLocationCount';

@@ -16,7 +16,6 @@ import { EventsComponent } from './events/events/events.component';
 
 import { TableModule } from 'primeng/table';
 import { SharedModule } from './shared.module';
-import { ReportingModule } from './reporting/reporting.module';
 
 @NgModule({
   declarations: [
