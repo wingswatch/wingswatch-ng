@@ -4,9 +4,7 @@
 
     <app-select-year (yearChanged)="onChangeYear($event)"></app-select-year>
 
-    <div *ngIf="!eventsByType">
-      <app-svg-spinner></app-svg-spinner>
-    </div>
+    <app-svg-spinner *ngIf="!eventsByType"></app-svg-spinner>
 
     <div *ngIf="eventsByType" class="chart">
       <ngx-charts-bar-horizontal

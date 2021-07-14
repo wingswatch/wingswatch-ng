@@ -1,8 +1,6 @@
   <app-select-year (yearChanged)="onChangeYear($event)"></app-select-year>
 
-  <div *ngIf="loading" class="loader text-center">
-    <app-svg-spinner></app-svg-spinner>
-  </div>
+  <app-svg-spinner *ngIf="loading"></app-svg-spinner>
 
   <div *ngIf="!loading" class="chart-container">
     <ngx-charts-area-chart
