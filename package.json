@@ -27,10 +27,10 @@
     "google-maps": "^4.3.3",
     "jquery": "3.6.0",
     "popper.js": "1.16.1",
-    "primeicons": "^4.1.0",
-    "primeng": "^11.3.2",
-    "rxjs": "~6.6.0",
-    "tslib": "^2.0.0",
+    "primeicons": "^5.0.0",
+    "primeng": "^13.0.4",
+    "rxjs": "~7.5.2",
+    "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
