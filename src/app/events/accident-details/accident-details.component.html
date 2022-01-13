@@ -52,7 +52,7 @@
         <td>Event Type</td>
         <td>{{ event.eventType }}</td>
         <td>Weather Condition</td>
-        <td>{{ event.weatherCondition }}</td>
+        <td>{{ event.weatherCondition ? event.weatherCondition : 'Unknown' }}</td>
       </tr>
       <tr *ngIf="event.latitude || event.longitude">
         <td><b>Latitude</b></td>
@@ -104,9 +104,16 @@
     </div>
   </div>
 
+  <div *ngIf="narrativeLoaded and !narrative">
+  <h2>Factual Narrative</h2>
+    <h5>
+      No factual narrative available.
+    </h5>
+  </div>
+
+
   <div *ngIf="narrative">
     <div *ngIf="narrative.factualNarrative">
-      <h2>Factual Narrative</h2>
       <p class="narrative text-light">{{ narrative.factualNarrative }}</p>
     </div>
 
