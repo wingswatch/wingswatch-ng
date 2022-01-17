@@ -16,6 +16,10 @@ import { EventsComponent } from './events/events/events.component';
 
 import { TableModule } from 'primeng/table';
 import { SharedModule } from './shared.module';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,11 @@ import { SharedModule } from './shared.module';
     BrowserAnimationsModule,
     AppRoutingModule,
     TableModule,
-    SharedModule
+    SharedModule,
+    DropdownModule,
+    InputTextModule,
+    ButtonModule,
+    CalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

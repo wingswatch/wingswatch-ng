@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdvancedSearchComponent implements OnInit {
 
+  eventId: string;
+  eventDate: Date;
+
   constructor() { }
 
   ngOnInit(): void {
