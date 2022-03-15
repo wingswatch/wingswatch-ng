@@ -1,10 +1,5 @@
 @import 'assets/css/bootstrap.css';
 
-/* We mark these global properties with !important they always override component-specific settings
-    For example, if every cell in a table has "text-light" applied to it, but we still need to use
-    the injury severity modifies on a particular cell with dynamic CSS, that needs to take precedence.
-*/
-
 :root {
     --fatal-color: red;
     --non-fatal-color: green;
