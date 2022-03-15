@@ -3,45 +3,20 @@
 <div class="p-grid">
     <div class="p-field p-col-12 p-md-4">
         <span class="p-float-label">
-            <input type="text" id="inputtext" pInputText [(ngModel)]="eventId"> 
+            <input type="text" id="inputtext" pInputText [(ngModel)]="model.ntsbNumber"> 
             <label for="inputtext">NTSB Event ID</label>
         </span>
     </div>
     <div class="p-field p-col-12 p-md-4">
         <span class="p-float-label">
-            <p-calendar inputId="calendar" [(ngModel)]="eventDate"></p-calendar>
+            <p-calendar inputId="calendar" [(ngModel)]="model.eventDate"></p-calendar>
             <label for="calendar">Event Date</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-md-4">
-        <span class="p-float-label">
-            <p-calendar inputId="calendar" [(ngModel)]="eventDate"></p-calendar>
-            <label for="calendar">Calendar</label>
-        </span>
-    </div>
 </div>
 
-<div class="p-fluid p-grid">
-    <div class="p-field p-col-12 p-md-4">
-        <span class="p-float-label">
-            <input type="text" id="inputtext" pInputText> 
-            <label for="inputtext">InputText</label>
-        </span>
-    </div>
-    <div class="p-field p-col-12 p-md-4">
-        <span class="p-float-label p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input type="text" id="inputtext-left" pInputText> 
-            <label for="inputtext-left">Left Icon</label>
-        </span>
-    </div>
-    <div class="p-field p-col-12 p-md-4">
-        <span class="p-float-label p-input-icon-right">
-            <i class="pi pi-spin pi-spinner"></i>
-            <input type="text" id="inputtext-right" pInputText> 
-            <label for="inputtext-right">Right Icon</label>
-        </span>
-    </div>
-</div>
+<button pButton pRipple label="Search" (click)="clickSearch()"></button>
 
-<button pButton pRipple label="Search"></button>
+<div *ngIf="results">
+    {{ results | json }}
+</div>

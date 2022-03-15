@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AdvancedSearch, AdvancedSearchResult } from './advanced-search.interfaces';
+import { AdvancedSearchService } from './advanced-search.service';
 
 @Component({
   selector: 'app-advanced-search',
@@ -7,12 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdvancedSearchComponent implements OnInit {
 
-  eventId: string;
-  eventDate: Date;
+  model: AdvancedSearch = {};
+  results: AdvancedSearchResult[] | undefined;
 
-  constructor() { }
+  constructor(private service: AdvancedSearchService) { }
 
   ngOnInit(): void {
+  }
+
+  clickSearch(): void {
+
+    this.service.advancedSearch(this.model).subscribe(r => this.results = r);
+
   }
 
 }
