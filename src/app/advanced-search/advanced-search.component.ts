@@ -9,8 +9,9 @@ import { AdvancedSearchService } from './advanced-search.service';
 })
 export class AdvancedSearchComponent implements OnInit {
 
+  loading: boolean;
   model: AdvancedSearch = {};
-  results: AdvancedSearchResult[] | undefined;
+  results: AdvancedSearchResult[];
 
   constructor(private service: AdvancedSearchService) { }
 
@@ -19,7 +20,13 @@ export class AdvancedSearchComponent implements OnInit {
 
   clickSearch(): void {
 
-    this.service.advancedSearch(this.model).subscribe(r => this.results = r);
+    this.loading = true;
+
+    this.service.advancedSearch(this.model).subscribe(r => {
+      this.results = r;
+      console.log(r);
+      this.loading = false;
+    });
 
   }
 

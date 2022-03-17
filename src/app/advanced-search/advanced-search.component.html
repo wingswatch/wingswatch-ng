@@ -17,6 +17,44 @@
 
 <button pButton pRipple label="Search" (click)="clickSearch()"></button>
 
-<div *ngIf="results">
-    {{ results | json }}
-</div>
+
+<div *ngIf="loading">
+    <app-svg-spinner></app-svg-spinner>
+  </div>
+
+  <p-table 
+  *ngIf="results && !loading" 
+  [value]="results" 
+  styleClass="p-datatable-striped"
+  [rowHover]="true"
+  >
+
+  <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="ntsbNumber">Event<p-sortIcon field="ntsbNumber"></p-sortIcon></th>
+        <th pSortableColumn="eventDate">Event Date<p-sortIcon field="eventDate"></p-sortIcon></th>
+        <th pSortableColumn="eventType">Event Type<p-sortIcon field="eventType"></p-sortIcon></th>
+        <th pSortableColumn="make">Aircraft Type<p-sortIcon field="make"></p-sortIcon></th>
+        <th pSortableColumn="location">Location<p-sortIcon field="location"></p-sortIcon></th>
+        <th pSortableColumn="injurySeverity">Severity<p-sortIcon field="injurySeverity"></p-sortIcon></th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-result>
+      <tr class="highlight" [routerLink]="['/result-details', result.resultId]">
+        <td>{{ result.ntsbNumber }}</td>
+        <td>{{ result.eventDate | date:'MM/dd/yyyy' }}</td>
+        <td>{{ result.eventType }}</td>
+        <td>{{ result.aircraftType}}</td>
+        <td>{{ result.location }}
+        <td [ngClass]="{
+            'fatal-injury': (result.injurySeverity.includes('Fatal')),
+            'non-fatal-injury': (result.injurySeverity === 'None'),
+            'serious-injury': (result.injurySeverity === 'Serious'),
+            'minor-injury': (result.injurySeverity === 'Minor')
+          }">
+          {{ result.injurySeverity }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>

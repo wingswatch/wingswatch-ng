@@ -11,6 +11,19 @@
     width: 10rem;
 }
 
-// label {
-//     width: 50rem;
-// }
+
+.fatal-injury {
+    color: var(--fatal-color);
+  }
+  
+  .non-fatal-injury {
+    color: var(--non-fatal-color)
+  }
+  
+  .serious-injury {
+    color: var(--serious-color);
+  }
+  
+  .minor-injury {
+    color: var(--minor-color);
+  }
