@@ -3,6 +3,10 @@ export interface AdvancedSearch {
     ntsbNumber?: string;
     eventDate?: Date;
     investigationType?: string;
+    make?: string;
+    model?: string;
+    city?: string;
+    state?: string;
 }
 
 export interface AdvancedSearchResult {

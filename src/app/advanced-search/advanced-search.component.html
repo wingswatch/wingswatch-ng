@@ -1,22 +1,29 @@
 <h3>Advanced Search</h3>
 
-<div class="p-grid">
-    <div class="p-field p-col-12 p-md-4">
-        <span class="p-float-label">
-            <input type="text" id="inputtext" pInputText [(ngModel)]="model.ntsbNumber"> 
-            <label for="inputtext">NTSB Event ID</label>
-        </span>
+<div class="p-formgroup-inline">
+    <div class="p-field">
+        <input type="text" pInputText [(ngModel)]="model.ntsbNumber" placeholder="NTSB Event ID"> 
     </div>
-    <div class="p-field p-col-12 p-md-4">
-        <span class="p-float-label">
-            <p-calendar inputId="calendar" [(ngModel)]="model.eventDate"></p-calendar>
-            <label for="calendar">Event Date</label>
-        </span>
+    <div class="p-field">
+        <input type="text" pInputText [(ngModel)]="model.make" placeholder="Make">
+    </div>
+    <div class="p-field">
+        <input type="text" pInputText [(ngModel)]="model.model" placeholder="Model">
+    </div>
+    <div class="p-field">
+        <input type="text" pInputText [(ngModel)]="model.city" placeholder="City">
+    </div>
+    <div class="p-field">
+        <input type="text" pInputText [(ngModel)]="model.state" placeholder="State">
+    </div>
+    <div class="p-field">
+        <p-calendar inputId="calendar" [(ngModel)]="model.eventDate" placeholder="Event Date"></p-calendar>
     </div>
 </div>
 
-<button pButton pRipple label="Search" (click)="clickSearch()"></button>
-
+<div class="p-mt-3">
+    <button pButton pRipple label="Search" (click)="clickSearch()"></button>
+</div>
 
 <div *ngIf="loading">
     <app-svg-spinner></app-svg-spinner>
@@ -41,7 +48,7 @@
     </ng-template>
 
     <ng-template pTemplate="body" let-result>
-      <tr class="highlight" [routerLink]="['/result-details', result.resultId]">
+      <tr class="highlight" [routerLink]="['/event-details', result.eventId]">
         <td>{{ result.ntsbNumber }}</td>
         <td>{{ result.eventDate | date:'MM/dd/yyyy' }}</td>
         <td>{{ result.eventType }}</td>

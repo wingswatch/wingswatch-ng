@@ -24,7 +24,6 @@ export class AdvancedSearchComponent implements OnInit {
 
     this.service.advancedSearch(this.model).subscribe(r => {
       this.results = r;
-      console.log(r);
       this.loading = false;
     });
 
