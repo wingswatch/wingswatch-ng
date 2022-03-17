@@ -58,6 +58,8 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
         this.event = event;
 
+        console.log(event);
+
         this.getAircraftImage();
 
         this.renderMap();
