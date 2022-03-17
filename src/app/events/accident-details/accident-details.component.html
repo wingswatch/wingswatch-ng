@@ -104,7 +104,7 @@
     </div>
   </div>
 
-  <div *ngIf="narrativeLoaded and !narrative">
+  <div *ngIf="narrativeLoaded && !narrative">
   <h2>Factual Narrative</h2>
     <h5>
       No factual narrative available.
@@ -119,12 +119,12 @@
 
     <div *ngIf="narrative.narrativeSummary">
       <h2>Narrative Summary</h2>
-      <p class="narrative">{{ narrative.narrativeSummary }}</p>
+      <p class="narrative text-light">{{ narrative.narrativeSummary }}</p>
     </div>
 
     <div *ngIf="narrative.probableCause">
       <h2>Probable Cause</h2>
-      <p class="narrative">{{ narrative.probableCause }}</p>
+      <p class="narrative text-light">{{ narrative.probableCause }}</p>
     </div>
   </div>
 
