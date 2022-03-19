@@ -8,7 +8,6 @@ import { HomeComponent } from './home/home.component';
 import { AccidentDetailsComponent } from './events/accident-details/accident-details.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SearchBoxComponent } from './search-box/search-box.component';
 import { EventDetailsAircraftComponent } from './events/accident-details/event-details-aircraft/event-details-aircraft.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
@@ -28,7 +27,6 @@ import { CalendarModule } from 'primeng/calendar';
     HomeComponent,
     EventsComponent,
     AccidentDetailsComponent,
-    SearchBoxComponent,
     EventDetailsAircraftComponent,
     AdvancedSearchComponent
   ],
