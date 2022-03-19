@@ -19,6 +19,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { CalendarModule } from 'primeng/calendar';
     DropdownModule,
     InputTextModule,
     ButtonModule,
-    CalendarModule
+    CalendarModule,
+    GoogleMapsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

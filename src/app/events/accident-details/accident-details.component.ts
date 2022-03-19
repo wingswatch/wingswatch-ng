@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Narrative } from '../../models/narrative';
 import { NtsbEvent } from '../../models/ntsb-event';
@@ -12,7 +12,6 @@ import { EventService } from '../../services/event.service';
   styleUrls: ['./accident-details.component.scss']
 })
 export class AccidentDetailsComponent implements OnInit, OnDestroy {
-  @ViewChild('mapRef') mapElement: ElementRef;
 
   public aircraftRenamed: boolean;
   public eventId: string;
@@ -21,6 +20,11 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
   public event: NtsbEvent;
   public loadingComplete: boolean;
   public aircraftImage: AircraftImage;
+
+  options: google.maps.MapOptions = {
+    center: {lat: 40, lng: -20},
+    zoom: 4
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -58,11 +62,9 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
         this.event = event;
 
-        console.log(event);
+        this.options.center = {lat: event.latitudeDecimal, lng: event.longitudeDecimal };
 
         this.getAircraftImage();
-
-        this.renderMap();
 
       }
     );
@@ -76,35 +78,6 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
         this.narrativeLoaded = true;
       }
     );
-
-  }
-
-  // TODO:  Move Google Map to it's own component
-  renderMap() {
-
-    this.createMapScript();
-
-    window.initMap = () => {
-      this.loadMap();
-    };
-
-  }
-
-    createMapScript() {
-
-    if (document.getElementById('google-map-script')) {
-      console.log('google-map-script exists in createMapElement - returning');
-      return;
-    }
-
-    window.google = undefined;
-    const s = window.document.createElement('script');
-
-    s.id = 'google-map-script';
-    s.type = 'text/javascript';
-    s.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAB_TCx0r3XRweCaJZ6-JT-O6F_mJ9Z_XY&callback=initMap';
-
-    window.document.body.appendChild(s);
 
   }
 
@@ -122,27 +95,5 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
     );
   }
-
-  loadMap = () => {
-
-    if (!this.mapElement) {
-      console.error('could not find this.mapElement');
-      return;
-    }
-
-    const map = new window.google.maps.Map(this.mapElement.nativeElement, {
-      center: { lat: this.event.latitudeDecimal, lng: this.event.longitudeDecimal },
-      zoom: 15
-    });
-
-    map.setMapTypeId(window.google.maps.MapTypeId.SATELLITE);
-
-    new window.google.maps.Marker({
-      position: { lat: this.event.latitudeDecimal, lng: this.event.longitudeDecimal },
-      map,
-      draggable: true,
-      animation: window.google.maps.Animation.DROP
-    });
-  };
 
 }
