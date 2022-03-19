@@ -38,18 +38,16 @@ export interface Aircraft {
     operatorDba:        null;
     aircraftDamage:     string;
 }
-
-export interface Aircraft {
-    aircraftKey:        number;
-    aircraftCategory:   string;
-    registrationNumber: string;
+export interface RecentEvent {
+    eventId:            string;
+    investigationType:  string;
+    eventNumber:        string;
+    eventDate:          string;
+    city:               string;
     make:               string;
     model:              string;
-    amateurBuilt:       string;
-    farPart:            string;
-    schedule:           null;
-    purposeOfFlight:    null;
-    operator:           null;
-    operatorDba:        null;
-    aircraftDamage:     string;
+    totalFatalInjuries: number;
+    state:              string;
+    location:           string;
+    injurySeverity:     string;
 }

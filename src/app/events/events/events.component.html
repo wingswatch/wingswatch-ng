@@ -2,12 +2,12 @@
 
     <p>The following is a list of the latest aviation incidents and accidents as reported by the NTSB.</p>
 
-    <div *ngIf="!events.length">
+    <div *ngIf="!events || !events.length">
       <app-svg-spinner></app-svg-spinner>
     </div>
 
     <p-table 
-    *ngIf="events.length" 
+    *ngIf="events" 
     [value]="events" 
     styleClass="p-datatable-striped"
     [rowHover]="true"
@@ -15,10 +15,11 @@
 
     <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="eventNumber">Event<p-sortIcon field="ntsbNumber"></p-sortIcon></th>
+          <th pSortableColumn="eventNumber">Event<p-sortIcon field="eventNumber"></p-sortIcon></th>
           <th pSortableColumn="eventDate">Event Date<p-sortIcon field="eventDate"></p-sortIcon></th>
-          <th pSortableColumn="investigationType">Event Type<p-sortIcon field="eventType"></p-sortIcon></th>
-          <th>Aircraft Type</th>
+          <th pSortableColumn="investigationType">Event Type<p-sortIcon field="investigationType"></p-sortIcon></th>
+          <th pSortableColumn="make">Make<p-sortIcon field="make"></p-sortIcon></th>
+          <th pSortableColumn="model">Model<p-sortIcon field="model"></p-sortIcon></th>
           <th pSortableColumn="location">Location<p-sortIcon field="location"></p-sortIcon></th>
           <th pSortableColumn="injurySeverity">Severity<p-sortIcon field="injurySeverity"></p-sortIcon></th>
         </tr>
@@ -29,9 +30,8 @@
           <td>{{ event.eventNumber }}</td>
           <td>{{ event.eventDate | date:'MM/dd/yyyy' }}</td>
           <td>{{ event.investigationType }}</td>
-          <td>
-            <div *ngFor="let aircraft of event.aircraft">{{ aircraft.make }} {{ aircraft.model }}</div>
-          </td>
+          <td>{{ event.make }}</td>
+          <td>{{ event.model }}</td>
           <td>{{ event.location }}
           <td [ngClass]="{
               'fatal-injury': (event.injurySeverity.includes('Fatal (')),

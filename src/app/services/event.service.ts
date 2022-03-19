@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Narrative } from '../models/narrative';
 import { environment } from 'src/environments/environment';
 import { AircraftImage } from '../models/aircraft-image';
-import { EventSearchResult } from '../models/event-search-result';
+import { EventSearchResult, RecentEvent } from '../models/event-search-result';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,8 @@ export class EventService {
 
   constructor(private http: HttpClient) { }
 
-  public getEvents(): Observable<EventSearchResult[]> {
-    return this.http.get<EventSearchResult[]>(environment.apiBaseUrl + 'events');
+  public getRecentEvents(): Observable<RecentEvent[]> {
+    return this.http.get<RecentEvent[]>(environment.apiBaseUrl + 'events');
   }
 
   public getEventDetail(eventId: string): Observable<NtsbEvent> {

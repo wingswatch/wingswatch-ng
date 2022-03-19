@@ -15,31 +15,31 @@ th {
     cursor: pointer;
 }
 
-  .fatal-injury {
-    color: var(--fatal-color);
-  }
-  
-  .non-fatal-injury {
-    color: var(--non-fatal-color)
-  }
-  
-  .serious-injury {
-    color: var(--serious-color);
-  }
-  
-  .minor-injury {
-    color: var(--minor-color);
-  }
-  
-  :host ::ng-deep .p-datatable .p-datatable-tbody > tr > td
-  {
-    padding: .5em .5em !important;
-  }
+.fatal-injury {
+  color: var(--fatal-color);
+}
 
-  :host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
-    padding: .75em .75em !important;
-  }
+.non-fatal-injury {
+  color: var(--non-fatal-color)
+}
 
-  :host ::ng-deep .p-datatable .p-datatable-tbody > tr {
-    background: #2a323d5c;
-  }
+.serious-injury {
+  color: var(--serious-color);
+}
+
+.minor-injury {
+  color: var(--minor-color);
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td
+{
+  padding: .5em .5em !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  padding: .75em .75em !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr {
+  background: #2a323d5c;
+}

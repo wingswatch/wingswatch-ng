@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { EventSearchResult } from '../../models/event-search-result';
+import { PrimeTableColumn } from 'src/app/models/primeng.interfaces';
+import { RecentEvent } from '../../models/event-search-result';
 import { EventService } from '../../services/event.service';
-import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-events',
@@ -11,43 +11,22 @@ import { SearchService } from '../../services/search.service';
 })
 export class EventsComponent implements OnInit {
 
-  events: EventSearchResult[];
+  events: RecentEvent[];
 
-  constructor(private eventService: EventService, private searchService: SearchService, private title: Title) { }
+  columns: PrimeTableColumn[] = [
+    { header: 'Event', field: 'eventNumber', filterType: 'text' },
+    { header: 'Event Date', field: 'eventDate', filterType: 'date' },
+    { header: 'Event Type', field: 'investigationType', filterType: 'text' },
+    { header: 'Aircraft Type', field: 'make', filterType: 'text' },
+  ];
+
+  constructor(private eventService: EventService, private title: Title) { }
 
   ngOnInit(): void {
 
     this.title.setTitle('WingsWatch - Events');
 
-    this.searchService.currentSearchTerm$.subscribe(
-      searchTerms => {
-        this.performSearch(searchTerms);
-      }
-    );
-
-  }
-
-  getEvents(): void {
-
-    this.eventService.getEvents().subscribe(
-      events => this.events = events
-    );
-
-  }
-
-  performSearch(searchTerms: string): void {
-
-    this.events = [];
-
-    if (!searchTerms) {
-      this.getEvents();
-    }
-    else {
-
-      // TODO: Add aircraft damage to result
-      this.eventService.search(searchTerms).subscribe(
-        result => this.events = result
-      );
-    }
-  }
+    this.eventService.getRecentEvents().subscribe(events => this.events = events);
+   }
+  
 }
