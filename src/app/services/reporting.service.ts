@@ -41,8 +41,8 @@ export class ReportingService {
     return this.http.get<InjuryTypesForPastMonths[]>(`${environment.apiBaseUrl}Reporting/GetInjuryTypesByMonth/${year}`);
   }
 
-  getEventsByState(year: number): Observable<EventsByState[]> {
-    return this.http.get<EventsByState[]>(`${environment.apiBaseUrl}Reporting/EventsByState/${year}`);
+  getEventsByState(): Observable<EventsByState[]> {
+    return this.http.get<EventsByState[]>(`${environment.apiBaseUrl}Reporting/EventsByState/`);
   }
 
 }
