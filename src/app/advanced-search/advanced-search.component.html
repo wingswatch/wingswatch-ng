@@ -1,67 +1,114 @@
 <h3>Advanced Search</h3>
 
 <div class="p-formgroup-inline">
-    <div class="p-field">
-        <input type="text" pInputText [(ngModel)]="model.ntsbNumber" placeholder="NTSB Event ID"> 
-    </div>
-    <div class="p-field">
-        <input type="text" pInputText [(ngModel)]="model.make" placeholder="Make">
-    </div>
-    <div class="p-field">
-        <input type="text" pInputText [(ngModel)]="model.model" placeholder="Model">
-    </div>
-    <div class="p-field">
-        <input type="text" pInputText [(ngModel)]="model.city" placeholder="City">
-    </div>
-    <div class="p-field">
-        <input type="text" pInputText [(ngModel)]="model.state" placeholder="State">
-    </div>
-    <div class="p-field">
-        <p-calendar inputId="calendar" [(ngModel)]="model.eventDate" placeholder="Event Date"></p-calendar>
-    </div>
+  <div class="p-field">
+    <input
+      type="text"
+      pInputText
+      [(ngModel)]="model.ntsbNumber"
+      placeholder="NTSB Event ID"
+      (keyup.enter)="clickSearch()"
+    />
+  </div>
+  <div class="p-field">
+    <input
+      type="text"
+      pInputText
+      [(ngModel)]="model.make"
+      placeholder="Make"
+      (keyup.enter)="clickSearch()"
+    />
+  </div>
+  <div class="p-field">
+    <input
+      type="text"
+      pInputText
+      [(ngModel)]="model.model"
+      placeholder="Model"
+      (keyup.enter)="clickSearch()"
+    />
+  </div>
+  <div class="p-field">
+    <input
+      type="text"
+      pInputText
+      [(ngModel)]="model.city"
+      (keyup.enter)="clickSearch()"
+      placeholder="City"
+    />
+  </div>
+  <div class="p-field">
+    <input
+      type="text"
+      pInputText
+      [(ngModel)]="model.state"
+      (keyup.enter)="clickSearch()"
+      placeholder="State"
+    />
+  </div>
+  <div class="p-field">
+    <p-calendar
+      inputId="calendar"
+      [(ngModel)]="model.eventDate"
+      placeholder="Event Date"
+    ></p-calendar>
+  </div>
 </div>
 
 <div class="p-mt-3">
-    <button pButton pRipple label="Search" (click)="clickSearch()"></button>
+  <button pButton pRipple label="Search" (click)="clickSearch()"></button>
 </div>
 
 <div *ngIf="loading">
-    <app-svg-spinner></app-svg-spinner>
-  </div>
+  <app-svg-spinner></app-svg-spinner>
+</div>
 
-  <p-table 
-  *ngIf="results && !loading" 
-  [value]="results" 
+<p-table
+  *ngIf="results && !loading"
+  [value]="results"
   styleClass="p-datatable-striped"
   [rowHover]="true"
-  >
-
+>
   <ng-template pTemplate="header">
-      <tr>
-        <th pSortableColumn="ntsbNumber">Event<p-sortIcon field="ntsbNumber"></p-sortIcon></th>
-        <th pSortableColumn="eventDate">Event Date<p-sortIcon field="eventDate"></p-sortIcon></th>
-        <th pSortableColumn="eventType">Event Type<p-sortIcon field="eventType"></p-sortIcon></th>
-        <th pSortableColumn="make">Aircraft Type<p-sortIcon field="make"></p-sortIcon></th>
-        <th pSortableColumn="location">Location<p-sortIcon field="location"></p-sortIcon></th>
-        <th pSortableColumn="injurySeverity">Severity<p-sortIcon field="injurySeverity"></p-sortIcon></th>
-      </tr>
-    </ng-template>
+    <tr>
+      <th pSortableColumn="ntsbNumber">
+        Event<p-sortIcon field="ntsbNumber"></p-sortIcon>
+      </th>
+      <th pSortableColumn="eventDate">
+        Event Date<p-sortIcon field="eventDate"></p-sortIcon>
+      </th>
+      <th pSortableColumn="eventType">
+        Event Type<p-sortIcon field="eventType"></p-sortIcon>
+      </th>
+      <th pSortableColumn="make">
+        Aircraft Type<p-sortIcon field="make"></p-sortIcon>
+      </th>
+      <th pSortableColumn="location">
+        Location<p-sortIcon field="location"></p-sortIcon>
+      </th>
+      <th pSortableColumn="injurySeverity">
+        Severity<p-sortIcon field="injurySeverity"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
 
-    <ng-template pTemplate="body" let-result>
-      <tr class="highlight" [routerLink]="['/event-details', result.eventId]">
-        <td>{{ result.ntsbNumber }}</td>
-        <td>{{ result.eventDate | date:'MM/dd/yyyy' }}</td>
-        <td>{{ result.eventType }}</td>
-        <td>{{ result.aircraftType}}</td>
-        <td>{{ result.location }}
-        <td [ngClass]="{
-            'fatal-injury': (result.injurySeverity.includes('Fatal')),
-            'non-fatal-injury': (result.injurySeverity === 'None'),
-            'serious-injury': (result.injurySeverity === 'Serious'),
-            'minor-injury': (result.injurySeverity === 'Minor')
-          }">
-          {{ result.injurySeverity }}
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+  <ng-template pTemplate="body" let-result>
+    <tr class="highlight" [routerLink]="['/event-details', result.eventId]">
+      <td>{{ result.ntsbNumber }}</td>
+      <td>{{ result.eventDate | date: "MM/dd/yyyy" }}</td>
+      <td>{{ result.eventType }}</td>
+      <td>{{ result.aircraftType }}</td>
+      <td>{{ result.location }}</td>
+      <td
+        [ngClass]="{
+          'fatal-injury': result.injurySeverity.includes('Fatal'),
+          'non-fatal-injury': result.injurySeverity === 'None',
+          'serious-injury': result.injurySeverity === 'Serious',
+          'minor-injury': result.injurySeverity === 'Minor'
+        }"
+      >
+        {{ result.injurySeverity }}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
