@@ -1,3 +1,5 @@
+/// <reference path='../../node_modules/bingmaps/types/MicrosoftMaps/Microsoft.Maps.All.d.ts' />
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Narrative } from '../../models/narrative';
 import { NtsbEvent } from '../../models/ntsb-event';
@@ -11,16 +11,16 @@ import { EventService } from '../../services/event.service';
   templateUrl: './accident-details.component.html',
   styleUrls: ['./accident-details.component.scss']
 })
-export class AccidentDetailsComponent implements OnInit, OnDestroy {
-  @ViewChild('mapRef') mapElement: ElementRef;
+export class AccidentDetailsComponent implements OnInit, OnDestroy, AfterContentInit {
 
   public aircraftRenamed: boolean;
   public eventId: string;
   public narrative: Narrative;
   public narrativeLoaded: boolean;
   public event: NtsbEvent;
-  public loadingComplete: boolean;
   public aircraftImage: AircraftImage;
+
+  public map: Microsoft.Maps.Map;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,10 +45,6 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
 
-    if (document.getElementById('google-map-script')) {
-      document.getElementById('google-map-script')?.remove();
-    }
-
   }
 
   getEvent() {
@@ -58,14 +54,30 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
         this.event = event;
 
-        console.log(event);
-
         this.getAircraftImage();
-
-        this.renderMap();
 
       }
     );
+  }
+
+  ngAfterContentInit(): void {
+    window.addEventListener("load", () => this.renderMap());
+  };
+    
+  renderMap(): void {
+
+    if (!document.getElementById('myMap')) {
+      throw new Error('map not found');
+    }
+
+    this.map = new Microsoft.Maps.Map('#myMap', {
+      credentials: 'AuOjYiA3CEx_BGeplil9bCw0i_jE5XnfLwTmzcB6l7TxFRX7OBXhKzyxc_XbGGG6',
+      center: new Microsoft.Maps.Location(this.event.latitudeDecimal, this.event.longitudeDecimal)
+    });
+
+    var pushpin = new Microsoft.Maps.Pushpin(this.map.getCenter());
+    this.map.entities.push(pushpin);
+
   }
 
   getNarrative() {
@@ -76,35 +88,6 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
         this.narrativeLoaded = true;
       }
     );
-
-  }
-
-  // TODO:  Move Google Map to it's own component
-  renderMap() {
-
-    this.createMapScript();
-
-    window.initMap = () => {
-      this.loadMap();
-    };
-
-  }
-
-    createMapScript() {
-
-    if (document.getElementById('google-map-script')) {
-      console.log('google-map-script exists in createMapElement - returning');
-      return;
-    }
-
-    window.google = undefined;
-    const s = window.document.createElement('script');
-
-    s.id = 'google-map-script';
-    s.type = 'text/javascript';
-    s.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAB_TCx0r3XRweCaJZ6-JT-O6F_mJ9Z_XY&callback=initMap';
-
-    window.document.body.appendChild(s);
 
   }
 
@@ -122,27 +105,5 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy {
 
     );
   }
-
-  loadMap = () => {
-
-    if (!this.mapElement) {
-      console.error('could not find this.mapElement');
-      return;
-    }
-
-    const map = new window.google.maps.Map(this.mapElement.nativeElement, {
-      center: { lat: this.event.latitudeDecimal, lng: this.event.longitudeDecimal },
-      zoom: 15
-    });
-
-    map.setMapTypeId(window.google.maps.MapTypeId.SATELLITE);
-
-    new window.google.maps.Marker({
-      position: { lat: this.event.latitudeDecimal, lng: this.event.longitudeDecimal },
-      map,
-      draggable: true,
-      animation: window.google.maps.Animation.DROP
-    });
-  };
 
 }
