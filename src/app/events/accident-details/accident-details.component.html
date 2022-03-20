@@ -1,9 +1,13 @@
+<p class="p-3">
+  <small><a [routerLink]="['/events']">&lt;- Back to Event List</a></small>
+</p>
 
 <div *ngIf="loading" class="spinner">
   <app-svg-spinner></app-svg-spinner>
 </div>
 
-<div *ngIf="event" class="page-wrap">
+<div *ngIf="event">
+
   <h1>Event Details - {{ event.eventNumber }}</h1>
 
   <h2>Event</h2>
