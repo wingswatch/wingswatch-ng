@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Narrative } from '../../models/narrative';
 import { NtsbEvent } from '../../models/ntsb-event';
@@ -11,7 +11,7 @@ import { EventService } from '../../services/event.service';
   templateUrl: './accident-details.component.html',
   styleUrls: ['./accident-details.component.scss']
 })
-export class AccidentDetailsComponent implements OnInit, OnDestroy, AfterContentInit {
+export class AccidentDetailsComponent implements OnInit {
 
   public aircraftRenamed: boolean;
   public eventId: string;
@@ -19,6 +19,7 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy, AfterContent
   public narrativeLoaded: boolean;
   public event: NtsbEvent;
   public aircraftImage: AircraftImage;
+  public loading = true;
 
   public map: Microsoft.Maps.Map;
 
@@ -43,10 +44,6 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy, AfterContent
 
   }
 
-  ngOnDestroy() {
-
-  }
-
   getEvent() {
 
     this.eventService.getEventDetail(this.eventId).subscribe(
@@ -56,15 +53,38 @@ export class AccidentDetailsComponent implements OnInit, OnDestroy, AfterContent
 
         this.getAircraftImage();
 
+        this.enableMap();
+
+        this.loading = false;
+
       }
     );
   }
 
-  ngAfterContentInit(): void {
-    window.addEventListener("load", () => this.renderMap());
+  enableMap(): void {
+
+    // Show the map when scrolled into view
+    var observer = new IntersectionObserver(entries => {
+      // isIntersecting is true when element and viewport are overlapping
+      // isIntersecting is false when element and viewport don't overlap
+      if(entries[0].isIntersecting === true)
+        this.renderMap();
+    }, { threshold: [0] });
+
+    observer.observe(document.querySelector('#myMap') as Element);
+
   };
     
   renderMap(): void {
+
+    // First, move our map to the correct position inside the location table
+    // We need to do this because the div must be outside of any ngIf blocks on
+    // initial page load in order to properly instantiate.  After that, we can move
+    // it inside the conditional table.
+    const mapDiv = document.getElementById('map-body') as Element;
+    const map = document.getElementById('myMap') as Element;
+
+    mapDiv.appendChild(map);
 
     if (!document.getElementById('myMap')) {
       throw new Error('map not found');
