@@ -1,6 +1,11 @@
 <h3>Advanced Search</h3>
 
-<div class="p-formgroup-inline">
+<div class="back-link">
+  <a *ngIf="!showSearch" (click)="showSearch = true; results = undefined;"><- Back to search</a>
+</div>
+
+<div *ngIf="showSearch" class="p-formgroup-inline">
+
   <div class="p-field">
     <input
       type="text"
@@ -53,10 +58,11 @@
       placeholder="Event Date"
     ></p-calendar>
   </div>
-</div>
 
-<div class="p-mt-3">
-  <button pButton pRipple label="Search" (click)="clickSearch()"></button>
+  <div class="search-button">
+    <button pButton pRipple label="Search" (click)="clickSearch()"></button>
+  </div>
+
 </div>
 
 <div *ngIf="loading">
