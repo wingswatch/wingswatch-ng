@@ -27,10 +27,6 @@ h2 {
   padding: .75em .75em;
 }
 
-:host ::ng-deep .p-datatable .p-datatable-tbody > tr {
-  background: #2a323d5c;
-}
-
 :host ::ng-deep .p-datatable{
   width: 80rem;
   display: flex;
