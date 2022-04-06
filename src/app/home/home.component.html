@@ -2,16 +2,16 @@
   <div class="masthead top">
     <img src="./assets/images/airplane-cessna.svg" class="logo-image"/>
     <div class="masthead-text">
-      <h1>Welcome to WingsWatch</h1>
-      <h4 class="text-light">
+      <div class="title">Welcome to WingsWatch</div>
+      <div class="sub-header">
         The go-to site for NTSB aviation incident and accident information.
-      </h4>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="d-flex justify-content-center">
-  <button type="button" class="button-events" [routerLink]="['/events']">
+<div>
+  <button pButton pRipple type="button" class="button-events" [routerLink]="['/events']">
     <img src="./assets/images/plane-60.png" class="button-image" />
     <span class="latest"> See the latest </span>
   </button>

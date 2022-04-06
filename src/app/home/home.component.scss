@@ -1,3 +1,13 @@
+.title {
+    font-size: 3rem;
+}
+
+.sub-header {
+    color: var(--text-color-secondary);
+    font-size: 1.2rem;
+    padding-top: 1rem;
+}
+
 p {
     font-size: 16px;
 }
@@ -13,14 +23,14 @@ p {
 }
 
 button.button-events {
-    background-color: var(--dark);
+    background-color: var(--surface-a);
     font-size: 20px;
     padding: 15px;
     border-radius: 10px;
     border: 3px solid #25AAE1;
-    color: #fff;
+    color: var(--text-color-primary);
     text-transform: uppercase;
-    margin-top: 2em;
+    margin-top: 1rem;
 }
 
 button.button-events:hover {
@@ -51,6 +61,5 @@ button.button-events:hover {
 }
 
 .logo-image {
-
     width: 40vw;
 }
