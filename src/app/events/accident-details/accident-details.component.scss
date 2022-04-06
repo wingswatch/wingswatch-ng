@@ -46,10 +46,11 @@ h2 {
 }
 
 .narrative {
+  max-width: 70rem;
   white-space: pre-line;
   text-align: left;
   font-size: 1em;
-  color: red;
+  color: var(--text-color-secondary)
 }
 
 td {
