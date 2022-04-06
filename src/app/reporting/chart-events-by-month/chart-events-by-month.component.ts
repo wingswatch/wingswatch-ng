@@ -28,18 +28,6 @@ export class ChartEventsByMonthComponent implements OnInit {
 
   loading = true;
 
-  cardColor: '#232837';
-
-  colorScheme = {
-    domain: ['#A10A28','#C7B42C', '#aae3f5', '#AAAAAA', '#3e5560']
-  };
-  colorSchemeHeatmap = {
-    domain: ['#A10A28','#C7B42C', '#aae3f5', '#AAAAAA', '#3e5560'].reverse()
-  };
-  colorSchemeNumberedCards = {
-      domain: ['#aae3f5', '#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d']
-  };
-
   constructor(private reportingService: ReportingService, private title: Title) { }
 
   ngOnInit() {

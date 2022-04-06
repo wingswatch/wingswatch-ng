@@ -22,10 +22,6 @@ export class InjurySeverityByYearComponent implements OnInit {
   xAxisLabel = 'Injuries';
   yAxisLabel = 'Number of Injuries';
 
-  colorScheme = {
-    domain: ['#A10A28','#C7B42C', '#AAAAAA', '#aae3f5', '#3e5560']
-  };
-
   constructor(private reportingService: ReportingService, private title: Title) { }
 
   ngOnInit(): void {
