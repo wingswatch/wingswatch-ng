@@ -15,7 +15,7 @@ export class EventService {
   constructor(private http: HttpClient) { }
 
   public getRecentEvents(): Observable<RecentEvent[]> {
-    return this.http.get<RecentEvent[]>(environment.apiBaseUrl + 'events');
+    return this.http.get<RecentEvent[]>(environment.apiBaseUrl + 'events/recents');
   }
 
   public getEventDetail(eventId: string): Observable<NtsbEvent> {
