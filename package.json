@@ -19,7 +19,7 @@
     "@angular/platform-browser": "~13.1.2",
     "@angular/platform-browser-dynamic": "~13.1.2",
     "@angular/router": "~13.1.2",
-    "@swimlane/ngx-charts": "~17.0.1",
+    "@swimlane/ngx-charts": "20.1.0",
     "@types/bingmaps": "^0.0.1",
     "@types/d3-shape": "2.0.0",
     "bingmaps": "^2.0.3",
