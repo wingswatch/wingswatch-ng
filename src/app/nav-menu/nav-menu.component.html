@@ -1,43 +1,5 @@
-<header>
-  <nav class="navbar navbar-expand-lg navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
-    <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">
-        <img src="./assets/images/plane-60.png" class="logo" />
-        WingsWatch
-      </a>
-      <button class="navbar-toggler"
-              type="button"
-              data-target=".navbar-collapse"
-              aria-label="Toggle navigation"
-              >
-      </button>
-      <div class="navbar-collapse collapse">
-        <ul class="navbar-nav flex-grow">
-          <li class="nav-item"
-              [routerLinkActive]="['link-active']"
-              [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-light" [routerLink]="['/'] ">Home</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-light" [routerLink]="['/events']">Events</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-light" [routerLink]="['/search']">Advanced Search</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link text-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Reporting
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item text-light" [routerLink]="['/reporting/chart-events-by-month']">Events By Month</a>
-              <a class="dropdown-item text-light" [routerLink]="['/reporting/events-by-type']">Events By Type</a>
-              <a class="dropdown-item text-light" [routerLink]="['/reporting/events-by-location']">Events By Location</a>
-              <a class="dropdown-item text-light" [routerLink]="['/reporting/injury-severity-by-year']">Injury Severity By Year</a>
-              <a class="dropdown-item text-light" [routerLink]="['/reporting/events-by-state']">Events by State</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</header>
+<p-menubar [model]="items">
+  <ng-template pTemplate="start">
+      <img src="./assets/images/plane-60.png" height="40" class="mr-2" routerLink="/" style="cursor: pointer">
+  </ng-template>
+</p-menubar>
