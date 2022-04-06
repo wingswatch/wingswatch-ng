@@ -8,32 +8,32 @@
 
 <div *ngIf="event">
 
-  <h1>Event Details - {{ event.eventNumber }}</h1>
+  <div class="page-title">Event Details - {{ event.eventNumber }}</div>
 
-  <h2>Event</h2>
+  <div class="section-title">Event</div>
 
   <div>
     <table class="table table-striped text-light">
       <tr>
         <td>
-          <b>Location</b>
+          <div>Location</div>
         </td>
-        <td>
-          {{ event.location }}
+        <td class="col-value">
+          <div class="col-value">{{ event.location }}</div>
         </td>
-        <td><b>ID #</b></td>
+        <td><div>ID #</div></td>
         <td>
-          {{ eventId }}
+          <div class="col-value">{{ eventId }}</div>
         </td>
       </tr>
       <tr>
-        <td><b>Date</b></td>
-        <td>{{ event.eventDate | date: "MM/dd/yyyy" }}</td>
-        <td>Time</td>
-        <td>{{ event.eventTime }}</td>
+        <td><div>Date</div></td>
+        <td><div class="col-value">{{ event.eventDate | date: "MM/dd/yyyy" }}</div></td>
+        <td><div class="col-title">Time</div></td>
+        <td><div class="col-value">{{ event.eventTime }}</div></td>
       </tr>
       <tr>
-        <td><b>Injury Severity</b></td>
+        <td><div>Injury Severity</div></td>
         <td
           [ngClass]="{
             'fatal-injury': event.injurySeverity.includes('Fatal ('),
@@ -42,33 +42,35 @@
             'minor-injury': event.injurySeverity === 'Minor'
           }"
         >
-          {{ event.injurySeverity }}
+          <div class="col-value">{{ event.injurySeverity }}</div>
         </td>
-        <td><b>Airport</b></td>
+        <td><div>Airport</div></td>
         <td>
+          <div class="col-value">
           {{
             event.airportName
               ? event.airportName + " " + event.airportCode
               : "n/a"
           }}
+          </div>
         </td>
       </tr>
       <tr>
         <td>Event Type</td>
-        <td>{{ event.eventType }}</td>
+        <td><div class="col-value">{{ event.eventType }}</div></td>
         <td>Weather Condition</td>
-        <td>{{ event.weatherCondition ? event.weatherCondition : 'Unknown' }}</td>
+        <td><div class="col-value">{{ event.weatherCondition ? event.weatherCondition : 'Unknown' }}</div></td>
       </tr>
       <tr *ngIf="event.latitude || event.longitude">
-        <td><b>Latitude</b></td>
-        <td>{{ event.latitude }} ({{ event.latitudeDecimal }})</td>
-        <td><b>Longitude</b></td>
-        <td>{{ event.longitude }} ({{ event.longitudeDecimal }})</td>
+        <td><div>Latitude</div></td>
+        <td><div class="col-value">{{ event.latitude }} ({{ event.latitudeDecimal }})</div></td>
+        <td><div>Longitude</div></td>
+        <td><div class="col-value">{{ event.longitude }} ({{ event.longitudeDecimal }})</div></td>
       </tr>
     </table>
   </div>
 
-  <h2>Aircraft</h2>
+  <div class="section-title">Aircraft</div>
 
   <app-event-details-aircraft
     [eventAircraft]="event.aircraft"
@@ -76,7 +78,7 @@
 
   <!---------- INJURIES ----------->
 
-  <h2>Injuries</h2>
+  <div class="section-title">Injuries</div>
 
   <table id="injuriesTable" class="table table-striped">
     <tr>
@@ -110,7 +112,7 @@
   </div>
 
   <div *ngIf="narrativeLoaded && !narrative">
-  <h2>Factual Narrative</h2>
+  <div class="section-title">Factual Narrative</div>
     <h5>
       No factual narrative available.
     </h5>
@@ -123,12 +125,12 @@
     </div>
 
     <div *ngIf="narrative.narrativeSummary">
-      <h2>Narrative Summary</h2>
+      <div class="section-title">Narrative Summary</div>
       <p class="narrative text-light">{{ narrative.narrativeSummary }}</p>
     </div>
 
     <div *ngIf="narrative.probableCause">
-      <h2>Probable Cause</h2>
+      <div class="section-title">Probable Cause</div>
       <p class="narrative text-light">{{ narrative.probableCause }}</p>
     </div>
   </div>
@@ -137,7 +139,7 @@
   <div *ngIf="event.latitude && event.longitude">
     <div class="map-container">
       <div class="map">
-        <h2>
+        <div class="section-title">
           <span class="mapHeader">Event Location</span
           ><small class="text-muted">
             - {{ event.latitude }} / {{ event.longitude }} ({{
@@ -145,7 +147,7 @@
             }}
             / {{ event.longitudeDecimal }})</small
           >
-        </h2>
+        </div>
         <div class="card mt-3">
           <div id="map-body" class="card-body">
             <!-- <div id="myMap" style="position:relative;width:1000px;height:800px;"></div> -->
@@ -158,8 +160,8 @@
   <br />
 
   <div>
-    <h2>
-      <h2>
+    <div class="section-title">
+      <div class="section-title">
         Aircraft Image
         <span>
           <small class="text-muted">
@@ -171,8 +173,8 @@
             </span>
           </span>
         </span>
-      </h2>
-    </h2>
+      </div>
+    </div>
 
     <div class="card mt-3">
       <div class="card-body">

@@ -8,9 +8,21 @@
 
 .narrative {
     white-space: pre-line;
-  }
+}
 
-  td {
-      text-align: left;
-      font-size: var(--default-font-size);
-  }
+td {
+    text-align: left;
+    font-size: var(--default-font-size);
+}
+
+.col-value {
+    font-size: 1.1rem;
+    color: var(--text-color-secondary);
+}
+
+.table th,
+.table td {
+  padding: 0.5em;
+  text-align: left;
+  font-size: var(--default-font-size);
+}

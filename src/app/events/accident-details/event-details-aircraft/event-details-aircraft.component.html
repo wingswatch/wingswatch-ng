@@ -1,9 +1,9 @@
 <div *ngFor="let aircraft of eventAircraft">
     <table class="table table-striped text-light">
     <tr>
-      <td><b>Aircraft</b></td>
-      <td>{{ aircraft.make }} {{ aircraft.model }}</td>
-      <td><b>Aircraft Damage</b></td>
+      <td>Aircraft</td>
+      <td><div class="col-value">{{ aircraft.make }} {{ aircraft.model }}</div></td>
+      <td>Aircraft Damage</td>
       <td
         [ngClass]="{
           destroyedClass:
@@ -14,24 +14,24 @@
             aircraft.aircraftDamage.includes('Substantial')
         }"
       >
-        {{ aircraft.aircraftDamage }}
+      <div class="col-value">{{ aircraft.aircraftDamage }}</div>
       </td>
     </tr>
       <tr>
-        <td><b>Registration</b></td>
-        <td>{{ aircraft.registrationNumber }}</td>
-        <td><b>Aircraft Category</b></td>
-        <td>{{ aircraft.aircraftCategory }}</td>
+        <td>Registration</td>
+        <td><div class="col-value">{{ aircraft.registrationNumber }}</div></td>
+        <td>Aircraft Category</td>
+        <td><div class="col-value">{{ aircraft.aircraftCategory }}</div></td>
       </tr>
       <tr *ngIf="aircraft.schedule || aircraft.purposeOfFlight">
-        <td><b>Schedule</b></td>
-        <td>{{ aircraft.schedule ? aircraft.schedule : "n/a" }}</td>
-        <td><b>Purpose of Flight</b></td>
-        <td>{{ aircraft.purposeOfFlight }}</td>
+        <td>Schedule</td>
+        <td><div class="col-value">{{ aircraft.schedule ? aircraft.schedule : "n/a" }}</div></td>
+        <td>Purpose of Flight</td>
+        <td><div class="col-value">{{ aircraft.purposeOfFlight }}</div></td>
       </tr>
       <tr *ngIf="aircraft.operator">
-        <td><b>Operator</b></td>
-        <td>{{ aircraft.operator ? aircraft.operator : "n/a" }}</td>
+        <td>Operator</td>
+        <td><div class="col-value">{{ aircraft.operator ? aircraft.operator : "n/a" }}</div></td>
         <td></td>
         <td></td>
       </tr>
