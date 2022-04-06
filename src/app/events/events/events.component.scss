@@ -18,6 +18,10 @@ h2 {
   color: var(--minor-color);
 }
 
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr {
+  cursor: pointer;
+}
+
 :host ::ng-deep .p-datatable .p-datatable-tbody > tr > td
 {
   padding: .5em .5em;
