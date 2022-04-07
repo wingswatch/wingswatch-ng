@@ -41,9 +41,13 @@ export class NavMenuComponent {
       {
         label: 'Events By State',
         routerLink: '/reporting/events-by-state'
-      },
-    ]
-}
+      }
+    ]},
+    {
+      label: 'Github',
+      icon: 'pi pi-fw pi-github',
+      url: 'https://github.com/wingswatch/wingswatch-ng'
+    },
 ];
 
   constructor() { }
