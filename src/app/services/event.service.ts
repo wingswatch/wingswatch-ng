@@ -15,21 +15,25 @@ export class EventService {
   constructor(private http: HttpClient) { }
 
   public getRecentEvents(): Observable<RecentEvent[]> {
-    return this.http.get<RecentEvent[]>(environment.apiBaseUrl + 'events/recents');
+    const url = `${environment.apiBaseUrl}events/recents`;
+    return this.http.get<RecentEvent[]>(url);
   }
 
   public getEventDetail(eventId: string): Observable<NtsbEvent> {
-    return this.http.get<NtsbEvent>(environment.apiBaseUrl  + `events/detail/${eventId}`);
+    const url = `${environment.apiBaseUrl}events/detail/${eventId}`;
+    return this.http.get<NtsbEvent>(url);
   }
 
   public getNarrative(eventId: string): Observable<Narrative> {
-    return this.http.get<Narrative>(environment.apiBaseUrl  + `events/narrative/${eventId}`);
+    const url = `${environment.apiBaseUrl}events/narrative/${eventId}`;
+    return this.http.get<Narrative>(url);
   }
 
   public search(searchTerms: string): Observable<EventSearchResult[]> {
     let params = new HttpParams();
     params = params.append('searchTerms', searchTerms);
-    return this.http.get<EventSearchResult[]>(environment.apiBaseUrl + 'events/search', { params });
+    const url = `${environment.apiBaseUrl}events/search`;
+    return this.http.get<EventSearchResult[]>(url, { params });
   }
 
   public getAircraftImage(make: string, model: string): Observable<AircraftImage> {
