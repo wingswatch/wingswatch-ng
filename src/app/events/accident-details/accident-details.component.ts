@@ -28,13 +28,14 @@ export class AccidentDetailsComponent implements OnInit {
     private eventService: EventService,
     private metaService: MetaService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
     this.route.params.subscribe(params => {
 
       // Get our event ID from the URL
       this.eventId = params.id;
 
+      this.loadMapScript();
       this.getEvent();
       this.getNarrative();
 
@@ -42,7 +43,18 @@ export class AccidentDetailsComponent implements OnInit {
 
   }
 
-  getEvent() {
+  loadMapScript(): void {
+
+    let mapScript = document.createElement("script");
+    mapScript.type = 'text/javascript';
+    mapScript.async = true;
+    mapScript.defer = true;
+    mapScript.src = 'https://www.bing.com/api/maps/mapcontrol?callback=GetMap&branch=experimental&key=AuOjYiA3CEx_BGeplil9bCw0i_jE5XnfLwTmzcB6l7TxFRX7OBXhKzyxc_XbGGG6';
+    document.body.appendChild(mapScript);
+
+  }
+
+  getEvent(): void {
 
     this.eventService.getEventDetail(this.eventId).subscribe(
       event => {
