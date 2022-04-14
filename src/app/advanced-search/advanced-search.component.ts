@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MetaService } from '../services/meta.service';
 import { AdvancedSearch, AdvancedSearchResult } from './advanced-search.interfaces';
 import { AdvancedSearchService } from './advanced-search.service';
 
@@ -14,9 +15,10 @@ export class AdvancedSearchComponent implements OnInit {
   model: AdvancedSearch = {};
   results: AdvancedSearchResult[] | undefined;
 
-  constructor(private service: AdvancedSearchService) { }
+  constructor(private service: AdvancedSearchService, private metaService: MetaService) { }
 
   ngOnInit(): void {
+    this.metaService.updateTitle('Advanced Search');
   }
 
   clickSearch(): void {

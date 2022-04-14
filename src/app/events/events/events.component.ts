@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { PrimeTableColumn } from 'src/app/models/primeng.interfaces';
+import { MetaService } from 'src/app/services/meta.service';
 import { RecentEvent } from '../../models/event-search-result';
 import { EventService } from '../../services/event.service';
 
@@ -20,13 +20,16 @@ export class EventsComponent implements OnInit {
     { header: 'Aircraft Type', field: 'make', filterType: 'text' },
   ];
 
-  constructor(private eventService: EventService, private title: Title) { }
+  constructor(private eventService: EventService, private metaService: MetaService) { }
 
   ngOnInit(): void {
 
-    this.title.setTitle('WingsWatch - Events');
+    this.metaService.updateTitle('Events');
 
-    this.eventService.getRecentEvents().subscribe(events => this.events = events);
+    this.eventService
+      .getRecentEvents()
+      .subscribe(events => this.events = events);
+
    }
   
 }
