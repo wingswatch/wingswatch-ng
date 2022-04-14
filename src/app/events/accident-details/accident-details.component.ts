@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Narrative } from '../../models/narrative';
 import { NtsbEvent } from '../../models/ntsb-event';
 import { AircraftImage } from '../../models/aircraft-image';
-import { Title } from '@angular/platform-browser';
 import { EventService } from '../../services/event.service';
+import { MetaService } from 'src/app/services/meta.service';
 
 @Component({
   selector: 'app-accident-details',
@@ -26,7 +26,7 @@ export class AccidentDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private eventService: EventService,
-    private titleService: Title) { }
+    private metaService: MetaService) { }
 
   ngOnInit() {
 
@@ -34,8 +34,6 @@ export class AccidentDetailsComponent implements OnInit {
 
       // Get our event ID from the URL
       this.eventId = params.id;
-
-      this.titleService.setTitle(`Accident Details - ${this.eventId}`);
 
       this.getEvent();
       this.getNarrative();
@@ -50,6 +48,9 @@ export class AccidentDetailsComponent implements OnInit {
       event => {
 
         this.event = event;
+
+        this.metaService.updateTitle(`Accident Details - ${this.event.eventNumber}`);
+        this.metaService.updateMetaInfo(`Accident Details - ${this.event.eventNumber}`, `NTSB, Event, ${this.event.eventNumber}`);
 
         this.getAircraftImage();
 
