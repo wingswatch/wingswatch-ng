@@ -11,7 +11,6 @@ export class MetaService {
     ) { }
 
     updateMetaInfo(content: string, keywords: string): void {
-        console.log('ok');
         this.meta.updateTag({ name: 'description', content: content });
         //this.meta.updateTag({ name: 'author', content: author });
         this.meta.updateTag({ name: 'keywords', content: keywords });
