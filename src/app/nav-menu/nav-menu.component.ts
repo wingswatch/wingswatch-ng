@@ -27,7 +27,7 @@ export class NavMenuComponent {
         routerLink: '/reporting/chart-events-by-month'
       },
       {
-        label: 'Events By Ty[e',
+        label: 'Events By Type',
         routerLink: '/reporting/chart-events-by-type'
       },
       {
