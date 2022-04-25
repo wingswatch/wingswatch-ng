@@ -35,7 +35,6 @@ h2 {
 
 .aircraftImage {
   width: 100%;
-  height: 25vw;
   object-fit: cover;
   height: 500px;
 }
@@ -51,10 +50,6 @@ h2 {
   text-align: left;
   font-size: 1em;
   color: var(--text-color-secondary)
-}
-
-td {
-  color: var(--light);
 }
 
 .fatal-injury {
@@ -86,6 +81,6 @@ td {
   font-size: 2rem;
   text-align: left;
   margin: 1rem;
-  padding: 0.5rem;
+  padding: 0.8rem;
   background-color: var(--surface-a);
 }
