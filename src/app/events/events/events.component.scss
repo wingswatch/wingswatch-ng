@@ -21,17 +21,3 @@ h2 {
 :host ::ng-deep .p-datatable .p-datatable-tbody > tr {
   cursor: pointer;
 }
-
-:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td
-{
-  padding: .5em .5em;
-}
-
-:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
-  padding: .75em .75em;
-}
-
-:host ::ng-deep .p-datatable{
-  width: 80rem;
-  display: flex;
-}
